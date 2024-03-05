@@ -4,13 +4,14 @@ import HomePage from './HomePage';
 import Login from './Login';
 
 
-function App() {
+function HomeAndLogin() {
   return (
-    <div className="App">
+    <>
       <HomePage />
-      <Login/>
-    </div>
+      <Login />
+    </>
   );
 }
 
-export default App;
+
+export default HomeAndLogin;

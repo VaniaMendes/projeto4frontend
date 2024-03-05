@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 
 function HomePage() {
@@ -12,7 +13,7 @@ function HomePage() {
         </h1>
       </header>
       
-      <div>
+      <div className="footer">
         <div>Powered by:</div>
         <ul>
           <li>Vânia Mendes</li>

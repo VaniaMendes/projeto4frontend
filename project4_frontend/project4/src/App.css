@@ -44,7 +44,7 @@ header h1 {
   cursor: pointer;
 }
 
-footer {
+.footer {
   position: fixed;
   width: 240px;
   text-align: left;
@@ -54,7 +54,7 @@ footer {
   margin-left: 12px;
 }
 
-footer ul {
+.footer ul {
   margin-left: 20px;
 }
 
