@@ -129,13 +129,15 @@ textarea {
 #login_form {
   position: fixed;
   flex-direction: column;
-  width: 280px;
-  height: 225px;
+  width: 285px;
+  height: 283px;
   box-shadow: -50px 0px 30px 30px rgba(0, 0, 0, 0.4);
+  left:56%;
 }
 
 .form_group button {
   width: 100%;
+  margin-top: 15px;
 }
 
 #login_inputs {
@@ -155,8 +157,8 @@ textarea {
 
 #signup {
   position: fixed;
-  top: 58.5%;
-  left: 50%;
+  top:60%;
+  left: 56%;
   transform: translate(-50%, 0%);
   color: var(--white);
 }
@@ -169,6 +171,8 @@ textarea {
 
 #scrum_section {
   display: flex;
+  position:absolute;
+  margin-top: 70px;
 }
 
 aside {
@@ -391,7 +395,7 @@ img {
 
 #menu button {
   border-radius: 5px;
-  width: 97.5%;
+  width: 55%;
 }
 
 .menu_item {
@@ -400,7 +404,7 @@ img {
   padding: 5px 0px 5px 20px;
   background-color: transparent;
   border: transparent;
-  width: 92%;
+  width: 35%;
   font-size: 14px;
   z-index: 20px;
 }
@@ -1238,18 +1242,19 @@ label {
 /*//////////////register.html////////////////////*/
 
 #form_register {
-  height: 470px;
+  height: 640px;
   width: 350px;
   display: flex;
   flex-direction: column;
-  top: 45%;
+  top: 50%;
   box-shadow: -50px 0px 30px 30px rgba(0, 0, 0, 0.4);
+  left: 58%;
+  margin:0;
 }
 
 #form_register h2 {
-  margin-bottom: 30px;
+  margin-bottom: 5px;
 }
-
 
 
 #register_photo_main {
@@ -1261,7 +1266,7 @@ label {
 }
 
 .register_elem {
-  margin-bottom: 12px;
+  margin-bottom: 6px;
   box-shadow: var(--text_shadow);
 }
 
@@ -1388,6 +1393,7 @@ label {
   position: relative;
   text-align: right;
   margin-left: 10px;
+
 }
 
 #aside_editProfile {

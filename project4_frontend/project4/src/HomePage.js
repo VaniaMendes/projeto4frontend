@@ -2,6 +2,7 @@ import React from 'react';
 
 function HomePage() {
   return (
+    
     <div id="login_body">
       <div id="body_color"></div>
       <div id="aside_color"></div>
