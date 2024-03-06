@@ -4,7 +4,7 @@ import React from 'react';
 function SideMenu(){
    return(
 
-   <div id="scrum_section">
+   <div id="side_menu">
 
    <div id="menu">
    <p className="menu_item" id="user_name">

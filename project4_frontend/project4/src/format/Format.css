@@ -172,7 +172,16 @@ textarea {
 #scrum_section {
   display: flex;
   position:absolute;
-  margin-top: 70px;
+  margin-top: 40px;
+  border: none;;
+}
+
+#side_menu{
+  display: flex;
+  position:absolute;
+  margin-top: 65px;
+  border: none;;
+
 }
 
 aside {

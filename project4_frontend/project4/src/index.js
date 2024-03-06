@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './Format.css';
-import Login from './Login';
+import './format/Format.css';
+import Login from './pages/Login';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router, Routes, Route } from'react-router-dom';
-import Register from './Register';
-import ScrumBoard from './ScrumBoard';
+import Register from './pages/Register';
+import ScrumBoard from './pages/ScrumBoard';
 
 
 

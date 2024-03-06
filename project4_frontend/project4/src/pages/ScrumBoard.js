@@ -1,28 +1,17 @@
 import React from 'react';
-import HomePage from './HomePage';
-import SideMenu from './components/SideMenu';
+import HomePage from '../components/MainPage';
+import SideMenu from '../components/SideMenu';
+import SearchFields from '../components/SearchFields';
 
 function ScrumBoard(){
     return(
         <div>
             <HomePage />
             <SideMenu/>
+            <SearchFields/>
             
-
-            <div class="filter">
-               <div class="searchFields">
-               <select id="category">
-                   <option value="" disabled selected>Filter by Category</option>
-                 
-               </select>
-               <select id="users">
-                   <option value="" disabled selected>Filter by Users</option>
-                
-               </select>
-               <div class="search_icon"> <p class="search-icon">&#128269;</p></div>
-               <div class="reset_search_icon"> <p class="reset-filter-icon">&#10006;</p></div>
-            </div>
-           </div>
+            <section id="scrum_section">
+                      
             <div class="column" id="column1">
                <div class="title">To Do</div>
                <section class="task_list" id="toDo"></section>
@@ -36,7 +25,8 @@ function ScrumBoard(){
                <div class="title">Done</div>
                <section class="task_list" id="done"></section>
             </div>
-        </div>
+         </section>
+         </div>
 
     )
 }
