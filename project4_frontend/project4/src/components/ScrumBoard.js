@@ -1,12 +1,14 @@
 import React from 'react';
 import NewTask from './newTask';
+import {useState} from 'react'
 
 
 function ScrumBoard(){
 
-    const newTask = async (event) => {
-       event.preventDefault();
-       <div><NewTask/></div>
+   const [showNewTask, setShowNewTask] = useState(false);
+
+   const handleNewTaskClick = () => {
+       setShowNewTask(true);
       
     }
  
@@ -18,7 +20,8 @@ function ScrumBoard(){
              <div className="column" id="column1">
                 <div className="title">To Do</div>
                 <section className="task_list" id="toDo"></section>
-                <button id="btn_task" onClick={newTask}>+ New Task</button>
+                <button id="btn_task" onClick={handleNewTaskClick}>+ New Task</button>
+                    {showNewTask && <NewTask />}
              </div>
              <div className="column" id="column2">
                 <div className="title">Doing</div>

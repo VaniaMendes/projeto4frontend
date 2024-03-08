@@ -2,7 +2,7 @@
   --black: rgb(14, 14, 14);
   --white: rgb(244, 244, 244);
   --white_hover: rgb(230, 230, 230);
-  --white_active: rgb(217, 217, 217);
+  --white_active: rgb(187, 215, 232);
   --text_shadow: 0px 0px 2px 0px black;
   --blue: rgb(73, 92, 121);
 }
@@ -902,16 +902,6 @@ th {
 
 #aside_task {
   margin-top: 50px;
-}
-
-.descricaoTarefa {
-  margin: 40px auto;
-  background-color: var(--white);
-  border-radius: 12px;
-  height: 37.8em;
-  width: 24em;
-  padding: 10px 1em 1.8em 1em;
-  box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.5);
 }
 
 .buttons {

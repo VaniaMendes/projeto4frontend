@@ -48,6 +48,7 @@
     display: flex; 
     justify-content: center; 
     align-items: center;
+    font-weight: bold;
   }
   
   #signup a {
@@ -67,4 +68,14 @@
     display: flex;
     align-items: center;
     font-weight: bold;
+}
+
+/*Foamtacao dos alerts*/
+
+.notification-container {
+  position: fixed;
+  top: 15%;
+  left:56%;
+  transform: translate(-50%, -50%);
+
 }

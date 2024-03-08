@@ -5,6 +5,8 @@ import { userStore } from '../stores/UserStore';
 import { FaUserCircle } from "react-icons/fa";
 import { FaUser } from "react-icons/fa";
 import { RiLockPasswordFill } from "react-icons/ri";
+import { NotificationContainer, NotificationManager } from 'react-notifications';
+import 'react-notifications/lib/notifications.css';
 
 
 function Login(){
@@ -33,11 +35,11 @@ function Login(){
                 console.log(token);
                 userStore.getState().setToken(token);
             
-                alert("Welcome to AgileUp")
+                NotificationManager.success("Welcome to AgileUp")
                
                 window.location.href = './principalPage'
             } else {
-                alert("Wrong username or password");
+                NotificationManager.warning("Wrong username or password");
             }
         } catch (error) {
             console.log(error);
@@ -47,17 +49,18 @@ function Login(){
     return(
         <div className="pageLogin" id="page_login">
             <MainPage/>
+             <NotificationContainer className="notification-container"/>
             <div className="main" id="login_main">
-                <form id="login_form" >
+                <form id="login_form" onSubmit={handleSubmit}>
                     <h2 className="signin-header"> <FaUserCircle className='imgLogin'/>Sign In </h2>
                     
                     <div id="login_inputs">
-                        <label className="descriptioLabel"><FaUser/>  Username </label>
+                        <label className="descriptioLabel"><FaUser/>Username </label>
                         <input 
                             type="text"
                             id="username"
                             name="username"
-                            placeholder=" Username" 
+                            placeholder="Username" 
                             autoComplete="off"
                             className="login_inputs"
                             value={username}
@@ -65,7 +68,7 @@ function Login(){
                             required
                         />
                         <div className="form_group">
-                            <label className="descriptioLabel"><RiLockPasswordFill/>   Password</label>
+                            <label className="descriptioLabel"><RiLockPasswordFill/>Password</label>
                             <input
                                 type="password"
                                 id="password"
@@ -79,7 +82,7 @@ function Login(){
                         </div>
                     </div>
                     <div className="form_group">
-                        <button type="submit" id="btn_login" onClick={handleSubmit}>Login</button> 
+                        <button type="submit" id="btn_login">Login</button> 
                     </div>
                 </form>
                 <div id="signup">Don't have an account?<a className="signUp" href="/register" >REGISTER HERE</a></div>

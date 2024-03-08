@@ -10,7 +10,9 @@
     "react-burger-menu": "^3.0.9",
     "react-dom": "^18.2.0",
     "react-icons": "^5.0.1",
+    "react-notifications": "^1.7.4",
     "react-scripts": "5.0.1",
+    "react-toastify": "^10.0.4",
     "web-vitals": "^2.1.4",
     "zustand": "^4.5.2"
   },

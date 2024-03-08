@@ -2,6 +2,8 @@
 import MainPage from '../components/MainPage';
 import { useState } from 'react';
 import { FaUserCircle } from "react-icons/fa";
+import { NotificationContainer, NotificationManager } from 'react-notifications';
+import 'react-notifications/lib/notifications.css';
 
 function Register(){
 
@@ -35,9 +37,9 @@ method: 'POST',
 });
 
 if (response.ok) {
-  alert("Account registered successfully!")
+    NotificationManager.success("Account registered successfully!")
 
-window.location.href = 'login.html';
+window.location.href = './login';
    
 } else {
   switch (response.status) {
@@ -45,27 +47,27 @@ window.location.href = 'login.html';
           const errorData = await response.text();
           switch (errorData) {
               case "There's an empty field, fill all values":
-                  alert("Please fill all fields");
+                NotificationManager.warning("Please fill all fields");
                   break;
               case "Invalid email":
-                  alert("The email you used is not valid");
+                NotificationManager.warning("The email you used is not valid");
                   break;
               case "Image URL invalid":
-                  alert("Image url provided not valid");
+                NotificationManager.warning("Image url provided not valid");
                   break;
               case "Invalid phone number":
-                  alert("The phone number is not valid");
+                NotificationManager.warning("The phone number is not valid");
                   break;
               default:
                   console.error('Unknown error message:', errorData);
-                  alert("Something went wrong");
+                  NotificationManager.warning("Please fill all fields");
           }
           break;
       case 409: 
-          alert("Username already in use");
+      NotificationManager.warning("Username already in use");
           break;
       default:
-          alert("Something went wrong");
+        NotificationManager.error("Something went wrong");
   }
 }
 } catch (error) {
@@ -77,6 +79,7 @@ alert("Something went wrong");
 
         <div>
         <MainPage/>
+        <NotificationContainer className="notification-container"/>
         
         <div className='form_register'>
          <form id="form_register" >

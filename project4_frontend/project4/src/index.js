@@ -6,8 +6,11 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router, Routes, Route } from'react-router-dom';
 import Register from './pages/Register';
 import PrincipalPage from './pages/PrincipalPage';
-import './format/login.css'
-import './format/register.css'
+import './format/login.css';
+import './format/register.css';
+import './format/ScrumBoard.css';
+import ProductOwner from './pages/ProductOwner';
+
 
 
 
@@ -21,6 +24,7 @@ root.render(
       <Route path="/login" element={<Login/>} />
       <Route path="/register" element={<Register/>} />
       <Route path="/principalPage" element = {<PrincipalPage/>}/>
+      <Route path="/productOwner" element = {<ProductOwner/>}/>
       </Routes>
   </Router>
 

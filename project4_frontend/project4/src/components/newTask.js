@@ -9,15 +9,21 @@ function NewTask() {
         const [initialDate, setInitialDate] = useState('');
         const [priority, setPriority] = useState(''); 
 
+        const [priorityColor, setPriorityColor] = useState('');
+
 
     const handleSubmit = async (event) => {
         event.preventDefault();
 
     }
 
+    const handlePriorityChange = (event) => {
+      setPriorityColor(event.target.value);
+  };
+
   return (
     
-    <div className="descricaoTarefa">
+    <div className="new-task-container">
             <btn className="modal_exit" id="cancel">&times;</btn>
             <h2 id="task_creationTitle"></h2>
             
@@ -50,18 +56,19 @@ function NewTask() {
             <div id="color_section">
                <label id="label_color">Priority:</label>
                <div className="priority_div">
-                  <input type="radio" name="priority" id="low_priority" value="100" checked />
+                  <input type="radio" name="priority" id="low_priority" value="100" onChange={handlePriorityChange} checked={priority === "100"} />
                   <label for="low_priority">Low</label>
                </div>
                <div className="priority_div">
-                  <input type="radio" name="priority" id="medium_priority" value="200" />
+                  <input type="radio" name="priority" id="medium_priority" value="200" onChange={handlePriorityChange}  checked={priority === "200"} />
                   <label for="medium_priority">Medium</label>
                </div>
                <div className="priority_div">
-                  <input type="radio" name="priority" id="high_priority" value="300" />
+                  <input type="radio" name="priority" id="high_priority" value="300" onChange={handlePriorityChange} checked={priority === "300"}/>
                   <label for="high_priority">High</label>
                </div>
-               <div id="priority_color"></div>
+               <div id="priority_color" style={{ backgroundColor: priorityColor === "100" ? "green" : priorityColor === "200" ? "yellow" : priorityColor === "300" ? "red" : "green" }}></div>
+
             </div>
 
             <div className="buttons">
