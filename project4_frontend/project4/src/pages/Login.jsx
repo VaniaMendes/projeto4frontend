@@ -2,6 +2,9 @@
 import { useState } from 'react';
 import MainPage from '../components/MainPage';
 import { userStore } from '../stores/UserStore'; 
+import { FaUserCircle } from "react-icons/fa";
+import { FaUser } from "react-icons/fa";
+import { RiLockPasswordFill } from "react-icons/ri";
 
 
 function Login(){
@@ -29,10 +32,10 @@ function Login(){
                 const token = await response.json();
                 console.log(token);
                 userStore.getState().setToken(token);
-                console.log(user);
+            
                 alert("Welcome to AgileUp")
                
-                window.location.href = './scrumBoard'
+                window.location.href = './principalPage'
             } else {
                 alert("Wrong username or password");
             }
@@ -46,14 +49,15 @@ function Login(){
             <MainPage/>
             <div className="main" id="login_main">
                 <form id="login_form" >
-                    <h2>Login</h2>
+                    <h2 className="signin-header"> <FaUserCircle className='imgLogin'/>Sign In </h2>
+                    
                     <div id="login_inputs">
-                        <label className="descriptioLabel">Username</label>
-                        <input
+                        <label className="descriptioLabel"><FaUser/>  Username </label>
+                        <input 
                             type="text"
                             id="username"
                             name="username"
-                            placeholder="Username"
+                            placeholder=" Username" 
                             autoComplete="off"
                             className="login_inputs"
                             value={username}
@@ -61,7 +65,7 @@ function Login(){
                             required
                         />
                         <div className="form_group">
-                            <label className="descriptioLabel">Password</label>
+                            <label className="descriptioLabel"><RiLockPasswordFill/>   Password</label>
                             <input
                                 type="password"
                                 id="password"
@@ -78,7 +82,7 @@ function Login(){
                         <button type="submit" id="btn_login" onClick={handleSubmit}>Login</button> 
                     </div>
                 </form>
-                <div id="signup">Don't have an account? <a className="signUp" href="/register" >Sign up</a></div>
+                <div id="signup">Don't have an account?<a className="signUp" href="/register" >REGISTER HERE</a></div>
             </div>
         </div>
     )

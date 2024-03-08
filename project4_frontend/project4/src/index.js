@@ -5,7 +5,9 @@ import Login from './pages/Login';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router, Routes, Route } from'react-router-dom';
 import Register from './pages/Register';
-import ScrumBoard from './pages/ScrumBoard';
+import PrincipalPage from './pages/PrincipalPage';
+import './format/login.css'
+import './format/register.css'
 
 
 
@@ -18,7 +20,7 @@ root.render(
       <Route index element={<Login/>} />
       <Route path="/login" element={<Login/>} />
       <Route path="/register" element={<Register/>} />
-      <Route path="/scrumBoard" element = {<ScrumBoard/>}/>
+      <Route path="/principalPage" element = {<PrincipalPage/>}/>
       </Routes>
   </Router>
 
