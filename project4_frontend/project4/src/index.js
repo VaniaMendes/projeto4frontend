@@ -10,6 +10,7 @@ import './format/login.css';
 import './format/register.css';
 import './format/ScrumBoard.css';
 import ProductOwner from './pages/ProductOwner';
+import EditProfile from './pages/EditProfile';
 
 
 
@@ -25,6 +26,7 @@ root.render(
       <Route path="/register" element={<Register/>} />
       <Route path="/principalPage" element = {<PrincipalPage/>}/>
       <Route path="/productOwner" element = {<ProductOwner/>}/>
+      <Route path = "/editProfile" element = {<EditProfile/>}/>
       </Routes>
   </Router>
 

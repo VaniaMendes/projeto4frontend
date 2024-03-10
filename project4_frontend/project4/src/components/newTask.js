@@ -56,7 +56,7 @@ function NewTask() {
             <div id="color_section">
                <label id="label_color">Priority:</label>
                <div className="priority_div">
-                  <input type="radio" name="priority" id="low_priority" value="100" onChange={handlePriorityChange} checked={priority === "100"} />
+                  <input type="radio" name="priority" id="low_priority" selected value="100" onChange={handlePriorityChange} checked={priority === "100"} />
                   <label for="low_priority">Low</label>
                </div>
                <div className="priority_div">

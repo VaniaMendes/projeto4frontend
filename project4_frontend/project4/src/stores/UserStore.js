@@ -6,6 +6,12 @@ export const userStore = create(
         (set) => ({
             token: "", 
             setToken: (token) => set({ token }), 
+            getToken: () => userStore.getState().token,
+
+            user:"",
+            setUser: (user) => set({ user }), 
+            getUser: () => userStore.getState().user,
+
         }),
         {
             name: 'mystore',
