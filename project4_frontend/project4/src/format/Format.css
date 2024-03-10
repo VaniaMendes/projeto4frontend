@@ -39,7 +39,7 @@
   font-weight: 500;
   padding: 15px 0px 0px 20px;
   width: 250px;
-  top:20px;
+  top:10px;
 }
 
 header h1 {
@@ -130,7 +130,7 @@ textarea {
 #side_menu{
   display: flex;
   position:absolute;
-  margin-top: 75px;
+  margin-top:80px;
   border: none;
 
 }
@@ -159,10 +159,10 @@ img {
   transform: translate(0%, 120%);
 }
 #user_name {
-  background-color: var(--white_hover);
+  
   border-radius: 5px;
   font-size: 16px;
-  height: 54px;
+  height: 59px;
   vertical-align: middle;
   padding: 0px 0px 10px 7px;
   width: 234px;
@@ -363,12 +363,45 @@ img {
   text-align: left;
   padding: 10px 0px 5px 20px;
   background-color: transparent;
-  border: transparent;
+  border: none;
   width: 35%;
   font-size: 14px;
-  z-index: 20;
+  z-index: 1000;
   cursor: pointer;
 }
+.menuPO{
+  position: absolute;
+  border: none;
+  cursor:pointer;
+  top:38%;
+  font-style: var();
+  font-size: 14px;
+  list-style: none;
+  left:9px;
+  z-index: 1000;
+  
+  
+}
+.icon{
+  margin-right: 10px;
+}
+.menuPO ul {
+  margin-top: 10px;
+  list-style-type: none;
+
+}
+#active{
+  margin-left:38px;
+}
+
+.menuPO ul li {
+  margin-left: 20px; 
+  margin-top: 20px;
+}
+#menuPO{
+  position: realtive;
+}
+
 
 #background {
   position: fixed;
@@ -1300,25 +1333,48 @@ label {
 }
 
 .users_container, .category_table {
-  position: relative;
-  top: 63%;
-  left: 50%;
+  position: absolute;
+  top: 49%;
+  left: 58%;
   transform: translate(-50%, -50%);
-  width: 80%; 
+  width: 70%; 
   height: auto; 
-  max-height: 300px;
+  max-height: 600px;
   z-index: -1;
-  
+  background-color: var(--white);
+  border-radius: 15px;
+  border-collapse: collapse;
+  flex-direction: column;
+  overflow-y: auto; 
+}
+
+
+#users_table th,
+#users_table td {
+    text-align: center;
+   
 }
 
 .users_table, .usersInactive_container {
   width: 100%; 
   height: auto;
   overflow: auto; 
+  align-items: center;
+ 
+  
+}
+#users_table th {
+  position: sticky;;
 }
 #btn_user{
  outline:none !important;
  font-weight: bold;
+}
+#users_table thead th {
+  position: sticky;
+  top: 0;
+  background-color: var(--white_hover); 
+  z-index: 1; 
 }
 
 .user_list{
@@ -1394,20 +1450,7 @@ label {
 }
 
 
-.users_container, .usersInactive_container {
-  background-color: var(--white);
-  border-radius: 12px;
-  width: 65em;
-  max-height: 30em;
-  transform: translate(-50%, -50%);
-  top: 55%;
-  left: 890px;
-  position: absolute;
-  overflow-y: auto;
-  border-collapse: collapse;
-  flex-direction: column;
-  border-collapse: collapse;
-}
+
 #delete_Alltasks_button{
   border:none !important;
   font-size: 13px;
@@ -1512,7 +1555,7 @@ label {
   
 }
 
-
+menu_item
 td {
   padding: 8px;
   border-radius: 12px;
@@ -1677,6 +1720,7 @@ th {
   display: inline;
   display: flex;
   align-items: center;
+  z-index: 1000;
 
 }
 #category, #users{

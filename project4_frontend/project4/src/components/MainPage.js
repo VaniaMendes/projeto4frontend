@@ -8,7 +8,7 @@ function HomePage() {
       <div id="aside_color"></div>
       <header>
         <h1 id="page-logo">
-          <img src="/scrum_image.png" id="scrum_img" alt="App logo" />&nbsp;AgileUp
+          <img src={"/scrum_image.png"} id="scrum_img" alt="App logo" />&nbsp;AgileUp
         </h1>
       </header>
       

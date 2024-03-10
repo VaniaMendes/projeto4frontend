@@ -2,6 +2,9 @@ import React from 'react';
 import {userStore } from '../stores/UserStore';
 import { NotificationContainer, NotificationManager } from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
+import { HiHome } from "react-icons/hi2";
+import { RiLogoutCircleFill } from "react-icons/ri";
+import { RiEdit2Fill } from "react-icons/ri";
 
 
 
@@ -13,6 +16,10 @@ function SideMenu(){
    
    const handleClick = () => {
       window.location.href = './editProfile'
+      
+    }
+    const homeclick = () => {
+      window.location.href = './principalPage'
       
     }
 
@@ -34,7 +41,11 @@ function SideMenu(){
    
             if(response.ok){
                userStore.getState().setToken("");
-               NotificationManager.sucess("Logout with sucess");
+               NotificationManager.success("Logout with sucess");
+               setTimeout(() => {
+                  window.location.href = '/login';
+              }, 1500);
+             
                
             }else{
                const error = await response.json();
@@ -57,9 +68,11 @@ function SideMenu(){
    <img id="user_img" src="user.png" alt="User logo" /><span id="user">Username</span>
    </p>
    <div className="menu_item" id="date"></div>
-      <button className="menu_item" id="btn_edit" onClick={handleClick}>&#9998; &nbsp; Edit Profile </button>
+   <button className="menu_item" id="home" onClick = {homeclick}><HiHome /> Home</button>
+   <button className="menu_item" id="logout" onClick = {logoutClick} ><RiLogoutCircleFill/> Logout</button>
+      <button className="menu_item" id="btn_edit" onClick={handleClick}><RiEdit2Fill/> Edit Profile </button>
      
-      <button className="menu_item" id="logout" onClick = {logoutClick}>&#x2B24; &nbsp; Logout</button>
+      
    </div>    
    </div>
    </div>

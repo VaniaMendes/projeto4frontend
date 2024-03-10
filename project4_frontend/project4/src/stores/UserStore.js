@@ -8,9 +8,9 @@ export const userStore = create(
             setToken: (token) => set({ token }), 
             getToken: () => userStore.getState().token,
 
-            user:"",
-            setUser: (user) => set({ user }), 
-            getUser: () => userStore.getState().user,
+            userType: "", 
+            setUserType: (userType) => set({ userType }), 
+            getUserType: () => userStore.getState().userType,
 
         }),
         {

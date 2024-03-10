@@ -35,9 +35,12 @@ function Login(){
                 console.log(token);
                 userStore.getState().setToken(token);
             
-                NotificationManager.success("Welcome to AgileUp")
+                NotificationManager.success("Welcome to AgileUp");
+                setTimeout(() => {
+                    window.location.href = '/principalPage';
+                }, 1000);
                
-                window.location.href = './principalPage'
+             
             } else {
                 NotificationManager.warning("Wrong username or password");
             }

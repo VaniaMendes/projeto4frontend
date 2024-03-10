@@ -37,9 +37,11 @@ method: 'POST',
 });
 
 if (response.ok) {
-    NotificationManager.success("Account registered successfully!")
+    NotificationManager.success("Account registered successfully!");
+    setTimeout(() => {
+      window.location.href = '/login';
+  }, 1000);
 
-window.location.href = './login';
    
 } else {
   switch (response.status) {
