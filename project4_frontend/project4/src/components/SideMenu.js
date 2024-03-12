@@ -5,6 +5,7 @@ import 'react-notifications/lib/notifications.css';
 import { HiHome } from "react-icons/hi2";
 import { RiLogoutCircleFill } from "react-icons/ri";
 import { RiEdit2Fill } from "react-icons/ri";
+import {logout} from "../endpoints/users";
 
 
 
@@ -12,51 +13,34 @@ import { RiEdit2Fill } from "react-icons/ri";
 function SideMenu(){
 
    const tokenObject = userStore(state => state.token);
-    const tokenUSer = tokenObject.token;
+    const tokenUser = tokenObject.token;
+  
    
    const handleClick = () => {
-      window.location.href = './editProfile'
+      window.location.href = '/editProfile';
       
     }
     const homeclick = () => {
-      window.location.href = './principalPage'
+      window.location.href = './principalPage';
       
     }
 
     const logoutClick = async (event) => {
       event.preventDefault();
-     
-   
-      try{
-         const response = await fetch("http://localhost:8080/project_backend/rest/users/logout",{
-   
-            method: "POST",
-            headers: {
-             Accept: "*/*",
-             "Content-Type": "application/json",
-             'token': tokenUSer
-            }
-            });
-            console.log(response);
-   
-            if(response.ok){
-               userStore.getState().setToken("");
-               NotificationManager.success("Logout with sucess");
-               setTimeout(() => {
-                  window.location.href = '/login';
-              }, 1500);
-             
-               
-            }else{
-               const error = await response.json();
-               return error;
-            }
-      }catch (error) {
-          console.error('Fetch Error:', error);
-      }
-   }
+      const result = await logout(tokenUser);
 
-  
+      if (result===true) {
+         NotificationManager.success("Logout successfully")
+         setTimeout(() => {
+            window.location.href = '/login';
+         }, 1500);
+      } else {
+          console.error("Erro ao buscar dados do usuário:", result.error);
+         
+      }
+     
+    }
+
 
    return(
       <div>

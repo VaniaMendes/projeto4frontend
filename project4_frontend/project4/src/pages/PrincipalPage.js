@@ -30,7 +30,6 @@ function PrincipalPage(){
      
             if (response.ok) {
                 const user = await response.json();
-    
                 setUserType(user.typeOfUser);
                 
                 
@@ -58,7 +57,6 @@ function PrincipalPage(){
             <SearchFields />
             <ScrumBoard />
         </div>
-
     );
 }
     

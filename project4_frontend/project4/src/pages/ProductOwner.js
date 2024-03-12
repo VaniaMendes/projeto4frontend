@@ -6,8 +6,6 @@ import UserTable from '../components/UserTable';
 import React, { useEffect, useState } from 'react';
 import { userStore } from '../stores/UserStore';
 
-
-
 function Users(){
 
     const tokenObject = userStore(state => state.token);
@@ -28,9 +26,7 @@ function Users(){
          
                 if (response.ok) {
                     const users = await response.json();
-                    console.log(users);
                     setUsers(users);
-                    
                     
                 } else {
                     console.error("Failed to fetch user data");
@@ -52,7 +48,6 @@ function Users(){
             <SideMenu/>
             <MenuProductOwner/>
             
-           
         </div>
 
     )

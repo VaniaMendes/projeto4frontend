@@ -1,6 +1,7 @@
 import React from 'react';
 import NewTask from './newTask';
 import {useState} from 'react'
+import '../format/ScrumBoard.css';
 
 
 function ScrumBoard(){

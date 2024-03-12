@@ -1,0 +1,121 @@
+.tableTitle{
+    background: var(--blue);
+    color: var(--white);
+    font-size: 20px;
+    align-items: center;
+    border: none;
+    
+  }
+  
+  .users_container, .category_table {
+    position: absolute;
+    top: 49%;
+    left: 58%;
+    transform: translate(-50%, -50%);
+    width: 71%; 
+    height: auto; 
+    max-height: 600px;
+    z-index: -1;
+    background-color: var(--white);
+    border-radius: 15px;
+    border-collapse: collapse;
+    flex-direction: column;
+    overflow-y: auto; 
+  }
+  .image{
+    width: 95px;
+  }
+  
+  
+  #users_table th,
+  #users_table td {
+      text-align: center;
+  }
+  .head{
+    border-bottom: none;
+  }
+
+  #th-head-left-corner{
+    width: 80px;
+  }
+  
+  .users_table, .usersInactive_container {
+    width: 100%; 
+    height: auto;
+    overflow: auto; 
+    align-items: center;
+   
+    
+  }
+  #users_table th {
+    position: sticky;
+    z-index: 1000;
+  }
+  #btn_user{
+   outline:none !important;
+   font-weight: bold;
+   border:none;
+
+  }
+
+  #btn_user:hover{
+    background-color: var(--blueButton);
+  }
+  #users_table thead th {
+    position: sticky;
+    top: 0;
+    background-color: var(--white_hover); 
+    z-index: 1000; 
+    position: sticky;
+    top: 0;
+  }
+  .searchUser{
+    border: none;
+    border-bottom: 3px solid var(--black);
+    margin-right:10px;
+    width: 95px;
+
+
+  }
+  .titleUser, .header, .image{
+    border-bottom: none;
+    position:sticky;
+  }
+  .header{
+    border-bottom: 3px solid var(--black);
+  }
+  
+
+  .user_list{
+    height: 300px;
+    max-width:250px;
+    display:flex;
+    flex-direction: column;
+    align-items: left;
+    border-radius: 5px;
+    padding: 5px;
+    overflow-y: auto;
+  }
+
+  .edit_button, .delete_button, .delete_task, .restore_user, .restore_button {
+    background-color: none; 
+    border: none; 
+    margin-left: 5px; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    align-items: right;
+  }
+  .delete_task{
+    font-size: 12px;
+  }
+  
+  .edit_button:hover, .delete_button:hover, .delete_task:hover, .restore_button:hover {
+    background-color: var(--blueButton); 
+  }
+  .edit_button:active, .delete_button:active {
+    background-color: var(--blueButton); 
+  }
+
+  .search_icon{
+    border: none;
+  }

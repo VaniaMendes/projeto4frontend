@@ -5,6 +5,7 @@
   --white_active: rgb(187, 215, 232);
   --text_shadow: 0px 0px 2px 0px black;
   --blue: rgb(73, 92, 121);
+  --blueButton: rgb(188, 210, 226);
 }
 * {
   font-family: "Segoe UI", Verdana, sans-serif;
@@ -1323,70 +1324,7 @@ label {
 }
 /* Página product Owner */
 
-.tableTitle{
-  background: var(--blue);
-  color: var(--white);
-  font-size: 20px;
-  align-items: center;
-  border: none;
-  
-}
 
-.users_container, .category_table {
-  position: absolute;
-  top: 49%;
-  left: 58%;
-  transform: translate(-50%, -50%);
-  width: 70%; 
-  height: auto; 
-  max-height: 600px;
-  z-index: -1;
-  background-color: var(--white);
-  border-radius: 15px;
-  border-collapse: collapse;
-  flex-direction: column;
-  overflow-y: auto; 
-}
-
-
-#users_table th,
-#users_table td {
-    text-align: center;
-   
-}
-
-.users_table, .usersInactive_container {
-  width: 100%; 
-  height: auto;
-  overflow: auto; 
-  align-items: center;
- 
-  
-}
-#users_table th {
-  position: sticky;;
-}
-#btn_user{
- outline:none !important;
- font-weight: bold;
-}
-#users_table thead th {
-  position: sticky;
-  top: 0;
-  background-color: var(--white_hover); 
-  z-index: 1; 
-}
-
-.user_list{
-  height: 300px;
-  max-width:250px;
-  display:flex;
-  flex-direction: column;
-  align-items: left;
-  border-radius: 5px;
-  padding: 10px;
-  overflow-y: auto;
-}
 
 
 .card-header{
@@ -1397,28 +1335,6 @@ label {
   margin: 5px auto;
   padding: 5px;
 
-}
-
-
-.edit_button, .delete_button, .restore_user, .restore_button {
-  background-color: none; 
-  border: none; 
-  margin-left: 5px; 
-  border-radius: 5px; 
-  cursor: pointer; 
-  align-items: right;
-}
-
-.edit_button:hover, .delete_button:hover {
-  background-color: var(--white_active); 
-}
-.edit_button:active, .delete_button:active {
-  background-color: var(--light-blue); 
-}
-.card_header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 }
 
 .container{
@@ -1473,7 +1389,7 @@ label {
   align-items: center;
 }
 
-#titleActiveUsers{
+#titleActiveUsers,{
   background-color: white;
   width: 18%;
   border-radius: 15px;
@@ -1577,7 +1493,7 @@ th {
   border-top-right-radius: 12px;
 }
 
-.category_table_row {
+.category_table_row, .titleUser {
   border-bottom: 1px solid black;
   
 }

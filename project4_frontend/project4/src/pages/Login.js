@@ -7,6 +7,7 @@ import { FaUser } from "react-icons/fa";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { NotificationContainer, NotificationManager } from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
+import '../format/login.css';
 
 
 function Login(){
@@ -34,6 +35,7 @@ function Login(){
                 const token = await response.json();
                 console.log(token);
                 userStore.getState().setToken(token);
+            
             
                 NotificationManager.success("Welcome to AgileUp");
                 setTimeout(() => {

@@ -6,13 +6,12 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router, Routes, Route } from'react-router-dom';
 import Register from './pages/Register';
 import PrincipalPage from './pages/PrincipalPage';
-import './format/login.css';
-import './format/register.css';
-import './format/ScrumBoard.css';
+import Categories from './pages/Categories';
+
+
+import InactiveUsers from './pages/InactiveUsers';
 import ProductOwner from './pages/ProductOwner';
 import EditProfile from './pages/EditProfile';
-
-
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -27,6 +26,8 @@ root.render(
       <Route path="/principalPage" element = {<PrincipalPage/>}/>
       <Route path="/productOwner" element = {<ProductOwner/>}/>
       <Route path = "/editProfile" element = {<EditProfile/>}/>
+      <Route path = "/inactiveUsers" element = {<InactiveUsers/>}/>
+      <Route path= "/categories" element={<Categories/>} />
       </Routes>
   </Router>
 

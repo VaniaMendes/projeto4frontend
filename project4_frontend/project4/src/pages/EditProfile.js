@@ -1,4 +1,3 @@
-
 import React, { useEffect } from "react";
 import MainPage from "../components/MainPage";
 import SideMenu from "../components/SideMenu";

@@ -19,10 +19,15 @@ function MenuProductOwner(){
         window.location.href = './productOwner';
     };
 
+    const inactiveUsers = () => {
+        window.location.href = './inactiveUsers';
+    };
+
+    const handleCategories = () => {
+        window.location.href = './categories';
+    };
+
    
-  
-
-
 return(
 
     <div id="menuPO">
@@ -34,11 +39,11 @@ return(
         {showButtons && (
                     <ul>
                         <li id='active' onClick={productOwnerPage}><FaUserCheck className='icon'/>Active Users</li>
-                        <li id='active'><FaUserAltSlash className='icon'/>Inactive Users</li>
+                        <li id='active' onClick={inactiveUsers}><FaUserAltSlash className='icon'/>Inactive Users</li>
                     </ul>
                 )}
         <li> <MdTask/> Inactive Tasks</li>
-        <li><BiSolidCategoryAlt/> Categories</li>
+        <li onClick={handleCategories}><BiSolidCategoryAlt/> Categories</li>
     </ul>
 </div>
 </div>
