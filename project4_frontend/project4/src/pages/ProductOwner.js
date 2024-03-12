@@ -11,6 +11,7 @@ function Users(){
     const tokenObject = userStore(state => state.token);
     const tokenUSer = tokenObject.token;
     const [users, setUsers] = useState(null);
+    const forceUpdate = userStore(state => state.forceUpdate)
 
     useEffect(() => {
         const fetchData = async()=> {
@@ -38,7 +39,7 @@ function Users(){
             }
          };
          fetchData();
-        }, [tokenUSer]);
+        }, [tokenUSer, forceUpdate]);
 
 
     return(

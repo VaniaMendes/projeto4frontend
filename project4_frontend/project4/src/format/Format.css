@@ -244,7 +244,7 @@ img {
   overflow-wrap: break-word;
   max-width: 70px;
   margin-right: 14px;
-  
+  z-index: 1000;
   height: 20px;
 }
 
@@ -1529,16 +1529,10 @@ th {
 
 
 .modal-category {
-  display: none;
+  position:absolute;
+  transform: translate(-50%, -50%);
+  top: 35%;
   z-index: 1000;
-  position: relative;
-}
-
-.modal-edit-category {
-  display: none;
-  z-index: 1000;
-  position: relative;
-  display: grid;
 }
 
 
@@ -1549,9 +1543,6 @@ th {
   width: 24em;
   padding: 10px 1em 1.8em 1em;
   box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.5);
-  transform: translate(-50%, -50%);
-  top: 25%;
-  left: 850px;
   position: absolute;
 }
 

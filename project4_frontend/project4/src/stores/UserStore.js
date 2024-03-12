@@ -12,6 +12,11 @@ export const userStore = create(
             setUserType: (userType) => set({ userType }), 
             getUserType: () => userStore.getState().userType,
 
+            forceUpdate: false,
+            setForceUpdate: (forceUpdate) => set({ forceUpdate }),
+            getForceUpdate: () => userStore.getState().forceUpdate,
+
+
         }),
         {
             name: 'mystore',

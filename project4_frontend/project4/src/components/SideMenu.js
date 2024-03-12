@@ -14,6 +14,7 @@ function SideMenu(){
 
    const tokenObject = userStore(state => state.token);
     const tokenUser = tokenObject.token;
+    const forceUpdate = userStore(state=>state.forceUpdate);
   
    
    const handleClick = () => {

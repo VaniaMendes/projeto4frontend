@@ -7,7 +7,6 @@ import { NotificationContainer, NotificationManager } from 'react-notifications'
 import 'react-notifications/lib/notifications.css';
 
 
-
 function EditProfile(){
 
     //Preencher informações do user

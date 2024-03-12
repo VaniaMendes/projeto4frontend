@@ -10,6 +10,7 @@ import { deleteUser } from "../endpoints/users";
 function UserTable({ users }) {
   const tokenObject = userStore((state) => state.token);
   const tokenUSer = tokenObject.token;
+  const forceUpdate = userStore(state=>state.forceUpdate);
 
   const handleEdit = (tokenUSer, username) => {};
 
@@ -18,6 +19,7 @@ function UserTable({ users }) {
 
     if (result === true) {
       NotificationManager.success("User deleted successfully", "", 800);
+      userStore.getState().setForceUpdate(!forceUpdate);
     } else {
       NotificationManager.error("Failed to delete user", "", 800);
     }

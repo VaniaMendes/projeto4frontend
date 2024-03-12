@@ -11,10 +11,13 @@ import { deleteUserForever, restoreUser} from '../endpoints/users';
 function InactiveUsersTable({ users }) {
     const tokenObject = userStore(state => state.token);
     const tokenUser = tokenObject.token;
+    const forceUpdate = userStore(state=>state.forceUpdate);
+
 
     const handleRestore = async (tokenUser, username) => {
        const result= await restoreUser(tokenUser, username);
        if(result===true){
+        userStore.getState().setForceUpdate(!forceUpdate);
         NotificationManager.success("User restored successfully", "", 800);
        }else{
         NotificationManager.error("Failed to restore user", "", 800);
@@ -22,7 +25,6 @@ function InactiveUsersTable({ users }) {
         
     }
     
-       
     const handleDeleteForever = (tokenUser, username) => {
        
         NotificationManager.info("Are you sure you want to delete this user?", "Confirm", 7000, () => {
@@ -30,6 +32,7 @@ function InactiveUsersTable({ users }) {
                 .then(result => {
                     
                     if (result===true) {
+                        userStore.getState().setForceUpdate(!forceUpdate);
                         NotificationManager.success("User deleted successfully", "", 700);
                     } else {
                         NotificationManager.error("Failed to delete user", "", 700);

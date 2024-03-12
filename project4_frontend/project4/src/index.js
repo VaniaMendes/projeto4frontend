@@ -7,8 +7,6 @@ import { BrowserRouter as Router, Routes, Route } from'react-router-dom';
 import Register from './pages/Register';
 import PrincipalPage from './pages/PrincipalPage';
 import Categories from './pages/Categories';
-
-
 import InactiveUsers from './pages/InactiveUsers';
 import ProductOwner from './pages/ProductOwner';
 import EditProfile from './pages/EditProfile';
