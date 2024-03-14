@@ -2,7 +2,7 @@
 import MainPage from '../components/MainPage';
 import { useState } from 'react';
 import { FaUserCircle } from "react-icons/fa";
-import { NotificationContainer, NotificationManager } from 'react-notifications';
+import { NotificationContainer, NotificationManager } from "react-notifications";
 import 'react-notifications/lib/notifications.css';
 import '../format/register.css';
 
@@ -62,8 +62,7 @@ if (response.ok) {
                 NotificationManager.warning("The phone number is not valid");
                   break;
               default:
-                  console.error('Unknown error message:', errorData);
-                  NotificationManager.warning("Please fill all fields");
+                NotificationManager.warning("Please fill all fields");
           }
           break;
       case 409: 
@@ -75,14 +74,14 @@ if (response.ok) {
 }
 } catch (error) {
 console.error('Error:', error);
-alert("Something went wrong");
+NotificationManager.warning("Something went wrong");
 }
     };
     return( 
 
         <div>
         <MainPage/>
-        <NotificationContainer className="notification-container"/>
+       
         
         <div className='form_register'>
          <form id="form_register" >

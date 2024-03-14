@@ -16,6 +16,9 @@ export const userStore = create(
             setForceUpdate: (forceUpdate) => set({ forceUpdate }),
             getForceUpdate: () => userStore.getState().forceUpdate,
 
+            stateModal:true,
+            setStateModal: (stateModal) => set({ stateModal }),
+            getStateModal: () => userStore.getState().stateModal,
 
         }),
         {

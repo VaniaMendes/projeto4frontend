@@ -10,12 +10,15 @@ import Categories from './pages/Categories';
 import InactiveUsers from './pages/InactiveUsers';
 import ProductOwner from './pages/ProductOwner';
 import EditProfile from './pages/EditProfile';
+import { NotificationContainer, NotificationManager } from "react-notifications";
+import 'react-notifications/lib/notifications.css';
+
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-
+<div > <NotificationContainer className="notification-container" /></div>
     <Router>
       <Routes>
       <Route index element={<Login/>} />

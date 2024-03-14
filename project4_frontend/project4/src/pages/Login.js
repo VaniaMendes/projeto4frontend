@@ -5,22 +5,22 @@ import { userStore } from '../stores/UserStore';
 import { FaUserCircle } from "react-icons/fa";
 import { FaUser } from "react-icons/fa";
 import { RiLockPasswordFill } from "react-icons/ri";
-import { NotificationContainer, NotificationManager } from 'react-notifications';
-import 'react-notifications/lib/notifications.css';
+import {  NotificationManager } from "react-notifications";
 import '../format/login.css';
+import { useNavigate  } from 'react-router-dom';
 
 
 function Login(){
 
     const [username, setUsername] = useState(''); 
     const [password, setPassword] = useState('');
+    const navigate = useNavigate (); 
   
 
     const handleSubmit = async (event) => {
         event.preventDefault(); 
         const user = { username: username, password: password };
-        console.log(user);
-        try {
+            try {
             const response = await fetch( "http://localhost:8080/project_backend/rest/users/login", {
                 method: 'POST',
                 headers: {
@@ -31,20 +31,17 @@ function Login(){
             });
 
             if (response.ok) {
-                console.log(response.status);
-                const token = await response.json();
-                console.log(token);
-                userStore.getState().setToken(token);
-            
-            
+               const token = await response.json();
+                userStore.getState().setToken(token);    
+               
                 NotificationManager.success("Welcome to AgileUp");
                 setTimeout(() => {
-                    window.location.href = '/principalPage';
-                }, 1000);
+                    navigate("/principalPage");
+                  }, 800);
+        
                
-             
             } else {
-                NotificationManager.warning("Wrong username or password");
+                NotificationManager.warning("Wrong username or password", "" , 800);
             }
         } catch (error) {
             console.log(error);
@@ -53,8 +50,8 @@ function Login(){
 
     return(
         <div className="pageLogin" id="page_login">
+         
             <MainPage/>
-             <NotificationContainer className="notification-container"/>
             <div className="main" id="login_main">
                 <form id="login_form" onSubmit={handleSubmit}>
                     <h2 className="signin-header"> <FaUserCircle className='imgLogin'/>Sign In </h2>

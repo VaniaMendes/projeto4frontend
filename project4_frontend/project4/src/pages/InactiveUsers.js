@@ -31,8 +31,8 @@ function Users(){
                     setUsers(users);
                     
                 } else {
-                    console.error("Failed to fetch user data");
-                   window.location.href='/login';
+                    console.error("Failed to fetch user data", { autoClose: 1000 },);
+                  
                 }
             } catch (error) {
                 console.error("Error fetching user data:", error);

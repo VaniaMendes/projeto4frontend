@@ -2,42 +2,58 @@ import React, { useState } from "react";
 import { FaUserEdit } from "react-icons/fa";
 import { MdAutoDelete } from "react-icons/md";
 import { userStore } from "../stores/UserStore";
-import { NotificationManager } from "react-notifications";
-import "react-notifications/lib/notifications.css";
 import "../format/tables.css";
 import { deleteUser } from "../endpoints/users";
+import NewUser from "./NewUser";
+import { NotificationContainer, NotificationManager } from "react-notifications";
+import 'react-notifications/lib/notifications.css';
+
+
 
 function UserTable({ users }) {
   const tokenObject = userStore((state) => state.token);
-  const tokenUSer = tokenObject.token;
+  const tokenUser = tokenObject.token;
   const forceUpdate = userStore(state=>state.forceUpdate);
+  const [showModal, setShowModal] = useState(false);
 
-  const handleEdit = (tokenUSer, username) => {};
+  const handleEdit = (tokenUser, username) => {
 
-  const handleDelete = async (tokenUser, username) => {
+  };
+
+function showModalNewUSer(){
+  setShowModal(true);
+  userStore.getState().setForceUpdate(!forceUpdate);
+}
+
+async function handleDelete (tokenUser, username){
     const result = await deleteUser(tokenUser, username);
 
     if (result === true) {
-      NotificationManager.success("User deleted successfully", "", 800);
-      userStore.getState().setForceUpdate(!forceUpdate);
+      NotificationManager.success("User deleted successfully", "", 1000);
+      
     } else {
-      NotificationManager.error("Failed to delete user", "", 800);
+      NotificationManager.error("Failed to delete user");
     }
+    userStore.getState().setForceUpdate(!forceUpdate);
   };
 
-  const handleDeleteTasks = (tokenUser, username) => {};
+  async function handleDeleteTasks(tokenUser, username) {
+
+  };
 
   return (
+    <div>
+    
     <div className="users_container">
       <div className="users_table">
         <table id="users_table">
           <thead>
             <tr className="head">
-              <th className="titleUser"></th>
-              <th className="titleUser">Active Users</th>
+              <th className="titleUser"><img src='icon-green.png'></img></th>
+              <th className="titleUser2">Active Users</th>
               <th className="titleUser"></th>
               <th className="titleUser">
-                <button id="btn_user">+New User</button>
+                <button id="btn_user"onClick={showModalNewUSer}>+New User</button>
               </th>
               <th className="titleUser"></th>
               <th className="titleUser">
@@ -80,20 +96,20 @@ function UserTable({ users }) {
                   <td>
                     <button
                       className="edit_button"
-                      onClick={() => handleEdit(tokenUSer, user.username)}
+                      onClick={() => handleEdit(tokenUser, user.username)}
                     >
                       <FaUserEdit />
                     </button>
                     <button
                       className="delete_button"
-                      onClick={() => handleDelete(tokenUSer, user.username)}
+                      onClick={() => handleDelete(tokenUser, user.username)}
                     >
                       <MdAutoDelete />
                     </button>
                     <button
                       className="delete_task"
                       onClick={() =>
-                        handleDeleteTasks(tokenUSer, user.username)
+                        handleDeleteTasks(tokenUser, user.username)
                       }
                     >
                       Delete Tasks
@@ -105,6 +121,7 @@ function UserTable({ users }) {
         </table>
       </div>
     </div>
+    {showModal && <NewUser/>}</div>
   );
 }
 

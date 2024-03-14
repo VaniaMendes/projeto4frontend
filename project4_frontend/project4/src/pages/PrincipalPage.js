@@ -31,6 +31,9 @@ function PrincipalPage(){
             if (response.ok) {
                 const user = await response.json();
                 setUserType(user.typeOfUser);
+                const role = user.typeOfUser;
+                userStore.getState().setTypeOfUser(role); 
+
                 
                 
             } else {

@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {userStore} from '../stores/UserStore';
-import { NotificationManager } from 'react-notifications';
+import { NotificationContainer, NotificationManager } from "react-notifications";
 import 'react-notifications/lib/notifications.css';
 import { MdOutlineRestore } from "react-icons/md";
 import { MdDeleteForever } from "react-icons/md";
@@ -14,13 +14,14 @@ function InactiveUsersTable({ users }) {
     const forceUpdate = userStore(state=>state.forceUpdate);
 
 
-    const handleRestore = async (tokenUser, username) => {
+    async function handleRestore (tokenUser, username) {
        const result= await restoreUser(tokenUser, username);
-       if(result===true){
+       if(result){
+        NotificationManager.success("User restored successfully", "", 1000);
         userStore.getState().setForceUpdate(!forceUpdate);
-        NotificationManager.success("User restored successfully", "", 800);
+        
        }else{
-        NotificationManager.error("Failed to restore user", "", 800);
+        NotificationManager.error("Failed to restore user", "", 1000);
        }
         
     }
@@ -33,9 +34,9 @@ function InactiveUsersTable({ users }) {
                     
                     if (result===true) {
                         userStore.getState().setForceUpdate(!forceUpdate);
-                        NotificationManager.success("User deleted successfully", "", 700);
+                        NotificationManager.success("User deleted successfully", "", 1000);
                     } else {
-                        NotificationManager.error("Failed to delete user", "", 700);
+                        NotificationManager.error("Failed to delete user", "", 1000);
                     }
                 })
                 .catch(error => {
@@ -46,13 +47,14 @@ function InactiveUsersTable({ users }) {
 
     return (
         <div className='users_container'>
+            
         <div className='users_table'>
         <table id="users_table">
        
         <thead className='header'>
             <tr className='head'>
-            <th className='titleUser' id= 'users_table'></th>
-            <th className='titleUser'>Inactive Users</th>
+            <th className='titleUser' id= 'users_table'><img src='user_icon.png'></img></th>
+            <th className='titleUser1'>Inactive Users</th>
             <th className='titleUser'></th>
             <th className = 'titleUser'></th>
             <th className = 'titleUser'></th>

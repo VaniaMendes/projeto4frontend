@@ -1,8 +1,8 @@
 import React from 'react';
-import { NotificationManager } from "react-notifications";
-import "react-notifications/lib/notifications.css";
+import { NotificationContainer, NotificationManager } from "react-notifications";
+import 'react-notifications/lib/notifications.css';
 import {createCategory} from '../endpoints/categories';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import {userStore} from '../stores/UserStore';
 
 
@@ -14,7 +14,7 @@ function Categories(){
     const tokenUser = tokenObject.token;
     const forceUpdate = userStore(state=>state.forceUpdate);
 
-    const [showModal, setShowModal] = useState(true);
+    const [showModal, setShowModal] = useState(true);  
 
   function closeModal() {
     setShowModal(false);
@@ -24,7 +24,6 @@ function Categories(){
     const handleCategory = async (title, description, tokenUser) => {
         if(title !== ""){
         const result = await createCategory(title, description, tokenUser);
-        console.log(result);
         if (result === 200) {
             userStore.getState().setForceUpdate(!forceUpdate);
           NotificationManager.success("Category successfully created", "", 800);
@@ -40,9 +39,11 @@ function Categories(){
     }
 
       };
+     
 
     return(
         <div>
+          
         {showModal && (
         <div id="categoryModal" className="modal-category">
         <div className="descricaoCategoria">
@@ -51,7 +52,7 @@ function Categories(){
             <input type="text" placeholder="Category Title" id="title" 
             value={title} onChange={(event) => setTitle(event.target.value)} required />
             <label htmlFor="description">Description:</label>
-            <textarea cols="30" rows="14" placeholder="Category Description" id="description" 
+            <textarea cols="30" rows="5" placeholder="Category Description" id="description" 
             value={description} onChange={(event) => setDescription(event.target.value)}></textarea>
                  
             <div className="buttons">

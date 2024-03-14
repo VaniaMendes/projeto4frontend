@@ -6,6 +6,7 @@ import UserTable from '../components/UserTable';
 import React, { useEffect, useState } from 'react';
 import { userStore } from '../stores/UserStore';
 
+
 function Users(){
 
     const tokenObject = userStore(state => state.token);
@@ -31,7 +32,7 @@ function Users(){
                     
                 } else {
                     console.error("Failed to fetch user data");
-                   window.location.href='/login';
+                  
                 }
             } catch (error) {
                 console.error("Error fetching user data:", error);
@@ -48,9 +49,7 @@ function Users(){
             <MainPage />
             <SideMenu/>
             <MenuProductOwner/>
-            
         </div>
-
     )
 }
 

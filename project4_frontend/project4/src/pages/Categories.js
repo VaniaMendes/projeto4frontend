@@ -6,6 +6,7 @@ import MenuProductOwner from '../components/MenuProductOwner';
 import { getAllCategories } from '../endpoints/categories';
 import {userStore} from '../stores/UserStore';
 import {useEffect, useState} from 'react';
+import 'react-toastify/dist/ReactToastify.css';
 
 function CategoriesPage(){
     const tokenObject = userStore(state => state.token);

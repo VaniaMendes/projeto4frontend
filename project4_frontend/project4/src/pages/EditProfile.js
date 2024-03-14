@@ -3,17 +3,21 @@ import MainPage from "../components/MainPage";
 import SideMenu from "../components/SideMenu";
 import { useState } from "react";
 import {userStore} from '../stores/UserStore';
-import { NotificationContainer, NotificationManager } from 'react-notifications';
+import { NotificationContainer, NotificationManager } from "react-notifications";
 import 'react-notifications/lib/notifications.css';
-
+import MenuProductOwner from '../components/MenuProductOwner';
+import { useNavigate  } from 'react-router-dom';
 
 function EditProfile(){
 
     //Preencher informações do user
     const tokenObject = userStore(state => state.token);
     const tokenUSer = tokenObject.token;
+    const userType = userStore(state=>state.userType);
+    
 
     const [userLogged, setUserLogged] = useState(null);
+    const navigate = useNavigate();
     
 
     useEffect(() => {
@@ -93,50 +97,44 @@ function EditProfile(){
                     body: JSON.stringify(updatedUserData),
                    
                 });
-                console.log(updatedUserData);
 
                 console.log(response);
                 if (response.ok) {
-                    NotificationManager.success(
-
-                    "Your valid changes have been saved",
-                    "Success",
-                    5000, 
-                    () => {
-                        window.location.href = "/principalPage";
+                    NotificationManager.success("Your valid changes have been saved","", 800);
+                    setTimeout(() => {
+                        navigate("/principalPage");
+                      }, 1000);
                   
-                    });
                 } else if (response.status === 401) {
-                    window.location.href="/login"; 
+                   navigate("/login"); 
                 } else if (response.status === 422) {
                     const responseData = await response.text();
-                    NotificationManager.warning(responseData);
+                    NotificationManager.warning(responseData,"", 800);
                 } else {
-                    NotificationManager.error("Something went wrong");
+                    NotificationManager.error("Something went wrong","", 800,);
                 }
             } catch (error) {
                 console.error("Error:", error);
-                NotificationManager.error("Something went wrong");
+                NotificationManager.error("Something went wrong", "", 800);
             }
         };
 
         const handleBack = () => {
             
-            window.location.href='/principalPage';
+           navigate('/principalPage');
         };
 
         useEffect(() => {
             console.log(userEdit);
         }, [userEdit]);
 
-        
             
     return(
        <div> 
+        {userType === 'product_owner' && <MenuProductOwner />}
         <MainPage/>
         <SideMenu/>
-        <NotificationContainer/>
-      
+             
         <div className="edit_container">
         <div className="edit_photo">
            <img src={userLogged?.imgURL} id="user_photo" alt="User photo" />
