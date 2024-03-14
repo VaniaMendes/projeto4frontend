@@ -6,12 +6,10 @@ import { MdDeleteForever } from "react-icons/md";
 import { useState } from "react";
 import EditCategory from "./EditCategory";
 import { deleteCategory } from "../endpoints/categories";
-import {
-  NotificationContainer,
-  NotificationManager,
-} from "react-notifications";
+import {  NotificationManager} from "react-notifications";
 import "react-notifications/lib/notifications.css";
 import { userStore } from "../stores/UserStore";
+import { IoFilter } from "react-icons/io5";
 
 function Categories({ categories }) {
   const [showModal, setShowModal] = useState(false);
@@ -22,16 +20,11 @@ function Categories({ categories }) {
   const forceUpdate = userStore((state) => state.forceUpdate);
 
   function openEditModal() {
-    setShowEditModal(true);
-  
-   
-    
+    setShowEditModal(true);  
   }
+  
   function openModal() {
     setShowModal(true);
-
-  
-    
   }
 
   async function handleDelete(categoryId, tokenUser) {
@@ -61,8 +54,8 @@ function Categories({ categories }) {
                   </button>
                 </th>
                 <th className="titleUser">
-                  <input className="searchUser" placeholder="Search User" />
-                  <button className="search_icon">&#128269;</button>
+                
+                  <button className="search_icon"><IoFilter/></button>
                 </th>
               </tr>
               <tr className="header">

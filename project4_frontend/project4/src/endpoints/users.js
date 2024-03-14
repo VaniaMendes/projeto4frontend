@@ -1,6 +1,4 @@
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { NotificationManager } from 'react-notifications';
+
 export async function logout(token) {
   try {
     const response = await fetch(

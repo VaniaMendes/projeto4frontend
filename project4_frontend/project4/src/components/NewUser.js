@@ -54,9 +54,10 @@ function NewUser() {
 
 
   return (
-    <div>
+    <div >
      
       {showModal && (
+        <div className="modal_container">
         <div className='form_register'>
         <form className="registerPO" id="form_register">
           <h2 className="register-header">
@@ -185,6 +186,7 @@ function NewUser() {
             </button>
           </div>
         </form>
+        </div>
         </div>
       )}
       ;

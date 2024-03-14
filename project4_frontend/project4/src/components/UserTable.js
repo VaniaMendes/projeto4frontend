@@ -5,9 +5,8 @@ import { userStore } from "../stores/UserStore";
 import "../format/tables.css";
 import { deleteUser } from "../endpoints/users";
 import NewUser from "./NewUser";
-import { NotificationContainer, NotificationManager } from "react-notifications";
-import 'react-notifications/lib/notifications.css';
-
+import { NotificationManager } from "react-notifications";
+import { IoFilter } from "react-icons/io5";
 
 
 function UserTable({ users }) {
@@ -57,8 +56,8 @@ async function handleDelete (tokenUser, username){
               </th>
               <th className="titleUser"></th>
               <th className="titleUser">
-                <input className="searchUser" placeholder="Search User" />
-                <button className="search_icon">&#128269;</button>
+                
+                <button className="search_icon"><IoFilter/></button>
               </th>
             </tr>
             <tr className="header">
@@ -67,7 +66,7 @@ async function handleDelete (tokenUser, username){
               <th>Email</th>
               <th>Phone</th>
               <th>Role</th>
-              <th></th>
+              <th>User Edition</th>
             </tr>
           </thead>
           <tbody className="body">

@@ -6,14 +6,15 @@ import ScrumBoard from '../components/ScrumBoard';
 import MenuProductOwner from '../components/MenuProductOwner';
 import {userStore} from '../stores/UserStore';
 import { useState } from "react";
-
+import { useNavigate  } from 'react-router-dom';
 
 
 function PrincipalPage(){
 
     const tokenObject = userStore(state => state.token);
-    const tokenUSer = tokenObject.token;
+    const tokenUser = tokenObject.token;
     const [userType, setUserType] = useState(null);
+    const navigate=useNavigate();
     
 
    useEffect(() => {
@@ -24,21 +25,17 @@ function PrincipalPage(){
                 headers: {
                     Accept: "*/*",
                     "Content-Type": "application/json",
-                    'token':tokenUSer
+                    'token':tokenUser
                 }
             });
      
             if (response.ok) {
                 const user = await response.json();
                 setUserType(user.typeOfUser);
-                const role = user.typeOfUser;
-                userStore.getState().setTypeOfUser(role); 
-
-                
                 
             } else {
                 console.error("Failed to fetch user data");
-               window.location.href='/login';
+              navigate('/login');
             }
         } catch (error) {
             console.error("Error fetching user data:", error);
@@ -46,7 +43,7 @@ function PrincipalPage(){
         }
      };
      fetchData();
-    }, [tokenUSer]);
+    }, [tokenUser]);
 
 
     console.log(userType);

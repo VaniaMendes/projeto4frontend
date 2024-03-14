@@ -1,6 +1,5 @@
 import React from 'react';
-import { NotificationContainer, NotificationManager } from "react-notifications";
-import 'react-notifications/lib/notifications.css';
+import { NotificationManager } from "react-notifications";
 import {createCategory} from '../endpoints/categories';
 import {useState, useEffect} from 'react';
 import {userStore} from '../stores/UserStore';
@@ -45,7 +44,8 @@ function Categories(){
         <div>
           
         {showModal && (
-        <div id="categoryModal" className="modal-category">
+          
+        <div className="modal_container">
         <div className="descricaoCategoria">
             <button className="modal_exit" id="cancel" onClick={closeModal}>&times;</button>
             <label htmlFor="title">Category Title:</label>
@@ -61,6 +61,7 @@ function Categories(){
             </div>
         </div>
     </div>
+  
     )};
     </div>
     

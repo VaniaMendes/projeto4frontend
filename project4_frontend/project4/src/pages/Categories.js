@@ -25,7 +25,6 @@ function CategoriesPage(){
          fetchData();
         }, [tokenUser, forceUpdate]);
 
-
     return(
         <div>
             <MainPage />

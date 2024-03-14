@@ -1420,22 +1420,48 @@ label {
   background-color: var(--white_active);
 }
 
+.modal-container1{
+  position: absolute;
+  top:30%;
+  left:60%;
+  width:60%;
+  height: 40%;
+  background-color: var(--blue);
 
+}
 
 /* Página de Categorias */
+.modal_container{
+  transform: translate(-50%, -50%);
+  top:49%;
+  left: 58%;
+  position: absolute;
+  background-color: var(--blue);
+  width: 74%;
+  height: 75%;
+}
 
+.modal_container1{
+  transform: translate(-50%, -50%);
+  top:52%;
+  left: 60%;
+  position: absolute;
+  background-color: var(--blue);
+  width: 80%;
+  height: 99%;
+}
 
 .descricaoCategoria {
   margin: 40px auto;
   background-color: var(--white);
   border-radius: 12px;
   width: 24em;
+  left: 15%;
+  top:42%;
   padding: 10px 1em 1.8em 1em;
   box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.5);
   transform: translate(-50%, -50%);
-  top: 25%;
-  left: 850px;
-  position: absolute;
+  position: relative;
 }
 
 #category_save, #category_delete {

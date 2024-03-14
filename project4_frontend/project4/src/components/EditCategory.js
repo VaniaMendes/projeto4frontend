@@ -65,7 +65,7 @@ function EditCategory({ categoryId, showEditModal }) {
     <div>
       
       {showModal && (
-        <div id="categoryModal" className="modal-edit-category">
+        <div  className="modal_container">
           <div className="descricaoCategoria">
             <button className="modal_exit" id="cancel" onClick={closeModal}>
               &times;

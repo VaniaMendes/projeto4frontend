@@ -23,7 +23,7 @@
     overflow-y: auto; 
   }
   .image{
-    width: 95px;
+    width: 100px;
   }
   
   
@@ -118,6 +118,7 @@
 
   .search_icon{
     border: none;
+  font-size: 24px;
   }
 
   .notification-container {

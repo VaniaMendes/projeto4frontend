@@ -2,7 +2,7 @@
 import MainPage from '../components/MainPage';
 import { useState } from 'react';
 import { FaUserCircle } from "react-icons/fa";
-import { NotificationContainer, NotificationManager } from "react-notifications";
+import { NotificationManager } from "react-notifications";
 import 'react-notifications/lib/notifications.css';
 import '../format/register.css';
 

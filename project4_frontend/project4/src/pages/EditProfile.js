@@ -3,7 +3,7 @@ import MainPage from "../components/MainPage";
 import SideMenu from "../components/SideMenu";
 import { useState } from "react";
 import {userStore} from '../stores/UserStore';
-import { NotificationContainer, NotificationManager } from "react-notifications";
+import { NotificationManager } from "react-notifications";
 import 'react-notifications/lib/notifications.css';
 import MenuProductOwner from '../components/MenuProductOwner';
 import { useNavigate  } from 'react-router-dom';

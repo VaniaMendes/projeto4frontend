@@ -1,11 +1,12 @@
 import React, {useState} from 'react';
 import {userStore} from '../stores/UserStore';
-import { NotificationContainer, NotificationManager } from "react-notifications";
+import {  NotificationManager } from "react-notifications";
 import 'react-notifications/lib/notifications.css';
 import { MdOutlineRestore } from "react-icons/md";
 import { MdDeleteForever } from "react-icons/md";
 import "../format/tables.css";
 import { deleteUserForever, restoreUser} from '../endpoints/users';
+import { IoFilter } from "react-icons/io5";
 
 
 function InactiveUsersTable({ users }) {
@@ -59,8 +60,8 @@ function InactiveUsersTable({ users }) {
             <th className = 'titleUser'></th>
             <th className = 'titleUser'></th>
             <th className = 'titleUser'>
-                <input className='searchUser' placeholder='Search User'></input>
-                <button className="search_icon">&#128269;</button>
+   
+                <button className="search_icon"><IoFilter/></button>
                 </th>
                 </tr>
            
@@ -70,7 +71,7 @@ function InactiveUsersTable({ users }) {
                     <th >Email</th>
                     <th >Phone</th>
                     <th >Role</th>
-                    <th></th>
+                    <th>User Edition</th>
 
                 </tr>
             </thead>
