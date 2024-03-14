@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { editCategory, getCategoryById } from "../endpoints/categories";
-import { NotificationContainer, NotificationManager } from "react-notifications";
-import 'react-notifications/lib/notifications.css';
+import {NotificationManager } from "react-notifications";
+
 import { userStore } from "../stores/UserStore";
 import { useEffect } from "react";
 

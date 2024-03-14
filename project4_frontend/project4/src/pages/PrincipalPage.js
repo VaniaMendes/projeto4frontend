@@ -9,6 +9,7 @@ import { useState } from "react";
 import { useNavigate  } from 'react-router-dom';
 
 
+
 function PrincipalPage(){
 
     const tokenObject = userStore(state => state.token);
@@ -16,7 +17,6 @@ function PrincipalPage(){
     const [userType, setUserType] = useState(null);
     const navigate=useNavigate();
     
-
    useEffect(() => {
     const fetchData = async()=> {
         try {
@@ -46,7 +46,7 @@ function PrincipalPage(){
     }, [tokenUser]);
 
 
-    console.log(userType);
+    
 
     return(
         <div>
