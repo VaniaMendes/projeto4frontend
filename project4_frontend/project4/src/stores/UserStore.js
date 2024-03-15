@@ -7,19 +7,6 @@ export const userStore = create(
             token: "", 
             setToken: (token) => set({ token }), 
             getToken: () => userStore.getState().token,
-
-            userType: "", 
-            setUserType: (userType) => set({ userType }), 
-            getUserType: () => userStore.getState().userType,
-
-            forceUpdate: false,
-            setForceUpdate: (forceUpdate) => set({ forceUpdate }),
-            getForceUpdate: () => userStore.getState().forceUpdate,
-
-            stateModal:true,
-            setStateModal: (stateModal) => set({ stateModal }),
-            getStateModal: () => userStore.getState().stateModal,
-
         }),
         {
             name: 'mystore',
@@ -27,3 +14,8 @@ export const userStore = create(
         }
     )
 );
+
+export const saveIdCategoryForEdit = create((set) => ({
+    categoryId: "",
+    updateIDCategory: (newCategoryId) => set({ categoryId: newCategoryId }),
+}));

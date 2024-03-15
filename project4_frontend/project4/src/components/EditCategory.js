@@ -1,36 +1,38 @@
 import React, { useState } from "react";
 import { editCategory, getCategoryById } from "../endpoints/categories";
 import {NotificationManager } from "react-notifications";
+import { showModal } from "../stores/boardStore";
 
 import { userStore } from "../stores/UserStore";
 import { useEffect } from "react";
 
-function EditCategory({ categoryId, showEditModal }) {
+function EditCategory({categoryId}) {
   const [newtitle, setNewtitle] = useState("");
   const [newdescription, setNewdescription] = useState("");
   const tokenObject = userStore((state) => state.token);
   const tokenUser = tokenObject.token;
 
-  const [showModal, setShowModal] = useState(true);
-  console.log(showEditModal);
+  
+
   const [originalTitle, setOriginalTitle] = useState(null);
   const [originalDescription, setOriginalDescription] = useState(null);
-  const forceUpdate = userStore((state) => state.forceUpdate);
+
 
   useEffect(() => {
     const fetchData = async () => {
       const categoryAll = await getCategoryById(categoryId, tokenUser);
-      console.log(categoryAll);
+      if(categoryAll){
       setOriginalTitle(categoryAll.title);
       setOriginalDescription(categoryAll.description);
+      }
     };
     fetchData();
-  }, [categoryId]);
+  },);
 
   const closeModal = () => {
-    setShowModal(false);
+    showModal.setState({ showEditCategory: false });
   };
-
+  
   async function editCategoryModal(
     categoryId,
     tokenUser,
@@ -44,12 +46,12 @@ function EditCategory({ categoryId, showEditModal }) {
         newtitle,
         newdescription
       );
-      userStore.getState().setForceUpdate(!forceUpdate);
+
 
       if (result === 200) {
         NotificationManager.success("Category successfully edited", "",1000);
         closeModal();
-        userStore.getState().setForceUpdate(!forceUpdate);
+ 
 
              } else if (result === 422) {
         NotificationManager.warning("Title not available", "",1000);
@@ -62,14 +64,13 @@ function EditCategory({ categoryId, showEditModal }) {
   }
 
   return (
-    <div>
-      
-      {showModal && (
-        <div  className="modal_container">
+    
+              <div  className="modal_container"> {showModal && (
           <div className="descricaoCategoria">
             <button className="modal_exit" id="cancel" onClick={closeModal}>
               &times;
             </button>
+            <h2>Category Edition</h2>
             <label htmlFor="title">Category Title:</label>
             <input
               type="text"
@@ -112,7 +113,7 @@ function EditCategory({ categoryId, showEditModal }) {
               </button>
             </div>
           </div>
-        </div>
+        
       )}
       ;
     </div>

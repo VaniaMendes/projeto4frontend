@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { userStore } from "../stores/UserStore";
-import { NotificationContainer, NotificationManager } from "react-notifications";
+import { NotificationManager } from "react-notifications";
 import 'react-notifications/lib/notifications.css';
 import { HiHome } from "react-icons/hi2";
 import { RiLogoutCircleFill } from "react-icons/ri";
@@ -41,6 +41,9 @@ function SideMenu() {
       try {
         const user = await getUserByToken(tokenUser);
         setUserData(user);
+        const userType = user.typeOfUser;
+        
+
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
@@ -50,14 +53,12 @@ function SideMenu() {
 
   return (
     <div>
-     <NotificationContainer  className='notification-container' />
-
-      <div id="side_menu">
+           <div id="side_menu">
         <div id="menu">
           <div className="menu_image" id="user_name">
             <div id="user_info">
-              <img id="user_img" src={userData.imgURL} alt="User logo" />
-              <span className="welcome">{userData.firstName}</span>
+            <img id="user_img" src={userData && userData.imgURL} alt="User logo" />
+              <span className="welcome">{userData && userData.firstName}</span>
             </div>
             <button className="menu_item" onClick={homeclick}>
               <HiHome /> Home

@@ -32,7 +32,7 @@ function Login(){
 
             if (response.ok) {
                const token = await response.json();
-                userStore.getState().setToken(token);    
+                userStore.getState().setToken(token); 
                
                 NotificationManager.success("Welcome to AgileUp");
                 setTimeout(() => {

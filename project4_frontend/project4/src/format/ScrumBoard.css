@@ -13,5 +13,49 @@
     border-radius: 15px;
     
 }
+.task {
+    display: flex;
+    align-items: center;
+    height: 10%;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    text-align: left;
+  }
+  
+  .task-title {
+    flex: 1;
+    overflow: hidden; 
+  white-space: nowrap; 
+  text-overflow: ellipsis;
+  font-size: 14px;
+  font-weight: 700;
+  }
+  
+  .priority-bar {
+    width: 30px;
+    height: 100%;
+    margin-right: 12px;
+    
+  }
+  
+  .delete_btn,
+  .task_btn {
+    margin-left: 10px;
+   
+  }
+  .buttons_scrum{
+    text-align: left;
+   
+  }
+  .delete_btnS, .task_btnS{
+    border:none;
+    margin:none;
+  }
+  
+.priority-bar {
+    width: 5px;
+    height: 100%;
+    margin-right: 10px;
+  }
 
 

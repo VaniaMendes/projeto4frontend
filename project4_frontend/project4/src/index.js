@@ -6,11 +6,9 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router, Routes, Route } from'react-router-dom';
 import Register from './pages/Register';
 import PrincipalPage from './pages/PrincipalPage';
-import Categories from './pages/Categories';
-import InactiveUsers from './pages/InactiveUsers';
 import ProductOwner from './pages/ProductOwner';
 import EditProfile from './pages/EditProfile';
-import { NotificationContainer, NotificationManager } from "react-notifications";
+import { NotificationContainer } from "react-notifications";
 import 'react-notifications/lib/notifications.css';
 
 
@@ -27,8 +25,7 @@ root.render(
       <Route path="/principalPage" element = {<PrincipalPage/>}/>
       <Route path="/productOwner" element = {<ProductOwner/>}/>
       <Route path = "/editProfile" element = {<EditProfile/>}/>
-      <Route path = "/inactiveUsers" element = {<InactiveUsers/>}/>
-      <Route path= "/categories" element={<Categories/>} />
+   
       </Routes>
   </Router>
 

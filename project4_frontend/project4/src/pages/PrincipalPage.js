@@ -45,9 +45,6 @@ function PrincipalPage(){
      fetchData();
     }, [tokenUser]);
 
-
-    
-
     return(
         <div>
             

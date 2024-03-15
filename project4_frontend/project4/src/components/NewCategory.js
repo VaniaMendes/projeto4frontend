@@ -1,30 +1,27 @@
 import React from 'react';
 import { NotificationManager } from "react-notifications";
 import {createCategory} from '../endpoints/categories';
-import {useState, useEffect} from 'react';
+import {useState} from 'react';
 import {userStore} from '../stores/UserStore';
+import {showModal} from '../stores/boardStore';
 
 
 function Categories(){
 
     const [title, setTitle] = useState(''); 
     const [description, setDescription] = useState('');
-    const tokenObject = userStore(state => state.token);
-    const tokenUser = tokenObject.token;
-    const forceUpdate = userStore(state=>state.forceUpdate);
+    const tokenUser = userStore(state => state.token.token);
+    console.log(tokenUser);
 
-    const [showModal, setShowModal] = useState(true);  
-
-  function closeModal() {
-    setShowModal(false);
+   
+    const closeModal = () => {
+    showModal.setState({ showModalNewCategory: false });
   };
-
 
     const handleCategory = async (title, description, tokenUser) => {
         if(title !== ""){
         const result = await createCategory(title, description, tokenUser);
         if (result === 200) {
-            userStore.getState().setForceUpdate(!forceUpdate);
           NotificationManager.success("Category successfully created", "", 800);
           closeModal();
         }else if (result === 422){
@@ -39,15 +36,14 @@ function Categories(){
 
       };
      
-
     return(
-        <div>
+  
           
+        <div className="modal_container">             
         {showModal && (
-          
-        <div className="modal_container">
         <div className="descricaoCategoria">
             <button className="modal_exit" id="cancel" onClick={closeModal}>&times;</button>
+            <h2> New Category</h2>
             <label htmlFor="title">Category Title:</label>
             <input type="text" placeholder="Category Title" id="title" 
             value={title} onChange={(event) => setTitle(event.target.value)} required />
@@ -60,10 +56,10 @@ function Categories(){
                 <button className="btns_task" id="category_delete" onClick={closeModal}>Cancel</button>
             </div>
         </div>
-    </div>
+   
   
     )};
-    </div>
+     </div>
     
     )
 }

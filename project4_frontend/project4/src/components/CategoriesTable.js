@@ -3,40 +3,54 @@ import "../format/tables.css";
 import NewCategory from "./NewCategory";
 import { FaEdit } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import EditCategory from "./EditCategory";
 import { deleteCategory } from "../endpoints/categories";
 import {  NotificationManager} from "react-notifications";
 import "react-notifications/lib/notifications.css";
 import { userStore } from "../stores/UserStore";
 import { IoFilter } from "react-icons/io5";
+import {getAllCategories} from '../endpoints/categories'
 
-function Categories({ categories }) {
-  const [showModal, setShowModal] = useState(false);
-  const [showEditModal, setShowEditModal] = useState(false);
-  const [categoryId, setCategoryId] = useState(null);
+import { showModal } from '../stores/boardStore';
+
+function Categories() {
+  const [categories, setCategories] = useState(null);
+  const [categoryIdToEdit, setCategoryIdToEdit] = useState(null);
   const tokenObject = userStore((state) => state.token);
   const tokenUser = tokenObject.token;
-  const forceUpdate = userStore((state) => state.forceUpdate);
+  const showModalNewCategory = showModal((state) => state.showModalNewCategory);
+  const showEditCategory = showModal((state) => state.showEditCategory);
+  const setShowModalNewCategory = showModal((state) => state.setShowModalNewCategory);
+  const setShowEditCategory = showModal((state) => state.setShowEditCategory);
+    
+  useEffect(() => {
+        const fetchData = async()=> {
+                const categories = await getAllCategories(tokenUser);
+                setCategories(categories);
 
-  function openEditModal() {
-    setShowEditModal(true);  
-  }
-  
-  function openModal() {
-    setShowModal(true);
-  }
+         };
+         fetchData();
+        }, [tokenUser]);
+        
+        const openEditModal = (categoryId) => {
+          setCategoryIdToEdit(categoryId);
+          setShowEditCategory(true);
+        };
 
-  async function handleDelete(categoryId, tokenUser) {
+  const handleDelete = async (categoryId, tokenUser) => {
     const result = await deleteCategory(categoryId, tokenUser);
 
     if (result === true) {
       NotificationManager.success("Category deleted successfully", "",1000);
-      userStore.getState().setForceUpdate(!forceUpdate);
+      const updatedCategories = categories.filter(cat => cat.idCategory !== categoryId);
+      setCategories(updatedCategories);
+      
     } else {
       NotificationManager.error("Failed to delete category", "", 1000);
     }
   }
+
 
   return (
     <div>
@@ -49,7 +63,7 @@ function Categories({ categories }) {
                 <th className="titleUser">Categories</th>
                 <th className="titleUser"></th>
                 <th>
-                  <button id="btn_user" onClick={() => openModal()}>
+                  <button id="btn_user" onClick={() => setShowModalNewCategory(true)}>
                     +New Category
                   </button>
                 </th>
@@ -76,19 +90,14 @@ function Categories({ categories }) {
                     <td>
                       <button
                         className="edit_button"
-                        onClick={() => {
-                          setCategoryId(category.idCategory);
-                          openEditModal();
-                        }}
+                        onClick={() => openEditModal(category.idCategory)}
+                      
                       >
                         <FaEdit />
                       </button>
                       <button
                         className="delete_button"
-                        onClick={() => {
-                          setCategoryId(category.idCategory);
-                          handleDelete(category.idCategory, tokenUser);
-                        }}
+                        onClick={() => handleDelete(category.idCategory)}
                       >
                         <MdDeleteForever />
                       </button>
@@ -99,10 +108,8 @@ function Categories({ categories }) {
           </table>
         </div>
       </div>
-      {showModal && <NewCategory showModal={showModal} />}
-      {showEditModal && (
-        <EditCategory categoryId={categoryId} showEditModal={showEditModal} />
-      )}
+      {showModalNewCategory && <NewCategory />}
+      {showEditCategory && <EditCategory categoryId={categoryIdToEdit} />}
     </div>
   );
 }

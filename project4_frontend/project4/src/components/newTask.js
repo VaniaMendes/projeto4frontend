@@ -42,7 +42,7 @@ function NewTask() {
       closeModal();
 
     }else{
-    NotificationManager.warning(result);
+    NotificationManager.warning(result, "", 800);
    }
 
   };
@@ -164,8 +164,8 @@ function NewTask() {
                   selected
                   value="100"
                   onChange={handlePriorityChange}
-                  checked={priority === "100"}
-                />
+                  checked={priority === "100"} defaultChecked
+                 />
                 <label htmlFor="low_priority">Low</label>
               </div>
               <div className="priority_div">
@@ -200,7 +200,7 @@ function NewTask() {
                       ? "yellow"
                       : priorityColor === "300"
                       ? "red"
-                      : "transparent",
+                      : "green",
                 }}
               ></div>
             </div>

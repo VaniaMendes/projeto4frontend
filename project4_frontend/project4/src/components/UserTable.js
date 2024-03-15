@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaUserEdit } from "react-icons/fa";
 import { MdAutoDelete } from "react-icons/md";
 import { userStore } from "../stores/UserStore";
@@ -7,22 +7,36 @@ import { deleteUser } from "../endpoints/users";
 import NewUser from "./NewUser";
 import { NotificationManager } from "react-notifications";
 import { IoFilter } from "react-icons/io5";
+import{ getActiveUsers} from '../endpoints/users';
+import { showModal } from '../stores/boardStore';
 
-
-function UserTable({ users }) {
+function UserTable() {
   const tokenObject = userStore((state) => state.token);
   const tokenUser = tokenObject.token;
-  const forceUpdate = userStore(state=>state.forceUpdate);
-  const [showModal, setShowModal] = useState(false);
+  const [users, setUsers] = useState(null);
+  const { showNewUserModal, setShowNewUserModal } = showModal();
+  
+
+  useEffect(() => {
+        const fetchData = async()=> {
+          const users = await getActiveUsers(tokenUser);
+          setUsers(users);
+              
+         };
+         fetchData();
+        }, [tokenUser]);
+
+
 
   const handleEdit = (tokenUser, username) => {
 
   };
 
-function showModalNewUSer(){
-  setShowModal(true);
-  userStore.getState().setForceUpdate(!forceUpdate);
-}
+const openModal= ()=>{
+  setShowNewUserModal(true);
+ 
+};
+
 
 async function handleDelete (tokenUser, username){
     const result = await deleteUser(tokenUser, username);
@@ -33,7 +47,7 @@ async function handleDelete (tokenUser, username){
     } else {
       NotificationManager.error("Failed to delete user");
     }
-    userStore.getState().setForceUpdate(!forceUpdate);
+   
   };
 
   async function handleDeleteTasks(tokenUser, username) {
@@ -52,7 +66,7 @@ async function handleDelete (tokenUser, username){
               <th className="titleUser2">Active Users</th>
               <th className="titleUser"></th>
               <th className="titleUser">
-                <button id="btn_user"onClick={showModalNewUSer}>+New User</button>
+                <button id="btn_user"onClick={openModal}>+New User</button>
               </th>
               <th className="titleUser"></th>
               <th className="titleUser">
@@ -120,7 +134,7 @@ async function handleDelete (tokenUser, username){
         </table>
       </div>
     </div>
-    {showModal && <NewUser/>}</div>
+    {showNewUserModal && <NewUser/>}</div>
   );
 }
 

@@ -54,4 +54,28 @@ export async function getActiveTasks(tokenUser) {
     }
  }
  
+ export async function softDeleteTask(tokenUser, taskId) {
+   let deleteTaskRequest = `http://localhost:8080/project_backend/rest/tasks/${taskId}/softDelete`;
+   try {
+      const response = await fetch(deleteTaskRequest, {
+         method: "PUT",
+         headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            token: tokenUser
+         }
+      });
+
+      if (response.ok) {
+        return response.status;
+      } else {
+         return response.status;
+      }
+   
+   } catch (error) {
+      console.error("Error deleting task:", error);
+   }
+}
+
+
  

@@ -1,20 +1,23 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 
-export const boardStore = create(
-    persist(
-        (set) => ({
-            
 
-            listTasks: null,
-            setListTasks: (listTasks) => set({ listTasks }),
-            getListTasks: () => boardStore.getState().listTasks,
+//controla o aparecimento das tabelas na pagina do scrum master
+export const tables = create((set) => ({
+    showUserTable: true,
+    showCategoriesTable: false,
+    showInactiveUsersTable: false,
+    setShowUserTable: (value) => set({ showUserTable: value }),
+    setShowCategoriesTable: (value) => set({ showCategoriesTable: value }),
+    setShowInactiveUsersTable: (value) => set({ showInactiveUsersTable: value }),
+}));
 
-
-        }),
-        {
-            name: 'mystore',
-            storage: createJSONStorage(() => sessionStorage)
-        }
-    )
-);
+//Controla o aparecimento dos modals
+export const showModal = create((set) => ({
+    showModalNewCategory: false,
+    setShowModalNewCategory: (value) => set({ showModalNewCategory: value }),
+    showEditCategory: false,
+    setShowEditCategory: (value) => set({ showEditCategory: value }),
+    showNewUserModal: false, 
+    setShowNewUserModal: (value) => set({ showNewUserModal: value }), 
+  }));

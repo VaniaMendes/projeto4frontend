@@ -1,13 +1,16 @@
 import React, { useState } from "react";
-import { registerUserByPO, alert } from "../endpoints/users";
+import { registerUserByPO } from "../endpoints/users";
 import { FaUserCircle } from "react-icons/fa";
 import { userStore } from "../stores/UserStore";
 import "../format/register.css";
 import {NotificationManager } from "react-notifications";
+import { showModal } from "../stores/boardStore";
 
 function NewUser() {
   const tokenObject = userStore((state) => state.token);
   const tokenUser = tokenObject.token;
+  const showNewUserModal = showModal((state) => state.showNewUserModal); 
+  const setShowNewUserModal = showModal((state) => state.setShowNewUserModal); 
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -17,15 +20,11 @@ function NewUser() {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [imgURL, setImageURL] = useState("");
   const [typeOfUser, setTypeOfUser] = useState("");
-  const forceUpdate = userStore((state) => state.forceUpdate);
 
 
-  const [showModal, setShowModal] = useState(true);
-
-  function closeModal() {
-    setShowModal(false);
-    userStore.getState().setForceUpdate(!forceUpdate);
-  }
+  const closeModal = () => {
+    setShowNewUserModal(false);
+  };
 
   const newUser = {
     username: username,
@@ -44,7 +43,6 @@ function NewUser() {
     const result = await registerUserByPO(tokenUser, newUser);
     if(result===200){
       NotificationManager.success("New User successfully created", "", 800);
-      userStore.getState().setForceUpdate(!forceUpdate);
       closeModal();
     }else{
       NotificationManager.warning(result, "", 800);
@@ -52,12 +50,11 @@ function NewUser() {
    
   };
 
-
   return (
-    <div >
-     
-      {showModal && (
-        <div className="modal_container">
+
+    
+        <div className="modal_container">  
+      {showNewUserModal && (
         <div className='form_register'>
         <form className="registerPO" id="form_register">
           <h2 className="register-header">
@@ -187,7 +184,7 @@ function NewUser() {
           </div>
         </form>
         </div>
-        </div>
+  
       )}
       ;
     </div>

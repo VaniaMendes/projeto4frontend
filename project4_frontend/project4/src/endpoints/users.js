@@ -154,5 +154,58 @@ export async function registerUserByPO(tokenUser, newUser) {
   }
 }
 
+export async function getInactiveUsers(tokenUser) {
+  try {
+      const response = await fetch("http://localhost:8080/project_backend/rest/users/inactiveUsers", {
+          method: "GET",
+          headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+              token:tokenUser
+          }
+      });
+
+      if (response.ok) {
+          const users = await response.json();
+          return users;
+          
+          
+      } else {
+          console.error("Failed to fetch user data");
+          return null;
+      }
+  } catch (error) {
+      console.error("Error fetching user data:", error);
+      return null;
+  }
+}
+
+export async function getActiveUsers(token) {
+  try {
+      const response = await fetch("http://localhost:8080/project_backend/rest/users/activeUsers", {
+          method: "GET",
+          headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+              token:token
+          }
+      });
+
+      if (response.ok) {
+          const users = await response.json();
+          return users;
+          
+          
+      } else {
+          console.error("Failed to fetch user data");
+          return null;
+      }
+  } catch (error) {
+      console.error("Error fetching user data:", error);
+      return null;
+  }
+}
+
+
 
 
