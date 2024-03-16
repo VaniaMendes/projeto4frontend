@@ -4,53 +4,44 @@
     font-size: 20px;
     align-items: center;
     border: none;
+    position: sticky;
+   
     
   }
-  
-  .users_container, .category_table {
-    position: absolute;
-    top: 49%;
-    left: 58%;
+  .users_table{
+    align-items: center;
+  }
+
+.table_container{
+  position: absolute;
+    top: 50%;
+    left: 57%;
     transform: translate(-50%, -50%);
     width: 71%; 
     height: auto; 
     max-height: 600px;
-    z-index: -1;
+    max-height: 600px;
     background-color: var(--white);
     border-radius: 15px;
-    border-collapse: collapse;
-    flex-direction: column;
-    overflow-y: auto; 
-  }
+    overflow-y: auto;
+    align-items: center;
+
+    
+}
+  
   .image{
     width: 100px;
   }
-  
-  
-  #users_table th,
-  #users_table td {
-      text-align: center;
-  }
+
   .head{
-    border-bottom: none;
+    position: sticky;
+    top: -2%;
+    z-index: 100;
+    border:none
+    
+
   }
 
-  #th-head-left-corner{
-    width: 80px;
-  }
-  
-  .users_table, .usersInactive_container {
-    width: 100%; 
-    height: auto;
-    overflow: auto; 
-    align-items: center;
-   
-    
-  }
-  #users_table th {
-    position: sticky;
-    z-index: 1000;
-  }
   #btn_user{
    outline:none !important;
    font-weight: bold;
@@ -61,30 +52,20 @@
   #btn_user:hover{
     background-color: var(--blueButton);
   }
-  #users_table thead th {
-    position: sticky;
-    top: 0;
-    background-color: var(--white_hover); 
-    z-index: 1000; 
-    position: sticky;
-    top: 0;
-  }
   .searchUser{
     border: none;
-    border-bottom: 3px solid var(--black);
+   
     margin-right:10px;
     width: 95px;
 
 
   }
   .titleUser, .header, .image{
-    border-bottom: none;
+  border: 3px solid var(--white_hover);
     position:sticky;
-  }
-  .header{
-    border-bottom: 3px solid var(--black);
-  }
   
+  }
+
 
   .user_list{
     height: 300px;
@@ -95,6 +76,7 @@
     border-radius: 5px;
     padding: 5px;
     overflow-y: auto;
+    text-align: center;
   }
 
   .edit_button, .delete_button, .delete_task, .restore_user, .restore_button {
@@ -135,3 +117,37 @@
     color: rgb(14, 160, 14);
     font-size: 25px;
   }
+
+
+  /* Inative tasks table */
+
+
+  
+  .inative-tasks-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .table_container th {
+    background-color: var(--white_hover);
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    padding: 8px;
+    text-align: left;
+    height: 50px;
+    border:none;
+    align-items: center;
+    
+  }
+  
+  .table_container td {
+    padding: 8px;
+    text-align: left;
+    border:none;
+  }
+  
+.task_icon{
+  width: 90%;
+  height: 90%;
+}

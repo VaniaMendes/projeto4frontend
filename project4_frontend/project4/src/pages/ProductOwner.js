@@ -7,16 +7,19 @@ import CategoriesTable from '../components/CategoriesTable';
 import InactiveUsersTable from '../components/InativeUsersTable';
 import {useState} from 'react'
 import {tables} from '../stores/boardStore';
+import InativeTasksTable from '../components/InativeTasksTable';
 
 
 function ProductOwner(){
-  const { showUserTable, showCategoriesTable, showInactiveUsersTable } = tables();
+  const { showUserTable, showCategoriesTable, showInactiveUsersTable, showInativeTasksTable } = tables();
   
     return (
       <div>
+
         {showUserTable && <UserTable />}
         {showCategoriesTable && <CategoriesTable />}
         {showInactiveUsersTable && <InactiveUsersTable />}
+        {showInativeTasksTable && <InativeTasksTable />}
         <MainPage/>
         <SideMenu/>
         <MenuProductOwner/>

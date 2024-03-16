@@ -55,13 +55,15 @@ async function handleDelete (tokenUser, username){
   };
 
   return (
-    <div>
     
-    <div className="users_container">
-      <div className="users_table">
-        <table id="users_table">
-          <thead>
-            <tr className="head">
+    
+    <div>
+    <div className="table_container">
+    
+   
+        <table classname="users_table">
+          <thead >
+            <tr  >
               <th className="titleUser"><img src='icon-green.png'></img></th>
               <th className="titleUser2">Active Users</th>
               <th className="titleUser"></th>
@@ -83,6 +85,7 @@ async function handleDelete (tokenUser, username){
               <th>User Edition</th>
             </tr>
           </thead>
+          
           <tbody className="body">
             {users &&
               users.map((user, index) => (
@@ -132,8 +135,8 @@ async function handleDelete (tokenUser, username){
               ))}
           </tbody>
         </table>
-      </div>
-    </div>
+</div>
+   
     {showNewUserModal && <NewUser/>}</div>
   );
 }

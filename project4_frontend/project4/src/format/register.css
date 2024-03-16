@@ -7,7 +7,7 @@
     box-shadow: -50px 0px 30px 30px rgba(0, 0, 0, 0.4);
     left: 52%;
     margin:0;
-    z-index: 1000;
+    z-index: 2000;
     
   }
  
@@ -17,7 +17,7 @@
 
   .registerPO{
     height: 650px !important;
-    z-index: 1000;
+    z-index: 2000;
   }
   #registerPO_submit{
     width: 45%;

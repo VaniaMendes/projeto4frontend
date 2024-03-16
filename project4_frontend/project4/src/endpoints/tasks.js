@@ -77,5 +77,30 @@ export async function getActiveTasks(tokenUser) {
    }
 }
 
+export async function getAllInactiveTasks(tokenUser) {
+   let getInactiveTasksRequest = "http://localhost:8080/project_backend/rest/tasks/getAllSoftDeletedTasks";
+
+   try {
+       const response = await fetch(getInactiveTasksRequest, {
+           method: "GET",
+           headers: {
+               Accept: "application/json",
+               "Content-Type": "application/json",
+               token: tokenUser
+           }
+       });
+
+       if (response.ok) {
+           const inactiveTasks = await response.json();
+           return inactiveTasks;
+       } else {
+           console.error("Failed to fetch inactive tasks");
+           return null;
+       }
+   } catch (error) {
+       console.error("Error fetching inactive tasks:", error);
+       return null;
+   }
+}
 
  

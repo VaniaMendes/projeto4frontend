@@ -596,95 +596,6 @@ img {
   height: 32.8px;
 }
 
-/*//////////////////////////////Janela das Retrospetivas/////////////////////////////////////////*/
-
-#date_col {
-  width: 150px;
-  font-size: 8;
-}
-
-#title_col {
-  width: 400px;
-}
-
-#retrospective_title h2 {
-  position: fixed;
-  padding-left: 20px;
-  font-weight: 500;
-  padding: 15px 0px 0px 20px;
-  width: 250px;
-  margin: 35px 0px 0px 400px;
-  color: var(--white);
-}
-
-/* Apply animation to this element 
-  -moz-animation: example5 5s linear infinite alternate;
-  -webkit-animation: example5 5s linear infinite alternate;
-  animation: example5 5s linear infinite alternate;
-}
-Move it (define the animation) 
-@-moz-keyframes example5 {
-  0% {
-     -moz-transform: translateX(70%);
-  }
-  100% {
-     -moz-transform: translateX(0%);
-  }
-}
-@-webkit-keyframes example5 {
-  0% {
-     -webkit-transform: translateX(70%);
-  }
-  100% {
-     -webkit-transform: translateX(0%);
-  }
-}
-@keyframes example5 {
-  0% {
-     -moz-transform: translateX(70%); /* Firefox bug fix 
-     -webkit-transform: translateX(70%); /* Firefox bug fix 
-     transform: translateX(70%);
-  }
-  100% {
-     -moz-transform: translateX(0%); /* Firefox bug fix 
-     -webkit-transform: translateX(0%);Firefox bug fix 
-     transform: translateX(0%);
-  } */
-
-#retrospective_list table {
-  flex-shrink: 0;
-  margin: 90px 0px 0px 400px;
-  color: var(--black);
-  background-color: var(--white);
-  border-radius: 12px;
-  border-width: 2px;
-  padding-top: 12px;
-  width: 600px;
-  border-collapse: collapse;
-  overflow: hidden;
-}
-
-#retrospective_list th,
-td {
-  padding: 5px;
-}
-
-#retrospective_list th {
-  text-align: center;
-}
-
-#retrospective_list thead,
-th {
-  background-color: rgb(200, 200, 200);
-}
-
-#retrospective_list tr:hover {
-  background-color: var(--white_hover);
-  cursor: pointer;
-}
-#retrospective_list tr:active {
-  background-color: var(--white_active);
-}
 
 /*///////////////////////////////////////////*/
 #modal1 {
@@ -794,70 +705,13 @@ th {
   margin-left: 30px;
 }
 
-#table_container {
-  max-height: 300px;
-  overflow-y: auto;
-  overflow-x: hidden;
-  border-radius: 5px;
-  padding: 0;
-  margin-top: 5px;
-}
 
-#table_container::-webkit-scrollbar {
-  width: 9px;
-}
 
-#table_container::-webkit-scrollbar-thumb {
-  background-color: rgb(159, 159, 159);
-  border-radius: 10px;
-}
 
-#table_container::-webkit-scrollbar-track {
-  border-radius: 10px;
-  background-color: rgb(186, 186, 186);
-  margin-top: 41px;
-}
 
-#table_comments {
-  width: 575px;
-  background-color: var(--white_hover);
-  border-spacing: 0px;
-  border-collapse: separate;
 
-  border-radius: 5px;
-}
 
-#table_comments th {
-  border-bottom: 1px solid;
-  background-color: var(--white_active);
-  position: sticky;
-  top: 0px;
-}
 
-#table_comments thead {
-  top: -10px;
-}
-
-#comment_id {
-  border-top-left-radius: 5px;
-  text-align: center;
-}
-#author_id {
-  width: 100px;
-  border-top-right-radius: 5px;
-  text-align: center;
-}
-
-#type_id {
-  width: 190px;
-  text-align: center;
-}
-
-#body_comments td {
-  height: 25px;
-  padding: 8px;
-  border-bottom: 1px solid;
-}
 
 /*/ /////////////Janela task.html/////////////////*/
 
@@ -1439,6 +1293,7 @@ label {
   background-color: var(--blue);
   width: 74%;
   height: 75%;
+  z-index: 2000;
 }
 
 .modal_container1{
@@ -1449,6 +1304,7 @@ label {
   background-color: var(--blue);
   width: 80%;
   height: 99%;
+  z-index: 2000;
 }
 
 .descricaoCategoria {

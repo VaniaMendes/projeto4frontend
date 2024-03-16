@@ -53,14 +53,11 @@ function Categories() {
 
 
   return (
-    <div>
-     
-      <div className="users_container">
-        <div className="users_table">
+    <div className="table_container">
           <table id="users_table">
-            <thead>
-              <tr className="head">
-                <th className="titleUser">Categories</th>
+            <thead className="head">
+              <tr className="header1" >
+                <th className="titleUser1">Categories</th>
                 <th className="titleUser"></th>
                 <th>
                   <button id="btn_user" onClick={() => setShowModalNewCategory(true)}>
@@ -106,8 +103,8 @@ function Categories() {
                 ))}
             </tbody>
           </table>
-        </div>
-      </div>
+ 
+   
       {showModalNewCategory && <NewCategory />}
       {showEditCategory && <EditCategory categoryId={categoryIdToEdit} />}
     </div>

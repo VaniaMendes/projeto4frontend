@@ -19,12 +19,14 @@ function MenuProductOwner(){
         setShowButtons(!showButtons);
     };
 
-    const { setShowUserTable, setShowCategoriesTable, setShowInactiveUsersTable } = tables();
+    const { setShowUserTable, setShowCategoriesTable, setShowInactiveUsersTable, setInativeTasksTable } = tables();
+
 
     const handleShowUserTable = () => {
        setShowUserTable(true);
        setShowCategoriesTable(false);
        setShowInactiveUsersTable(false);
+       setInativeTasksTable(false);
     }
   
 
@@ -32,7 +34,7 @@ function MenuProductOwner(){
         setShowCategoriesTable(true);
         setShowInactiveUsersTable(false);
         setShowUserTable(false);
-      
+        setInativeTasksTable(false);
 
     };
 
@@ -40,7 +42,14 @@ function MenuProductOwner(){
         setShowInactiveUsersTable(true);
         setShowUserTable(false);
         setShowCategoriesTable(false);
+        setInativeTasksTable(false);
     
+    }
+    const handleInativeTasks = () => {
+        setShowInactiveUsersTable(false);
+        setShowUserTable(false);
+        setShowCategoriesTable(false);
+        setInativeTasksTable(true);
     }
 
    
@@ -58,7 +67,7 @@ return(
                         <li id='active' onClick={handleInativeUsers}><FaUserAltSlash className='icon'/>Inactive Users</li>
                     </ul>
                 )}
-        <li> <MdTask/> Inactive Tasks</li>
+        <li onClick={handleInativeTasks}> <MdTask/> Deleted Tasks</li>
         <li onClick={handleShowCategoriesTable}><BiSolidCategoryAlt/> Categories</li>
     </ul>
 </div>

@@ -58,13 +58,13 @@ function InactiveUsersTable({ users }) {
     };
 
     return (
-        <div className='users_container'>
+      
             
-        <div className='users_table'>
+        <div className='table_container'>
         <table id="users_table">
        
-        <thead className='header'>
-            <tr className='head'>
+        <thead className='head'>
+            <tr className='header1'>
             <th className='titleUser' id= 'users_table'><img src='user_icon.png'></img></th>
             <th className='titleUser1'>Inactive Users</th>
             <th className='titleUser'></th>
@@ -108,7 +108,7 @@ function InactiveUsersTable({ users }) {
             </tbody>
         </table>
         </div>
-        </div>
+    
     );
 }
 
