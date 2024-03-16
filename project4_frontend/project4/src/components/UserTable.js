@@ -66,9 +66,11 @@ async function handleDelete (tokenUser, username){
             <tr  >
               <th className="titleUser"><img src='icon-green.png'></img></th>
               <th className="titleUser2">Active Users</th>
-              <th className="titleUser"></th>
               <th className="titleUser">
-                <button id="btn_user"onClick={openModal}>+New User</button>
+              <button id="btn_user"onClick={openModal}>+New User</button>
+              </th>
+              <th className="titleUser">
+                
               </th>
               <th className="titleUser"></th>
               <th className="titleUser">

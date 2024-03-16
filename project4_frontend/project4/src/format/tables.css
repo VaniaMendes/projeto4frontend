@@ -117,6 +117,11 @@
     color: rgb(14, 160, 14);
     font-size: 25px;
   }
+  .titleUser3{
+    text-align: left!important;
+    color: var(--blue);
+    font-size: 25px;
+  }
 
 
   /* Inative tasks table */
@@ -128,7 +133,7 @@
     border-collapse: collapse;
   }
   
-  .table_container th {
+  .table_container thead {
     background-color: var(--white_hover);
     position: sticky;
     top: 0;
@@ -140,6 +145,15 @@
     align-items: center;
     
   }
+  .table_container th {
+    text-align: center;
+  }
+
+  .table_container tbody td {
+    text-align: center;
+  }
+  
+
   
   .table_container td {
     padding: 8px;
@@ -148,6 +162,12 @@
   }
   
 .task_icon{
-  width: 90%;
-  height: 90%;
+  width: 40px;
+  height: 40px;
+}
+
+.colorPriority{
+  height: 10px;
+  width: 10px;
+  border-radius: 15%;
 }

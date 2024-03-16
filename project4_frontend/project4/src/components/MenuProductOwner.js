@@ -35,6 +35,7 @@ function MenuProductOwner(){
         setShowInactiveUsersTable(false);
         setShowUserTable(false);
         setInativeTasksTable(false);
+        navigate('/productOwner');
 
     };
 
@@ -50,6 +51,7 @@ function MenuProductOwner(){
         setShowUserTable(false);
         setShowCategoriesTable(false);
         setInativeTasksTable(true);
+        navigate('/productOwner');
     }
 
    

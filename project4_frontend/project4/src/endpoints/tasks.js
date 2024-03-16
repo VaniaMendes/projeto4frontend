@@ -103,4 +103,28 @@ export async function getAllInactiveTasks(tokenUser) {
    }
 }
 
+export async function getPhotoByUsername(token, username) {
+   try {
+       const response = await fetch(`http://localhost:8080/project_backend/rest/users/Photo/${username}`, {
+           method: 'GET',
+           headers: {
+               'Content-Type': 'application/json',
+               'token': token
+           }
+       });
+
+       if (!response.ok) {
+           throw new Error('Failed to fetch user details');
+       }
+
+       const data = await response.json();
+       console.log(data);
+       return data;
+   } catch (error) {
+       console.error('Error:', error.message);
+       return null;
+   }
+}
+
+
  

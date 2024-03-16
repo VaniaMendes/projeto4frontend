@@ -11,6 +11,7 @@ import "react-notifications/lib/notifications.css";
 import { userStore } from "../stores/UserStore";
 import { IoFilter } from "react-icons/io5";
 import {getAllCategories} from '../endpoints/categories'
+import { BiSolidCategoryAlt } from "react-icons/bi";
 
 import { showModal } from '../stores/boardStore';
 
@@ -57,8 +58,8 @@ function Categories() {
           <table id="users_table">
             <thead className="head">
               <tr className="header1" >
-                <th className="titleUser1">Categories</th>
-                <th className="titleUser"></th>
+                <th className="titleUser"><BiSolidCategoryAlt className='task_icon'/></th>
+                <th className="titleUser3">  Categories</th>
                 <th>
                   <button id="btn_user" onClick={() => setShowModalNewCategory(true)}>
                     +New Category
@@ -70,9 +71,9 @@ function Categories() {
                 </th>
               </tr>
               <tr className="header">
+              <th>Author</th>
                 <th>Title</th>
                 <th>Description</th>
-                <th>Author</th>
                 <th>Category Edition</th>
               </tr>
             </thead>
@@ -80,9 +81,10 @@ function Categories() {
               {categories &&
                 categories.map((category, index) => (
                   <tr key={index}>
+                     <td>{category.author.username}</td>
                     <td>{category.title}</td>
                     <td>{category.description}</td>
-                    <td>{category.author.username}</td>
+                   
 
                     <td>
                       <button
