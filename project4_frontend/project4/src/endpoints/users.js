@@ -206,6 +206,61 @@ export async function getActiveUsers(token) {
   }
 }
 
+export async function updateProfileByPO(tokenUser,username, updatedUserData) {
+
+  try {
+      const response = await fetch("http://localhost:8080/project_backend/rest/users/updateProfilePO", {
+          method: 'PUT',
+          headers: {
+           'Content-Type': 'application/json',
+           'Accept': '*/*',
+           token:tokenUser,
+           username:username
+          },
+          body: JSON.stringify(updatedUserData)
+      });
+
+      if (response.ok) {
+          return 200;
+      }else{
+        const result = await response.text();
+        return result;
+     }
+   
+  }catch(error){
+     
+  }
+}
+
+export async function getUserByUsername(tokenUser, username) {
+  try {
+
+      const response = await fetch("http://localhost:8080/project_backend/rest/users/user", {
+
+      method: "GET",
+      headers: {
+          'Content-Type': 'application/json',
+          'Accept':   '*/*',
+          "token":tokenUser,
+          'username': username
+      },
+
+      });
+
+      if (response.ok) {
+          const user = await response.json();
+          return user;
+          
+      } else {
+          console.error("Failed to fetch user data");
+          return null;
+      }
+  } catch (error) {
+      console.error("Error fetching user data:", error);
+      return null;
+  }
+}
+
 
 
 

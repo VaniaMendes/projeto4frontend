@@ -1,9 +1,9 @@
 import React from 'react';
 import { NotificationManager } from "react-notifications";
 import {createCategory} from '../endpoints/categories';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import {userStore} from '../stores/UserStore';
-import {showModal} from '../stores/boardStore';
+import {showModal, updateCategoriesTable} from '../stores/boardStore';
 
 
 function Categories(){
@@ -11,19 +11,23 @@ function Categories(){
     const [title, setTitle] = useState(''); 
     const [description, setDescription] = useState('');
     const tokenUser = userStore(state => state.token.token);
-    console.log(tokenUser);
-
+ 
+    const { setShowCategoriesTable, showCategoriesTable } = updateCategoriesTable();
+    
    
     const closeModal = () => {
     showModal.setState({ showModalNewCategory: false });
   };
 
+ 
+
     const handleCategory = async (title, description, tokenUser) => {
         if(title !== ""){
         const result = await createCategory(title, description, tokenUser);
         if (result === 200) {
-          NotificationManager.success("Category successfully created", "", 800);
+          NotificationManager.success("Category successfully created", "", 800);        
           closeModal();
+          setShowCategoriesTable(!showCategoriesTable);
         }else if (result === 422){
             NotificationManager.warning("Title already exists", "", 800);
          

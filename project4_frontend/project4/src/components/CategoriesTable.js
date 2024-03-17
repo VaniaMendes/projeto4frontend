@@ -13,7 +13,7 @@ import { IoFilter } from "react-icons/io5";
 import {getAllCategories} from '../endpoints/categories'
 import { BiSolidCategoryAlt } from "react-icons/bi";
 
-import { showModal } from '../stores/boardStore';
+import { showModal, updateCategoriesTable } from '../stores/boardStore';
 
 function Categories() {
   const [categories, setCategories] = useState(null);
@@ -24,6 +24,9 @@ function Categories() {
   const showEditCategory = showModal((state) => state.showEditCategory);
   const setShowModalNewCategory = showModal((state) => state.setShowModalNewCategory);
   const setShowEditCategory = showModal((state) => state.setShowEditCategory);
+  const { setShowCategoriesTable, showCategoriesTable } = updateCategoriesTable();
+
+  
 
     
  
@@ -37,7 +40,7 @@ function Categories() {
         useEffect(() => {
 
           fetchData();
-        }, [tokenUser]);
+        }, [tokenUser, showCategoriesTable]);
 
 
 
@@ -45,7 +48,8 @@ function Categories() {
         const openEditModal = (categoryId) => {
           userStore.getState().setCategoryId(categoryId);
           setShowEditCategory(true);
-          fetchData();
+            
+      
         };
 
   const handleDelete = async (categoryId, tokenUser) => {

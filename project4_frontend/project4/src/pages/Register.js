@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { FaUserCircle } from "react-icons/fa";
 import { NotificationManager } from "react-notifications";
 import '../format/register.css';
+import { useNavigate } from 'react-router-dom';
 
 function Register(){
 
@@ -14,6 +15,7 @@ function Register(){
     const [lastName, setLastName] = useState('');
     const [phoneNumber, setPhoneNumber] = useState(''); 
     const [imgURL, setImageURL] = useState('');
+    const navigate = useNavigate();
   
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -39,7 +41,7 @@ method: 'POST',
 if (response.ok) {
     NotificationManager.success("Account registered successfully!");
     setTimeout(() => {
-      window.location.href = '/login';
+      navigate('/login');
   }, 1000);
 
    
@@ -76,6 +78,13 @@ console.error('Error:', error);
 NotificationManager.warning("Something went wrong");
 }
     };
+
+
+    const closeModal = () => {
+      navigate('/login');
+    };
+
+
     return( 
 
         <div>
@@ -106,7 +115,20 @@ NotificationManager.warning("Something went wrong");
             <label htmlFor="register_photo_amin"className="descriptioLabel">URL Image  <input type="url" placeholder="Enter the URL of your image" className="register_elem" id="register_photo_main"
             value={imgURL} onChange={(event) => setImageURL(event.target.value)} required /></label>
             
-            <button className="register_elem" id="register_submit" onClick={handleSubmit} >Confirm</button>
+      
+            <button className="register_elem"
+              id="registerPO_submit"
+              onClick={handleSubmit}
+            >
+              Save
+            </button>
+            <button
+              className="register_elem"
+              id="registerPO_submit"
+              onClick={closeModal}
+            >
+              Cancel
+            </button>
         
          </form>
       </div>

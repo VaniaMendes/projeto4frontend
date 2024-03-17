@@ -22,11 +22,15 @@ export const showModal = create((set) => ({
     setShowEditCategory: (value) => set({ showEditCategory: value }),
     showNewUserModal: false, 
     setShowNewUserModal: (value) => set({ showNewUserModal: value }), 
+    showModalEditUser:false,
+    setShowModalEditUser:(value) => set({ showModalEditUser: value }),
   }));
 
-  export const editProfileByPO = create((set) => ({
-    showEditProfilePO: false,
-    setShowEditProfilePO: (value) => set({ showEditProfile: value }),
+  
+
+  export const updateCategoriesTable = create((set) => ({
+    showCategoriesTable: false,
+    setShowCategoriesTable: (value) => set({ showCategoriesTable: value }),
   }));
 
 

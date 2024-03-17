@@ -10,8 +10,9 @@ import { IoFilter } from "react-icons/io5";
 import{ getActiveUsers} from '../endpoints/users';
 import { showModal } from '../stores/boardStore';
 import {deleteUserTasks} from '../endpoints/tasks';
-import { editProfileByPO } from '../stores/boardStore';
-import EditProfile from "./edit_profile";
+import EditProfileByPO from "./editProfileByPO";
+
+
 
 
 function UserTable() {
@@ -19,7 +20,8 @@ function UserTable() {
   const tokenUser = tokenObject.token;
   const [users, setUsers] = useState(null);
   const { showNewUserModal, setShowNewUserModal } = showModal();
-  const { showEditProfilePO, setShowEditProfilePO } = editProfileByPO();
+  const { showModalEditUser, setShowModalEditUser } = showModal();
+
   
   
 
@@ -35,8 +37,9 @@ function UserTable() {
 
 
 
-  const handleEdit = async () => {
-    setShowEditProfilePO(true);
+  const handleEdit = async (username) => {
+    setShowModalEditUser(true);
+    userStore.setState({ username: username });
     
 
   };
@@ -138,7 +141,7 @@ const handleDeleteTasks = async (tokenUser, username) => {
                   <td>
                     <button
                       className="edit_button"
-                      onClick={() => handleEdit()}
+                      onClick={() => handleEdit(user.username)}
                     >
                       <FaUserEdit />
                     </button>
@@ -162,7 +165,7 @@ const handleDeleteTasks = async (tokenUser, username) => {
           </tbody>
         </table>
 </div>
-  {showEditProfilePO && <EditProfile/>}
+  {showModalEditUser && <EditProfileByPO/>}
     {showNewUserModal && <NewUser/>}</div>
   );
 }

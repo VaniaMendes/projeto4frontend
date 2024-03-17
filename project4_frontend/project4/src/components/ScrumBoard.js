@@ -63,10 +63,26 @@ const handleDeleteTask = async (tokenUser, taskId) => {
   }
   
 };
+
+// Função para ordenar as tarefas
+const sortTasks = (tasks) => {
+  return tasks.sort((b, a) => {
+    // Ordenar por prioridade
+    if (a.priority !== b.priority) {
+      return a.priority - b.priority;
+    }
+    // Ordenar por data inicial
+    if (a.initialDate !== b.initialDate) {
+      return new Date(a.initialDate) - new Date(b.initialDate);
+    }
+    // Ordenar por data final
+    return new Date(a.endDate) - new Date(b.endDate);
+  });
+};
       
-      const todoList = listTasks.filter(tasks => tasks.state ==='toDo');
-      const doingList = listTasks.filter(tasks => tasks.state ==='doing');
-      const doneList = listTasks.filter(tasks => tasks.state ==='done');
+const todoList = sortTasks(listTasks.filter(tasks => tasks.state ==='toDo'));
+const doingList = sortTasks(listTasks.filter(tasks => tasks.state ==='doing'));
+const doneList = sortTasks(listTasks.filter(tasks => tasks.state ==='done'));
    
      return(
       <div>

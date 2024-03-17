@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { editCategory, getCategoryById } from "../endpoints/categories";
 import {NotificationManager } from "react-notifications";
-import { showModal } from "../stores/boardStore";
+import { showModal, updateCategoriesTable } from "../stores/boardStore";
 
 import { userStore } from "../stores/UserStore";
 import { useEffect } from "react";
@@ -12,11 +12,7 @@ function EditCategory({categoryIdToEdit}) {
   const tokenObject = userStore((state) => state.token);
   const tokenUser = tokenObject.token;
   const categoryId = userStore((state) => state.getCategoryId());
-  console.log(categoryId);
- 
-
-
-  
+  const { setShowCategoriesTable, showCategoriesTable } = updateCategoriesTable();
 
   const [originalTitle, setOriginalTitle] = useState(null);
   const [originalDescription, setOriginalDescription] = useState(null);
@@ -54,6 +50,8 @@ function EditCategory({categoryIdToEdit}) {
 
       if (result === 200) {
         NotificationManager.success("Category successfully edited", "",1000);
+        
+        setShowCategoriesTable(!showCategoriesTable);
         closeModal();
  
 

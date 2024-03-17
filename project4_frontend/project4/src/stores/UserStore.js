@@ -11,13 +11,19 @@ export const userStore = create(
 
 
             role: "",
-            setRole: (role) => set({ role }), // Adicionando setRole para atualizar o estado do role
+            setRole: (role) => set({ role }),
             getRole: () => userStore.getState().role,
 
 
+            //Guar o id da categoria para ser possível a sua edição
             categoryId:"",
-            setCategoryId: (categoryId) => set({ categoryId }), // Adicionando setRole para atualizar o estado do role
+            setCategoryId: (categoryId) => set({ categoryId }), 
             getCategoryId: () => userStore.getState().categoryId,
+
+            //Guarda o username necessário para editar o perfil pelo PO
+            username:"",
+            setUsername: (username) => set({ username }),
+            getUsername: () => userStore.getState().username,
 
         }),
         {
