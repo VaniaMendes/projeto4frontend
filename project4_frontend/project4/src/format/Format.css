@@ -77,7 +77,7 @@ h2 {
 
 input {
   border-radius: 5px;
-  background-color: var(--white_hover);
+  background-color: var(--blueButton);
   border: 0px;
   padding: 10px;
   box-shadow: 0px 0px 2px 0px black;
@@ -196,7 +196,9 @@ img {
   padding: 0px 50px;
   overflow-wrap: break-word;
   max-width: 250px;
+
 }
+
 
 .task {
   display: flex;
@@ -214,9 +216,9 @@ img {
   height: 50px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-  
+  gap: 10px;   
 }
+
 
 .task:hover {
   cursor: pointer;
@@ -231,12 +233,13 @@ img {
 .task_title {
   margin-left: 10px;
   margin-top: 2px;
-  overflow-wrap: break-word;
   max-width: 191px; 
   width: 180px;
   margin-right: 40px;
   font-weight: bold;
   height: 20px;
+  text-overflow: ellipsis;
+  max-width: 200px;
 }
 
 .task_category  {
@@ -1297,14 +1300,14 @@ label {
   z-index: 3000;
 }
 
-.modal_container1{
+.modal_container4{
   transform: translate(-50%, -50%);
   top:52%;
   left: 60%;
   position: absolute;
   background-color: var(--blue);
-  width: 81%;
-  height: 60%;
+  width: 80%;
+  height: 97%;
   z-index: 3000;
 }
 

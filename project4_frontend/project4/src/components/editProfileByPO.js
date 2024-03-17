@@ -47,7 +47,7 @@ function EditProfileByPO(){
          //Deteta as alteracoes nso campos de editProfile
          const handleInputChange = (e) => {
             const { id, value } = e.target;
-            setUserEditPO(prevState => ({
+            setUserEdit(prevState => ({
                 ...prevState,
                 [id]: value
             }));
@@ -66,8 +66,6 @@ function EditProfileByPO(){
             return acc;
         }, {});
             const result = await updateProfileByPO(tokenUser, username, updatedUserData);
-
-            console.log(200);
             if(result === 200){
                 NotificationManager.success("User edited successfully", "", 1000);
                setShowModalEditUser(false);

@@ -5,12 +5,12 @@ function SearchFields(){
  
  <div className="filter">
                <div className="searchFields">
-               <select id="category">
-                   <option value="" disabled selected>Filter by Category</option>
+               <select id="category"  defaultValue="">
+                   <option value="" disabled>Filter by Category</option>
                    
                </select>
-               <select id="users">
-                   <option value="" disabled selected>Filter by Users</option>
+               <select id="users" defaultValue="">
+                   <option value="" disabled>Filter by Users</option>
                
                </select>
                <div className="search_icon"> <p className="search-icon">&#128269;</p></div>

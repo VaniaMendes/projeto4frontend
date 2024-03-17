@@ -21,6 +21,7 @@
     border-bottom: 1px solid #ccc;
     text-align: left;
   }
+
   
   .task-title {
     flex: 1;
@@ -29,6 +30,7 @@
   text-overflow: ellipsis;
   font-size: 14px;
   font-weight: 700;
+  max-width: 180px;
   }
   
   .priority-bar {
@@ -43,10 +45,11 @@
     margin-left: 10px;
    
   }
-  .buttons_scrum{
-    text-align: left;
-   
-  }
+ .task-details{
+  justify-content: flex-end;
+  width:100px;
+
+ }
   .delete_btnS, .task_btnS{
     border:none;
     margin:none;

@@ -4,7 +4,7 @@ import { FaUserCircle } from "react-icons/fa";
 import { userStore } from "../stores/UserStore";
 import "../format/register.css";
 import {NotificationManager } from "react-notifications";
-import { showModal } from "../stores/boardStore";
+import { showModal, updateUsersTable } from "../stores/boardStore";
 
 function NewUser() {
   const tokenObject = userStore((state) => state.token);
@@ -20,6 +20,7 @@ function NewUser() {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [imgURL, setImageURL] = useState("");
   const [typeOfUser, setTypeOfUser] = useState("");
+  const {showUsersTable, setShowUsersTable} = updateUsersTable();
 
 
   const closeModal = () => {
@@ -43,7 +44,7 @@ function NewUser() {
     const result = await registerUserByPO(tokenUser, newUser);
     if(result===200){
       NotificationManager.success("New User successfully created", "", 800);
-     
+      setShowUsersTable(!showUsersTable);
       closeModal();
     }else{
       NotificationManager.warning(result, "", 800);
@@ -158,7 +159,7 @@ function NewUser() {
             <select
               id="register_typeOfUser"
               name="opcoes"
-              value={typeOfUser}
+              defaultValue={typeOfUser}
               onChange={(event) => setTypeOfUser(event.target.value)}
             >
               <option value="" >Select a role</option>

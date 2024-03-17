@@ -8,7 +8,7 @@ import NewUser from "./NewUser";
 import { NotificationManager } from "react-notifications";
 import { IoFilter } from "react-icons/io5";
 import{ getActiveUsers} from '../endpoints/users';
-import { showModal } from '../stores/boardStore';
+import { showModal, updateUsersTable } from '../stores/boardStore';
 import {deleteUserTasks} from '../endpoints/tasks';
 import EditProfileByPO from "./editProfileByPO";
 
@@ -21,6 +21,7 @@ function UserTable() {
   const [users, setUsers] = useState(null);
   const { showNewUserModal, setShowNewUserModal } = showModal();
   const { showModalEditUser, setShowModalEditUser } = showModal();
+  const {showUsersTable} = updateUsersTable();
 
   
   
@@ -32,7 +33,7 @@ function UserTable() {
               
          };
          fetchData();
-        }, [tokenUser]);
+        }, [tokenUser, showUsersTable]);
 
 
 
@@ -88,7 +89,7 @@ const handleDeleteTasks = async (tokenUser, username) => {
      
     <div className="table_container">
       
-        <table classname="users_table">
+        <table className="users_table">
           <thead >
             <tr  >
               <th className="titleUser"><img src="icon-green.png"></img></th>

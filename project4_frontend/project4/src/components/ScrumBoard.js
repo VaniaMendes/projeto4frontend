@@ -8,6 +8,7 @@ import { MdModeEditOutline } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
 import { softDeleteTask} from '../endpoints/tasks';
 import {NotificationManager } from "react-notifications";
+import {showModalNewTask, updateTasksList} from '../stores/boardStore';
 
 
 
@@ -16,12 +17,13 @@ function ScrumBoard(){
    const tokenObject = userStore((state) => state.token);
    const tokenUser = tokenObject.token;
       
-   const [showNewTask, setShowNewTask] = useState(false);
+   const {showNewTask,  setShowNewTask } = showModalNewTask();
+   const {updateTasks} = updateTasksList();
  
    const [listTasks, setListTasks] = useState([]);
 
    const handleNewTaskClick = () => {
-       setShowNewTask(true);
+    setShowNewTask(true);
    }
 
    useEffect(() => {
@@ -32,7 +34,7 @@ function ScrumBoard(){
        };
 
        fetchData();
-   }, [tokenUser]);
+   }, [tokenUser, updateTasks]);
 
 
 
@@ -54,6 +56,8 @@ const handleDeleteTask = async (tokenUser, taskId) => {
       console.log(result);
       if(result===200){
       NotificationManager.success("Task deleted successfully", "", 800);
+      const updatedTasks = listTasks.filter((task) => task.id !== taskId);
+        setListTasks(updatedTasks);
       
       }else{
         NotificationManager.warning("Error deleting task " + taskId.title);
@@ -93,13 +97,19 @@ const doneList = sortTasks(listTasks.filter(tasks => tasks.state ==='done'));
           {todoList.map((task) => (
             <div className='task' key={task.id}>
               <div className="priority-bar" style={{ backgroundColor: getColorForPriority(task.priority) }}></div>
+              <div className ="task-header">
               <div className="task-title">{task.title}</div>
               <div className="task-author">{task.author.username}</div>
+              <div className="task-category">{task.category.title}</div>
               
+              </div>
+              <div className = "task-details">
               <div className='buttons_scrum'>
                 <button className='delete_btnS' ><MdModeEditOutline/></button>
                 <button className='task_btnS' onClick={() => handleDeleteTask(tokenUser, task.id)}><MdDelete/></button>
               </div>
+              </div>
+              
             </div>
           ))}
           </section>

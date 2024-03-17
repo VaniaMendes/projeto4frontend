@@ -4,10 +4,16 @@ import { userStore } from "../stores/UserStore";
 import { getAllCategories } from "../endpoints/categories";
 import {addTask} from '../endpoints/tasks';
 import { NotificationManager } from "react-notifications";
+import '../format/tables.css'
+import {showModalNewTask, updateTasksList} from '../stores/boardStore'
 
 function NewTask() {
   const tokenObject = userStore((state) => state.token);
   const tokenUser = tokenObject.token;
+
+  const {showNewTask,  setShowNewTask } = showModalNewTask();
+  const {updateTasks, setUpdateTasks} = updateTasksList();
+
 
   const [title, setTitle] = useState("");
   const [categoryID, setCategoryID] = useState("");
@@ -17,7 +23,6 @@ function NewTask() {
   const [priority, setPriority] = useState("");
   const [categories, setCategories] = useState(null);
   const [priorityColor, setPriorityColor] = useState("");
-  const [showModal, setShowModal] = useState(true);
   const [categoryTitle, setCategoryTitle] = useState("");
 
   const task={
@@ -39,29 +44,28 @@ function NewTask() {
     console.log(task);
     if(result===200){
       NotificationManager.success("Task added successfully", "", 800);
-      closeModal();
+      setShowNewTask(false);
+      setUpdateTasks(!updateTasks);
 
     }else{
     NotificationManager.warning(result, "", 800);
    }
 
   };
-  function closeModal(){
-   setShowModal(false);
-  }
+
 
   useEffect(() => {
     const fetchData = async () => {
       const categories = await getAllCategories(tokenUser);
       setCategories(categories);
-      console.log(categories);
+     
     };
     fetchData();
   }, [tokenUser]);
 
   const handleClose = async (event) => {
     event.preventDefault();
-    setShowModal(false);
+    setShowNewTask(false);
   };
 
   const handlePriorityChange = (event) => {
@@ -70,9 +74,8 @@ function NewTask() {
   };
 
   return (
-    <div>
-      {showModal && (
-        <div className="modal_container1">
+    <div className = 'modal_container4'>
+      {showNewTask && (
           <div className="new-task-container">
             <button className="modal_exit" id="cancel" onClick={handleClose}>
               &times;
@@ -107,7 +110,7 @@ function NewTask() {
                 value={categoryID}
                 onChange={(event) => {
                   const selectedCategoryID = event.target.value;
-                  const selectedCategoryTitle = event.target.options[event.target.selectedIndex].text;
+                  const selectedCategoryTitle = event.target.selectedOptions[0].text;
                   setCategoryID(selectedCategoryID);
                   setCategoryTitle(selectedCategoryTitle);
                 }}
@@ -224,7 +227,7 @@ function NewTask() {
 
             <div id="error_creating_task"></div>
           </div>
-        </div>
+      
       )}
       ;
     </div>

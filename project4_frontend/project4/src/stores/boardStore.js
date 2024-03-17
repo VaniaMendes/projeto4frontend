@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { persist, createJSONStorage } from 'zustand/middleware';
+
 
 
 //controla o aparecimento das tabelas na pagina do scrum master
@@ -31,6 +31,21 @@ export const showModal = create((set) => ({
   export const updateCategoriesTable = create((set) => ({
     showCategoriesTable: false,
     setShowCategoriesTable: (value) => set({ showCategoriesTable: value }),
+  }));
+
+  export const updateUsersTable = create((set) => ({
+    showUsersTable: false,
+    setShowUsersTable: (value) => set({ showUsersTable: value }),
+  }));
+
+  export const showModalNewTask = create((set) => ({
+    showNewTask: false,
+    setShowNewTask: (value) => set({ showNewTask: value }),
+  }));
+
+  export const updateTasksList = create((set) => ({
+    updateTasks: false,
+    setUpdateTasks: (value) => set({ updateTasks: value }),
   }));
 
 
