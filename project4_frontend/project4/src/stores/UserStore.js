@@ -7,6 +7,18 @@ export const userStore = create(
             token: "", 
             setToken: (token) => set({ token }), 
             getToken: () => userStore.getState().token,
+
+
+
+            role: "",
+            setRole: (role) => set({ role }), // Adicionando setRole para atualizar o estado do role
+            getRole: () => userStore.getState().role,
+
+
+            categoryId:"",
+            setCategoryId: (categoryId) => set({ categoryId }), // Adicionando setRole para atualizar o estado do role
+            getCategoryId: () => userStore.getState().categoryId,
+
         }),
         {
             name: 'mystore',
@@ -15,7 +27,5 @@ export const userStore = create(
     )
 );
 
-export const saveIdCategoryForEdit = create((set) => ({
-    categoryId: "",
-    updateIDCategory: (newCategoryId) => set({ categoryId: newCategoryId }),
-}));
+
+

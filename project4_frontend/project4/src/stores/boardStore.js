@@ -24,5 +24,10 @@ export const showModal = create((set) => ({
     setShowNewUserModal: (value) => set({ showNewUserModal: value }), 
   }));
 
+  export const editProfileByPO = create((set) => ({
+    showEditProfilePO: false,
+    setShowEditProfilePO: (value) => set({ showEditProfile: value }),
+  }));
+
 
   

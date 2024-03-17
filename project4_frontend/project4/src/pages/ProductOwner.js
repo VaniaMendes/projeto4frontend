@@ -5,7 +5,6 @@ import SideMenu from '../components/SideMenu';
 import UserTable from '../components/UserTable';
 import CategoriesTable from '../components/CategoriesTable';
 import InactiveUsersTable from '../components/InativeUsersTable';
-import {useState} from 'react'
 import {tables} from '../stores/boardStore';
 import InativeTasksTable from '../components/InativeTasksTable';
 

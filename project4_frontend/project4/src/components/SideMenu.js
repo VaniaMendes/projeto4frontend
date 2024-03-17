@@ -10,9 +10,15 @@ import { getUserByToken } from "../endpoints/users";
 import { useNavigate  } from 'react-router-dom';
 
 
+
 function SideMenu() {
+
+  const { setRole, getRole } = userStore();
   const tokenObject = userStore((state) => state.token);
   const tokenUser = tokenObject.token;
+
+
+  
   const [userData, setUserData] = useState({});
   const navigate = useNavigate();
 
@@ -41,7 +47,8 @@ function SideMenu() {
       try {
         const user = await getUserByToken(tokenUser);
         setUserData(user);
-        const userType = user.typeOfUser;
+        setRole(user.typeOfUser);
+       
         
 
       } catch (error) {
@@ -50,6 +57,11 @@ function SideMenu() {
     }
     fetchData();
   }, [tokenUser]);
+
+
+
+  const role = getRole();
+  console.log("Role: " + role);
 
   return (
     <div>

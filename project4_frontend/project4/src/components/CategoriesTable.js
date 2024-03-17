@@ -17,47 +17,56 @@ import { showModal } from '../stores/boardStore';
 
 function Categories() {
   const [categories, setCategories] = useState(null);
-  const [categoryIdToEdit, setCategoryIdToEdit] = useState(null);
+
   const tokenObject = userStore((state) => state.token);
   const tokenUser = tokenObject.token;
   const showModalNewCategory = showModal((state) => state.showModalNewCategory);
   const showEditCategory = showModal((state) => state.showEditCategory);
   const setShowModalNewCategory = showModal((state) => state.setShowModalNewCategory);
   const setShowEditCategory = showModal((state) => state.setShowEditCategory);
+
     
-  useEffect(() => {
+ 
         const fetchData = async()=> {
                 const categories = await getAllCategories(tokenUser);
                 setCategories(categories);
 
          };
-         fetchData();
-        }, [tokenUser]);
         
+        
+        useEffect(() => {
+
+          fetchData();
+        }, [tokenUser]);
+
+
+
+
         const openEditModal = (categoryId) => {
-          setCategoryIdToEdit(categoryId);
+          userStore.getState().setCategoryId(categoryId);
           setShowEditCategory(true);
+          fetchData();
         };
 
   const handleDelete = async (categoryId, tokenUser) => {
     const result = await deleteCategory(categoryId, tokenUser);
-
+    console.log(result); 
+    console.log(categoryId);
+    
     if (result === true) {
       NotificationManager.success("Category deleted successfully", "",1000);
-      const updatedCategories = categories.filter(cat => cat.idCategory !== categoryId);
-      setCategories(updatedCategories);
-      
+      fetchData();
     } else {
-      NotificationManager.error("Failed to delete category", "", 1000);
+      NotificationManager.error(result, "", 1200);
     }
   }
 
-
   return (
+    <div className = "container_modal">
     <div className="table_container">
           <table id="users_table">
-            <thead className="head">
-              <tr className="header1" >
+            <thead>
+              <tr >
                 <th className="titleUser"><BiSolidCategoryAlt className='task_icon'/></th>
                 <th className="titleUser3">  Categories</th>
                 <th>
@@ -84,8 +93,6 @@ function Categories() {
                      <td>{category.author.username}</td>
                     <td>{category.title}</td>
                     <td>{category.description}</td>
-                   
-
                     <td>
                       <button
                         className="edit_button"
@@ -96,7 +103,8 @@ function Categories() {
                       </button>
                       <button
                         className="delete_button"
-                        onClick={() => handleDelete(category.idCategory)}
+                        onClick={() => handleDelete(category.idCategory, tokenUser)}
+                       
                       >
                         <MdDeleteForever />
                       </button>
@@ -105,10 +113,9 @@ function Categories() {
                 ))}
             </tbody>
           </table>
- 
-   
+    </div>
       {showModalNewCategory && <NewCategory />}
-      {showEditCategory && <EditCategory categoryId={categoryIdToEdit} />}
+      {showEditCategory && <EditCategory />}
     </div>
   );
 }

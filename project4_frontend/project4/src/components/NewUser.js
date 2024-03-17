@@ -43,6 +43,7 @@ function NewUser() {
     const result = await registerUserByPO(tokenUser, newUser);
     if(result===200){
       NotificationManager.success("New User successfully created", "", 800);
+     
       closeModal();
     }else{
       NotificationManager.warning(result, "", 800);

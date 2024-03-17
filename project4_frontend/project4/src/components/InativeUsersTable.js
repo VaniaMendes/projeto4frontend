@@ -30,7 +30,8 @@ function InactiveUsersTable({ users }) {
        const result= await restoreUser(tokenUser, username);
        if(result){
         NotificationManager.success("User restored successfully", "", 1000);
-        
+        const updatedUsers = inativeUsers.filter((user) => user.username !== username);
+        setInativeUsers(updatedUsers);
         
        }else{
         NotificationManager.error("Failed to restore user", "", 1000);

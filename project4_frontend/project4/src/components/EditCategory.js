@@ -6,11 +6,15 @@ import { showModal } from "../stores/boardStore";
 import { userStore } from "../stores/UserStore";
 import { useEffect } from "react";
 
-function EditCategory({categoryId}) {
+function EditCategory({categoryIdToEdit}) {
   const [newtitle, setNewtitle] = useState("");
   const [newdescription, setNewdescription] = useState("");
   const tokenObject = userStore((state) => state.token);
   const tokenUser = tokenObject.token;
+  const categoryId = userStore((state) => state.getCategoryId());
+  console.log(categoryId);
+ 
+
 
   
 

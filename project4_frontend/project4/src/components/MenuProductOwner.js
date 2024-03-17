@@ -15,7 +15,6 @@ function MenuProductOwner(){
    const navigate = useNavigate();
     const [showButtons, setShowButtons] = useState(false);
     const seeButtons = () => {
-        navigate('/productOwner');
         setShowButtons(!showButtons);
     };
 
@@ -27,6 +26,7 @@ function MenuProductOwner(){
        setShowCategoriesTable(false);
        setShowInactiveUsersTable(false);
        setInativeTasksTable(false);
+       navigate('/productOwner');
     }
   
 

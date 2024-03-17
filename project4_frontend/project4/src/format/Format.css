@@ -1093,6 +1093,7 @@ label {
   transform: translate(-50%, -50%);
   width: 40%;
   height: 150px;
+  z-index: 1000;
 }
 .edit_photo,
 .edit_profile,
@@ -1293,7 +1294,7 @@ label {
   background-color: var(--blue);
   width: 74%;
   height: 75%;
-  z-index: 2000;
+  z-index: 3000;
 }
 
 .modal_container1{
@@ -1302,9 +1303,9 @@ label {
   left: 60%;
   position: absolute;
   background-color: var(--blue);
-  width: 80%;
-  height: 99%;
-  z-index: 2000;
+  width: 81%;
+  height: 60%;
+  z-index: 3000;
 }
 
 .descricaoCategoria {

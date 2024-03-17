@@ -126,5 +126,78 @@ export async function getPhotoByUsername(token, username) {
    }
 }
 
+export async function deleteUserTasks(tokenUser, username) {
+   try {
+       const response = await fetch(`http://localhost:8080/project_backend/rest/tasks/deleteTasksByUsername/${username}`, {
+           method: "DELETE",
+           headers: {
+               'Content-Type': 'application/json',
+               'Accept': '*/*',
+               "token": tokenUser
+           }
+       });
+
+       if (response.ok) {
+           return true;
+       } else {
+           return false;
+       }
+   } catch (error) {
+       console.error("Error deleting user tasks:", error);
+       return false;
+   }
+}
+
+
+export async function hardDeleteTask(taskId, tokenUser) {
+    const deleteTaskRequest = `http://localhost:8080/project_backend/rest/tasks/${taskId}/hardDeleteTask`;
+
+    try {
+        const response = await fetch(deleteTaskRequest, {
+            method: "DELETE",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                token: tokenUser
+            }
+        });
+
+        if (response.ok) {
+            return true;
+        } else {
+            const error = await response.json();
+            return error;
+        }
+    } catch (error) {
+        console.error("Error deleting task:", error);
+    }
+}
+
+export async function restoreTask(tokenUser, taskId) {
+
+    let deleteTaskRequest = `http://localhost:8080/project_backend/rest/tasks/${taskId}/softDelete`;
+    try {
+       const response = await fetch(deleteTaskRequest, {
+          method: "PUT",
+          headers: {
+             Accept: "application/json",
+             "Content-Type": "application/json",
+             token: tokenUser
+          }
+       });
+ 
+       if (response.ok) {
+       return 200;
+       } else {
+        const result = await response.json();
+        return result;
+       }
+    
+    } catch (error) {
+       console.error("Error restoring task:", error);
+    }
+ }
+
+
 
  

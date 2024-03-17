@@ -26,7 +26,7 @@ export async function createCategory(title, description, token) {
     }
  }
 
- export async function deleteCategory(categoryId, token) {
+ export async function deleteCategory(categoryId, tokenUser) {
 
 
     let deleteCategoryRequest = `http://localhost:8080/project_backend/rest/categories/delete/${categoryId}`;
@@ -36,7 +36,7 @@ export async function createCategory(title, description, token) {
             headers: {
                 'Accept': '*/*',
                 "Content-Type": "application/json",
-                token: token
+                token: tokenUser
             }
           });
 
@@ -44,7 +44,9 @@ export async function createCategory(title, description, token) {
              return true;
            
           } else {
-             return false;
+            const result = await  response.text(); 
+            return result;
+            
           }
     } catch (error) {
           console.error("Error deleting category:", error);
