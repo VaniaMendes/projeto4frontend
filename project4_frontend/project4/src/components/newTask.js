@@ -77,10 +77,12 @@ function NewTask() {
     <div className = 'modal_container4'>
       {showNewTask && (
           <div className="new-task-container">
+              
             <button className="modal_exit" id="cancel" onClick={handleClose}>
               &times;
             </button>
-            <h2 id="task_creationTitle"></h2>
+        
+            <h2 id="task_creationTitle">Task Creation</h2>
 
             <label
               htmlFor="opcoes"
@@ -203,7 +205,7 @@ function NewTask() {
                       ? "yellow"
                       : priorityColor === "300"
                       ? "red"
-                      : "green",
+                      : "transparent",
                 }}
               ></div>
             </div>

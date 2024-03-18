@@ -198,6 +198,88 @@ export async function restoreTask(tokenUser, taskId) {
     }
  }
 
+ export async function updateTaskState(tokenUser, taskId, newState) {
+    let updateTaskRequest = `http://localhost:8080/project_backend/rest/tasks/${taskId}/status`;
+    try {
+       const response = await fetch(updateTaskRequest, {
+          method: "PUT",
+          headers: {
+             Accept: "application/json",
+             "Content-Type": "application/json",
+             token: tokenUser,
+             newState: newState
+          }
+       });
+ 
+       if (response.ok) {
+          console.log("Task state updated");
+       } else {
+          console.error("Failed to update task state");
+       }
+    
+    } catch (error) {
+       console.error("Error updating task state:", error);
+    }
+ }
+
+ export async function updateTask(task, tokenUser, taskIdForEdit, idCategory) {
+
+ 
+    try {
+      const response = await fetch("http://localhost:8080/project_backend/rest/tasks/updateTask", {
+      method: "PUT",
+      headers: {
+         Accept: "*/*",
+         "Content-Type": "application/json",
+         token: tokenUser,
+         categoryId: idCategory,
+         taskId: taskIdForEdit
+         
+      },
+      body: JSON.stringify(task)
+
+   });
+   if (response.ok) {
+    return true;
+
+   } else {
+      const result = await response.text(); 
+     return result;
+   }
+   } catch (error) {
+      console.error("Error updating task:", error);
+   }
+
+}
+
+
+export async function getTask(tokenUser, taskIdForEdit) {
+
+   let getTaskRequest = `http://localhost:8080/project_backend/rest/tasks/getTaskById/${taskIdForEdit}`
+
+   let response = await fetch(getTaskRequest, {
+
+         method: "GET",
+         headers: {
+            Accept: "*/*",
+            "Content-Type": "application/json",
+            token: tokenUser
+         },
+      }
+   );
+
+   if (response.ok) {
+      let task = await response.json();
+      return task;
+   } else {
+      console.error("Failed to fetch task data");
+      return null;
+   }
+
+}
+
+ 
+
 
 
  

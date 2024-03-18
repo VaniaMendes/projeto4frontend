@@ -8,8 +8,6 @@ export const userStore = create(
             setToken: (token) => set({ token }), 
             getToken: () => userStore.getState().token,
 
-
-
             role: "",
             setRole: (role) => set({ role }),
             getRole: () => userStore.getState().role,
@@ -24,6 +22,11 @@ export const userStore = create(
             username:"",
             setUsername: (username) => set({ username }),
             getUsername: () => userStore.getState().username,
+
+            //Guarda o id da task que vai ser editada
+            taskIdForEdit:"",
+            setTaskIdForEdit: (taskIdForEdit) => set({ taskIdForEdit }), 
+            getTaskIdForEdit: () => userStore.getState().taskIdForEdit,
 
         }),
         {

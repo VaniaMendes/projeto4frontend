@@ -19,9 +19,8 @@
     height: 10%;
     padding: 10px;
     border-bottom: 1px solid #ccc;
-    text-align: left;
+    justify-content: space-between;
   }
-
   
   .task-title {
     flex: 1;
@@ -30,7 +29,14 @@
   text-overflow: ellipsis;
   font-size: 14px;
   font-weight: 700;
-  max-width: 180px;
+  max-width: 140px;
+  width: 140px;
+  
+
+  }
+  .task-header{
+    justify-content: left;
+    text-align: left;
   }
   
   .priority-bar {
@@ -53,6 +59,7 @@
   .delete_btnS, .task_btnS{
     border:none;
     margin:none;
+    margin-left: 10px;
   }
   
 .priority-bar {
@@ -62,3 +69,7 @@
   }
 
 
+  .buttons_scrum {
+    display: flex; 
+    align-items: right; 
+  }
