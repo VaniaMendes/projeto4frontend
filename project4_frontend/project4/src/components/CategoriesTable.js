@@ -26,30 +26,21 @@ function Categories() {
   const setShowEditCategory = showModal((state) => state.setShowEditCategory);
   const { setShowCategoriesTable, showCategoriesTable } = updateCategoriesTable();
 
-  
-
-    
  
         const fetchData = async()=> {
                 const categories = await getAllCategories(tokenUser);
                 setCategories(categories);
-
          };
         
         
         useEffect(() => {
-
           fetchData();
         }, [tokenUser, showCategoriesTable]);
-
-
-
 
         const openEditModal = (categoryId) => {
           userStore.getState().setCategoryId(categoryId);
           setShowEditCategory(true);
             
-      
         };
 
   const handleDelete = async (categoryId, tokenUser) => {

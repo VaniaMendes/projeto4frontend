@@ -169,7 +169,7 @@ function NewTask() {
                   selected
                   value="100"
                   onChange={handlePriorityChange}
-                  checked={priority === "100"} defaultChecked
+                  checked={priority === "100"}
                  />
                 <label htmlFor="low_priority">Low</label>
               </div>

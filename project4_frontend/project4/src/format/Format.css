@@ -1310,6 +1310,17 @@ label {
   height: 97%;
   z-index: 3000;
 }
+.modal_container5{
+  transform: translate(-50%, -50%);
+  top:48%;
+  left: 60%;
+  position: absolute;
+  background-color: var(--blue);
+  width: 82%;
+  height: 86%;
+  z-index: 3000;
+}
+
 
 .descricaoCategoria {
   margin: 40px auto;

@@ -20,6 +20,8 @@ function ScrumBoard(){
    const tokenUser = tokenObject.token;
       
    const {showNewTask,  setShowNewTask } = showModalNewTask();
+   const { showEditTask, setShowEditTask } = showModalEditTask();
+
  
    const [listTasks, setListTasks] = useState([]);
    const [taskId, setTaskId] = useState(null);
@@ -29,7 +31,9 @@ function ScrumBoard(){
     setShowNewTask(true);
    }
    const handleEdit = (taskId) => {
-
+    setShowEditTask(true);
+    userStore.getState().setTaskIdForEdit(taskId);
+    
  
    };
 
@@ -42,8 +46,6 @@ function ScrumBoard(){
 
        fetchData();
    }, [tokenUser]);
-
-
 
 function getColorForPriority(priority) {
   if (priority === 100) {
@@ -154,7 +156,7 @@ const allowDrop = (event) => {
               </div>
               <div className = "task-details">
               <div className='buttons_scrum'>
-                <button className='delete_btnS' onClick={handleEdit(task.id)}><MdModeEditOutline/></button>
+                <button className='delete_btnS' onClick={() => handleEdit(task.id)}><MdModeEditOutline/></button>
                 <button className='task_btnS' onClick={() => handleDeleteTask(tokenUser, task.id)}><MdDelete/></button>
               </div>
               </div>
@@ -179,7 +181,7 @@ const allowDrop = (event) => {
               </div>
               <div className = "task-details">
               <div className='buttons_scrum'>
-                <button className='delete_btnS' onClick={handleEdit(task.id)} ><MdModeEditOutline/></button>
+                <button className='delete_btnS' onClick={() => handleEdit(task.id)} ><MdModeEditOutline/></button>
                 <button className='task_btnS' onClick={() => handleDeleteTask(tokenUser, task.id)}><MdDelete/></button>
               </div>
               </div>
@@ -202,17 +204,17 @@ const allowDrop = (event) => {
               </div>
               <div className = "task-details">
               <div className='buttons_scrum'>
-                <button className='delete_btnS' onClick={handleEdit(task.id)}><MdModeEditOutline/></button>
+                <button className='delete_btnS' onClick={() => handleEdit(task.id)}><MdModeEditOutline/></button>
                 <button className='task_btnS' onClick={() => handleDeleteTask(tokenUser, task.id)}><MdDelete/></button>
               </div>
               </div>
-
               </div>
             ))}
           
           </section>
         </div>
       </div>
+      {showEditTask && <EditTask />}
     </div>
  
      )

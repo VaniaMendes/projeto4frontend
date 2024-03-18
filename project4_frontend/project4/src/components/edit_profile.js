@@ -14,13 +14,9 @@ function EditProfile(){
     const tokenUser = tokenObject.token;
     const {  getRole } = userStore();
     const role = getRole();
-
-   
-
     const [userLogged, setUserLogged] = useState(null);
     const navigate = useNavigate();
     
-
     useEffect(() => {
         const fetchData = async()=> {
             const result = await getUserByToken(tokenUser)
@@ -151,7 +147,6 @@ function EditProfile(){
      </div>
 
      </div> 
-
 
     )
 }
