@@ -1,19 +1,50 @@
 import React from 'react';
 import { showModalEditTask } from '../stores/boardStore';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import {getTask} from '../endpoints/tasks';
+import { userStore } from "../stores/UserStore";
+import {getAllCategories} from '../endpoints/categories';
 
 function EditTask(){
+    const tokenObject = userStore((state) => state.token);
+    const tokenUser = tokenObject.token;
+       
     const { showEditTask, setShowEditTask } = showModalEditTask();
+    const taskIdForEdit = userStore((state) => state.taskIdForEdit);
 
     const [title, setTitle] = useState("");
     const [categoryID, setCategoryID] = useState("");
     const [description, setDescription] = useState("");
     const [endDate, setEndDate] = useState("");
     const [initialDate, setInitialDate] = useState("");
-    const [priority, setPriority] = useState("");
+    const [priority, setPriority] = useState("")
     const [categories, setCategories] = useState(null);
     const [priorityColor, setPriorityColor] = useState("");
     const [categoryTitle, setCategoryTitle] = useState("");
+
+    const [task, setTask] = useState(null);
+
+    useEffect(() => {
+        const fetchData = async()=> {
+            const task = await getTask(tokenUser, taskIdForEdit)
+            setTask(task);
+          
+                const categories = await getAllCategories(tokenUser);
+                setCategories(categories);
+          
+            
+        setTitle(task.title);
+        setCategoryID(task.category.idCategory);
+        setDescription(task.description);
+        setEndDate(task.endDate);
+        setInitialDate(task.initialDate);
+        setPriority(task.priority);
+        setCategoryTitle(task.category.title);
+                       
+         };
+         fetchData();
+        }, [tokenUser]);
+
 
     const handleSubmit = async (event) => {
       
@@ -21,12 +52,26 @@ function EditTask(){
 
       const handleClose = async (event) => {
         event.preventDefault();
+        setShowEditTask(false);
         
       };
 
       const handlePriorityChange = (event) => {
-        setPriorityColor(event.target.value);
-        setPriority(event.target.value);
+        const selectedPriority = event.target.value;
+    setPriorityColor(() => {
+        switch (selectedPriority) {
+            case "100":
+                return "green";
+            case "200":
+                return "yellow";
+            case "300":
+                return "red";
+            default:
+                return "transparent";
+            }
+        });
+        setPriority(selectedPriority);
+
       };
 
 
@@ -36,7 +81,7 @@ function EditTask(){
       {showEditTask && (
           <div className="new-task-container">
               
-            <button className="modal_exit" id="cancel" >
+            <button className="modal_exit" id="cancel" onClick={handleClose}>
               &times;
             </button>
         
@@ -64,18 +109,17 @@ function EditTask(){
               <label htmlFor="opcoes" className="descriptioLabelTask">
                 Category:
               </label>
-              <select
+            <select
                 id="category_element"
                 name="opcoes"
                 value={categoryID}
                 onChange={(event) => {
-                  const selectedCategoryID = event.target.value;
-                  const selectedCategoryTitle = event.target.selectedOptions[0].text;
-                  setCategoryID(selectedCategoryID);
-                  setCategoryTitle(selectedCategoryTitle);
+                    const selectedCategoryID = event.target.value;
+                    const selectedCategoryTitle = event.target.selectedOptions[0].text;
+                    setCategoryID(selectedCategoryID);
+                    setCategoryTitle(selectedCategoryTitle);
                 }}
-
-              >
+            >
                 {categories &&
                   categories.map((category, index) => (
                     <option key={index} value={category.idCategory}>
@@ -154,7 +198,7 @@ function EditTask(){
                 <label htmlFor="high_priority">High</label>
               </div>
               <div
-                id="priority_color"
+                id="priority_color" value={priorityColor}
                 style={{
                   backgroundColor:
                     priorityColor === "100"

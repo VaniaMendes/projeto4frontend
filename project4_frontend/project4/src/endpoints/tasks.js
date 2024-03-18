@@ -278,6 +278,45 @@ export async function getTask(tokenUser, taskIdForEdit) {
 
 }
 
+export async function getFilteredTasks(token, selectedUsername, selectedCategoryId) {
+   let url = `/project_backend/rest/tasks/getFilterTasks`;
+   
+   // Adicione parâmetros de consulta à URL conforme necessário
+   if (selectedUsername) {
+      url += `?username=${selectedUsername}`;
+   }
+   
+   if (selectedCategoryId) {
+      if (selectedUsername) {
+         url += `&category=${selectedCategoryId}`;
+      } else {
+         url += `?category=${selectedCategoryId}`;
+      }
+   }
+
+   try {
+       const response = await fetch(url, {
+           method: 'GET',
+           headers: {
+               'Content-Type': 'application/json',
+               'token': token
+           }
+       });
+
+       if (!response.ok) {
+         return null;
+       }
+
+       const data = await response.json();
+       console.log(data);
+       return data;
+   } catch (error) {
+       console.error('Fetch Error:', error);
+       return null;
+   }
+}
+
+
  
 
 

@@ -119,6 +119,15 @@ function EditProfileByPO(){
               <label  className="descriptioLabel">URL Image</label>
               <input type="text" className="edit_element" id="imgURL" placeholder={userEditPO?.imgURL} onChange={handleInputChange}/>
            </div>
+           <div>
+                <label for="opcoes" class="descriptioLabel">User role</label>
+                <select id="edit_element" name="opcoes" value={userEditPO?.typeOfUser}   onChange={handleInputChange}> 
+                <option value="developer">Developer</option>
+                <option value="scrum_master">Scrum Master</option>
+                <option value="product_owner">Product Owner</option>
+                </select>
+            </div>
+
 
         </div>
         <div className="confirm_profile">
