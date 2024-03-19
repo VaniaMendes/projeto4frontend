@@ -388,6 +388,12 @@ img {
 .icon{
   margin-right: 10px;
 }
+
+.icon-search{
+  margin-left: 10px;
+  color: var(--white);
+  font-size: 25px;
+}
 .menuPO ul {
   margin-top: 10px;
   list-style-type: none;

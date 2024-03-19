@@ -24,6 +24,9 @@ export const showModal = create((set) => ({
     setShowNewUserModal: (value) => set({ showNewUserModal: value }), 
     showModalEditUser:false,
     setShowModalEditUser:(value) => set({ showModalEditUser: value }),
+
+    filterOn: false,
+    setFilterOn: (value) => set({ filterOn: value }),
     
   }));
 
@@ -55,3 +58,4 @@ export const showModal = create((set) => ({
     setShowEditTask: (value) => set({ showEditTask: value }),
 
   }));
+

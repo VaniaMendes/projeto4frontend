@@ -28,6 +28,10 @@ export const userStore = create(
             setTaskIdForEdit: (taskIdForEdit) => set({ taskIdForEdit }), 
             getTaskIdForEdit: () => userStore.getState().taskIdForEdit,
 
+            filteredTasks:[],
+            setFilteredTasks: (filteredTasks) => set({ filteredTasks }),
+            getFilteredTasks: () => userStore.getState().filteredTasks,
+
         }),
         {
             name: 'mystore',

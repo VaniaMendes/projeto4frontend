@@ -14,10 +14,6 @@ function PrincipalPage(){
     const { getRole } = userStore();
     const role = getRole();
 
-    
-    
-   
-
     return(
         <div>
             

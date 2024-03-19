@@ -49,8 +49,6 @@ function SideMenu() {
         setUserData(user);
         setRole(user.typeOfUser);
        
-        
-
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
@@ -58,10 +56,6 @@ function SideMenu() {
     fetchData();
   }, [tokenUser]);
 
-
-
-  const role = getRole();
-  console.log("Role: " + role);
 
   return (
     <div>

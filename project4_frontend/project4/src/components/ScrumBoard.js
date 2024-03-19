@@ -9,9 +9,8 @@ import { MdModeEditOutline } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
 import { softDeleteTask} from '../endpoints/tasks';
 import {NotificationManager } from "react-notifications";
-import {showModalNewTask, updateTasksList, showModalEditTask} from '../stores/boardStore';
+import {showModalNewTask, showModalEditTask, showModal} from '../stores/boardStore';
 import {updateTaskState} from '../endpoints/tasks';
-
 
 
 function ScrumBoard(){
@@ -22,7 +21,10 @@ function ScrumBoard(){
    const {showNewTask,  setShowNewTask } = showModalNewTask();
    const { showEditTask, setShowEditTask } = showModalEditTask();
 
- 
+   const filteredTasks = userStore((state) => state.filteredTasks);
+
+   const {filterOn} = showModal();
+   
    const [listTasks, setListTasks] = useState([]);
    const [taskId, setTaskId] = useState(null);
    
@@ -34,18 +36,24 @@ function ScrumBoard(){
     setShowEditTask(true);
     userStore.getState().setTaskIdForEdit(taskId);
     
- 
    };
+
 
    useEffect(() => {
        const fetchData = async () => {
-           const tasks = await getActiveTasks(tokenUser);
+        if(filterOn && filteredTasks.length > 0){
+        setListTasks(filteredTasks);
+           
+        }else{
+          const tasks = await getActiveTasks(tokenUser);
            setListTasks(tasks);
-                  
+
+        }
+                        
        };
 
        fetchData();
-   }, [tokenUser]);
+   }, [tokenUser, filterOn, filteredTasks]);
 
 function getColorForPriority(priority) {
   if (priority === 100) {
@@ -62,7 +70,7 @@ function getColorForPriority(priority) {
 const handleDeleteTask = async (tokenUser, taskId) => {
   try {
       const result = await softDeleteTask(tokenUser, taskId);
-      console.log(result);
+
       if(result===200){
       NotificationManager.success("Task deleted successfully", "", 800);
       const updatedTasks = listTasks.filter((task) => task.id !== taskId);
@@ -129,8 +137,6 @@ const handleDrop = async (event, tokenUser, taskId, newState) => {
     console.error("Failed to update task state:", error);
   }
  
-
-
 };
 
 const allowDrop = (event) => {

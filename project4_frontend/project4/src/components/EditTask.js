@@ -58,14 +58,12 @@ function EditTask(){
             }
         }
     }
-     
+  
+    async function handleClose(event) {
+    event.preventDefault();
+    setShowEditTask(false);
 
-
-      const handleClose = async (event) => {
-        event.preventDefault();
-        setShowEditTask(false);
-        
-      };
+  }
 
       const handlePriorityChange = (event) => {
         const selectedPriority = event.target.value;

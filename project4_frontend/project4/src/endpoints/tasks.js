@@ -278,8 +278,8 @@ export async function getTask(tokenUser, taskIdForEdit) {
 
 }
 
-export async function getFilteredTasks(token, selectedUsername, selectedCategoryId) {
-   let url = `/project_backend/rest/tasks/getFilterTasks`;
+export async function getFilteredTasks(tokenUser, selectedUsername, selectedCategoryId) {
+   let url = `http://localhost:8080/project_backend/rest/tasks/getFilterTasks`;
    
    // Adicione parâmetros de consulta à URL conforme necessário
    if (selectedUsername) {
@@ -299,7 +299,7 @@ export async function getFilteredTasks(token, selectedUsername, selectedCategory
            method: 'GET',
            headers: {
                'Content-Type': 'application/json',
-               'token': token
+               'token': tokenUser
            }
        });
 
@@ -308,16 +308,13 @@ export async function getFilteredTasks(token, selectedUsername, selectedCategory
        }
 
        const data = await response.json();
-       console.log(data);
-       return data;
+             return data;
    } catch (error) {
        console.error('Fetch Error:', error);
        return null;
    }
 }
 
-
- 
 
 
 
