@@ -24,7 +24,7 @@ function PrincipalPage(){
             {role === 'product_owner' && <MenuProductOwner />}
             <HomePage />
             <SideMenu />
-            <SearchFields />
+            {(role === 'scrum_master' || role==='product_owner') && <SearchFields />}
             <ScrumBoard />
         </div>
     );

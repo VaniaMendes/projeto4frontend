@@ -3,12 +3,9 @@ import { useState } from "react";
 import {userStore} from '../stores/UserStore';
 import { NotificationManager } from "react-notifications";
 import 'react-notifications/lib/notifications.css';
-import { useNavigate  } from 'react-router-dom';
 import {  getUserByUsername} from "../endpoints/users";
 import { updateProfileByPO } from "../endpoints/users";
-import {showModal} from '../stores/boardStore';
-
-
+import {showModal, updateUsersTable} from '../stores/boardStore';
 
 
 function EditProfileByPO(){
@@ -20,8 +17,9 @@ function EditProfileByPO(){
     const { getUsername } = userStore();
     const username = getUsername();
     const [userEditPO, setUserEditPO] = useState(null);
-    const navigate = useNavigate();
     const { showModalEditUser, setShowModalEditUser } = showModal();
+    const [userEdit, setUserEdit] = useState(null);
+    const {showUsersTable, setShowUsersTable} = updateUsersTable();
 
 
     useEffect(() => {
@@ -33,26 +31,23 @@ function EditProfileByPO(){
          fetchData();
         }, [tokenUser]);
 
-        const [userEdit, setUserEdit] = useState({
-            email: '',
-            firstName: '',
-            lastName: '',
-            phoneNumber: '',
-            password: '',
-            imgURL: ''
-        });
+        
 
         const [changedFields, setChangedFields] = useState({});
 
          //Deteta as alteracoes nso campos de editProfile
          const handleInputChange = (e) => {
             const { id, value } = e.target;
+
+            setUserEditPO(prevState => ({
+               ...prevState,
+               [id]: value
+           }));
             setUserEdit(prevState => ({
                 ...prevState,
                 [id]: value
             }));
 
-           
             setChangedFields(prevState => ({
                 ...prevState,
                 [id]: true
@@ -61,14 +56,20 @@ function EditProfileByPO(){
 
 
         const handleSubmit = async (e) => {
-         const updatedUserData = Object.keys(changedFields).reduce((acc, key) => {
-            acc[key] = userEditPO[key];
+        console.log(userEdit);
+        
+         const newUser = Object.keys(changedFields).reduce((acc, key) => {
+            acc[key] = userEdit[key];
             return acc;
         }, {});
-            const result = await updateProfileByPO(tokenUser, username, updatedUserData);
+
+        console.log(newUser);
+            const result = await updateProfileByPO(tokenUser,username,newUser);
+            console.log(result);
             if(result === 200){
                 NotificationManager.success("User edited successfully", "", 1000);
                setShowModalEditUser(false);
+               setShowUsersTable(!showUsersTable);
             }else{
                 NotificationManager.warning(result, "", 1000);
 
@@ -78,14 +79,10 @@ function EditProfileByPO(){
         const handleBack = ()=>{
          setShowModalEditUser(false);
 
-         
         }
 
 
-
-
     return(
-
     
        <div className='modal_container'> 
        {showModalEditUser && 
@@ -96,38 +93,37 @@ function EditProfileByPO(){
         </div>
         <div className="edit_profile">
            <div>
-              <label  className="descriptioLabel">Password</label>
+              <label  htmlFor="descriptioLabel">Password</label>
               <input type="text" className="edit_element" id="password" placeholder="******"/>
            </div>
            <div>
-              <label className="descriptioLabel">Email</label>
+              <label htmlFor="descriptioLabel">Email</label>
               <input type="text" className="edit_element" id="email" placeholder={userEditPO?.email} onChange={handleInputChange} />
            </div>
            <div>
-              <label  className="descriptioLabel">First Name</label>
+              <label  htmlFor="descriptioLabel">First Name</label>
               <input type="text" className="edit_element" id="firstName" placeholder={userEditPO?.firstName} onChange={handleInputChange} />
            </div>
            <div>
-              <label  className="descriptioLabel">Last Name</label>
+              <label  htmlFor="descriptioLabel">Last Name</label>
               <input type="text" className="edit_element" id="lastName" placeholder={userEditPO?.lastName} onChange={handleInputChange}/>
            </div>
            <div>
-              <label  className="descriptioLabel">Phone Number</label>
+              <label  htmlFor="descriptioLabel">Phone Number</label>
               <input type="text" className="edit_element" id="phoneNumber" placeholder={userEditPO?.phoneNumber} onChange={handleInputChange}/>
            </div>
            <div>
-              <label  className="descriptioLabel">URL Image</label>
+              <label  htmlFor="descriptioLabel">URL Image</label>
               <input type="text" className="edit_element" id="imgURL" placeholder={userEditPO?.imgURL} onChange={handleInputChange}/>
            </div>
            <div>
-                <label for="opcoes" class="descriptioLabel">User role</label>
-                <select id="edit_element" name="opcoes" value={userEditPO?.typeOfUser}   onChange={handleInputChange}> 
+                <label htmlFor="opcoes" className="descriptioLabel">User role</label>
+                <select id="typeOfUser" name="opcoes" value={userEditPO?.typeOfUser}   onChange={handleInputChange}> 
                 <option value="developer">Developer</option>
                 <option value="scrum_master">Scrum Master</option>
                 <option value="product_owner">Product Owner</option>
                 </select>
             </div>
-
 
         </div>
         <div className="confirm_profile">
@@ -139,11 +135,8 @@ function EditProfileByPO(){
 
      </div> 
 
-
     )
  
 }
-
-
 
 export default EditProfileByPO;

@@ -84,11 +84,7 @@ function NewTask() {
         
             <h2 id="task_creationTitle">Task Creation</h2>
 
-            <label
-              htmlFor="opcoes"
-              className="descriptioLabelTask"
-              id="current-category-label"
-            ></label>
+          
 
             <label htmlFor="opcoes" className="descriptioLabelTask">
               Title:
@@ -110,6 +106,7 @@ function NewTask() {
                 id="category_element"
                 name="opcoes"
                 value={categoryID}
+                placeholder="Select a category"
                 onChange={(event) => {
                   const selectedCategoryID = event.target.value;
                   const selectedCategoryTitle = event.target.selectedOptions[0].text;
@@ -118,6 +115,9 @@ function NewTask() {
                 }}
 
               >
+                 <option value="" disabled selected>
+      Select a category:
+    </option>
                 {categories &&
                   categories.map((category, index) => (
                     <option key={index} value={category.idCategory}>

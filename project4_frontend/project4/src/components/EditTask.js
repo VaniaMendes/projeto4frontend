@@ -21,6 +21,7 @@ function EditTask(){
     const [categories, setCategories] = useState(null);
     const [priorityColor, setPriorityColor] = useState("");
     const [categoryTitle, setCategoryTitle] = useState("");
+    
 
     const [task, setTask] = useState(null);
 
@@ -29,18 +30,17 @@ function EditTask(){
             const task = await getTask(tokenUser, taskIdForEdit)
             setTask(task);
           
-                const categories = await getAllCategories(tokenUser);
-                setCategories(categories);
+            const categories = await getAllCategories(tokenUser);
+            setCategories(categories);
           
-            
         setTitle(task.title);
         setCategoryID(task.category.idCategory);
         setDescription(task.description);
         setEndDate(task.endDate);
         setInitialDate(task.initialDate);
         setPriority(task.priority);
-        setCategoryTitle(task.category.title);
-                       
+        setCategoryTitle(getTitleCategory(task.category.idCategory, categories));
+                              
          };
          fetchData();
         }, [tokenUser]);
@@ -49,6 +49,17 @@ function EditTask(){
     const handleSubmit = async (event) => {
       
       };
+
+      function getTitleCategory(categoryID, categories){
+        for(const categoryItem of categories){
+            if(categoryItem.idCategory === categoryID){
+                setCategoryTitle(categoryItem.title);
+                break; 
+            }
+        }
+    }
+     
+
 
       const handleClose = async (event) => {
         event.preventDefault();
@@ -112,12 +123,14 @@ function EditTask(){
             <select
                 id="category_element"
                 name="opcoes"
-                value={categoryID}
+                
+                value={categoryTitle}
                 onChange={(event) => {
                     const selectedCategoryID = event.target.value;
                     const selectedCategoryTitle = event.target.selectedOptions[0].text;
                     setCategoryID(selectedCategoryID);
                     setCategoryTitle(selectedCategoryTitle);
+                   
                 }}
             >
                 {categories &&
@@ -126,6 +139,8 @@ function EditTask(){
                       {category.title}
                     </option>
                   ))}
+
+                  
               </select>
             </div>
             <label htmlFor="opcoes" className="descriptioLabelTask">
@@ -198,14 +213,14 @@ function EditTask(){
                 <label htmlFor="high_priority">High</label>
               </div>
               <div
-                id="priority_color" value={priorityColor}
+                id="priority_color" value={priority}
                 style={{
                   backgroundColor:
-                    priorityColor === "100"
+                    priority === "100"
                       ? "green"
-                      : priorityColor === "200"
+                      : priority === "200"
                       ? "yellow"
-                      : priorityColor === "300"
+                      : priority=== "300"
                       ? "red"
                       : "transparent",
                 }}

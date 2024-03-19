@@ -13,8 +13,6 @@ import {deleteUserTasks} from '../endpoints/tasks';
 import EditProfileByPO from "./editProfileByPO";
 
 
-
-
 function UserTable() {
   const tokenObject = userStore((state) => state.token);
   const tokenUser = tokenObject.token;
@@ -22,9 +20,6 @@ function UserTable() {
   const { showNewUserModal, setShowNewUserModal } = showModal();
   const { showModalEditUser, setShowModalEditUser } = showModal();
   const {showUsersTable} = updateUsersTable();
-
-  
-  
 
   useEffect(() => {
         const fetchData = async()=> {
@@ -36,13 +31,10 @@ function UserTable() {
         }, [tokenUser, showUsersTable]);
 
 
-
-
   const handleEdit = async (username) => {
     setShowModalEditUser(true);
     userStore.setState({ username: username });
     
-
   };
 
 const openModal= ()=>{
@@ -81,10 +73,8 @@ const handleDeleteTasks = async (tokenUser, username) => {
   }
 };
 
-
   return (
-    
-    
+        
     <div>
      
     <div className="table_container">

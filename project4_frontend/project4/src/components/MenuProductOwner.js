@@ -44,6 +44,7 @@ function MenuProductOwner(){
         setShowUserTable(false);
         setShowCategoriesTable(false);
         setInativeTasksTable(false);
+        navigate('/productOwner');
     
     }
     const handleInativeTasks = () => {
