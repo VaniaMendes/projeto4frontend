@@ -3,8 +3,7 @@ import {useState} from 'react';
 import { FaUsers } from "react-icons/fa6";
 import { MdTask } from "react-icons/md";
 import { BiSolidCategoryAlt } from "react-icons/bi";
-import userStore from '../stores/UserStore';
-import React, { useEffect } from "react";
+
 import { FaUserCheck } from "react-icons/fa";
 import { FaUserAltSlash } from "react-icons/fa";
 import { useNavigate  } from 'react-router-dom';
@@ -58,20 +57,20 @@ function MenuProductOwner(){
    
 return(
 
-    <div id="menuPO">
+    <div className="menuPO1">
 
     <div className='menuPO'>
         
     <ul>
-        <li onClick={seeButtons}> <FaUsers/> Users</li>
+        <li className='item_PO' onClick={seeButtons}> <FaUsers/> Users</li>
         {showButtons && (
                     <ul>
-                        <li id='active' onClick={handleShowUserTable}><FaUserCheck className='icon'/>Active Users</li>
-                        <li id='active' onClick={handleInativeUsers}><FaUserAltSlash className='icon'/>Inactive Users</li>
+                        <li className='item_PO' id='active' onClick={handleShowUserTable}><FaUserCheck className='icon'/>Active</li>
+                        <li className='item_PO' id='active' onClick={handleInativeUsers}><FaUserAltSlash className='icon'/>Inactive</li>
                     </ul>
                 )}
-        <li onClick={handleInativeTasks}> <MdTask/> Deleted Tasks</li>
-        <li onClick={handleShowCategoriesTable}><BiSolidCategoryAlt/> Categories</li>
+        <li  className='item_PO'  onClick={handleInativeTasks}> <MdTask/> Deleted Tasks</li>
+        <li  className='item_PO'  onClick={handleShowCategoriesTable}><BiSolidCategoryAlt/> Categories</li>
     </ul>
 </div>
 </div>

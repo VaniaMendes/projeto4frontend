@@ -10,6 +10,7 @@
   }
   .users_table{
     align-items: center;
+    
   }
 
 .table_container{
@@ -65,6 +66,12 @@
     position:sticky;
   
   }
+  .users_table th, .users_table td {
+    border: 1px solid #dddddd; /* Adiciona bordas às células */
+    text-align: left; /* Alinha o texto à esquerda */
+    padding: 8px; /* Adiciona espaçamento interno às células */
+  }
+  
 
 
   .user_list{

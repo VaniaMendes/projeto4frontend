@@ -86,8 +86,8 @@ return (
                     ))}
                
                </select>
-               <div className="search_icon"> <p className="search-icon" onClick={() => handleFilter(tokenUser, selectedUsername, selectedCategoryId)}><LuSearchCheck className='icon-search'/></p></div>
-               <div className="reset_search_icon"> <p className="reset-filter-icon" onClick={ handleResetFilter}><MdOutlineCleaningServices className='icon-search'/></p></div>
+               <div className="search_icon"> <p className="search-icon" onClick={() => handleFilter(tokenUser, selectedUsername, selectedCategoryId)}><LuSearchCheck className='icon-search' title='Search'/></p></div>
+               <div className="reset_search_icon"> <p className="reset-filter-icon" onClick={ handleResetFilter}><MdOutlineCleaningServices className='icon-search' title="Clear Filter"/></p></div>
             </div>
            </div>
 

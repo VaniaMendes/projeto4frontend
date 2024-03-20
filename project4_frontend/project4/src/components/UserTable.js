@@ -11,6 +11,7 @@ import{ getActiveUsers} from '../endpoints/users';
 import { showModal, updateUsersTable } from '../stores/boardStore';
 import {deleteUserTasks} from '../endpoints/tasks';
 import EditProfileByPO from "./editProfileByPO";
+import ButtonsForScrum from "./buttonsForScrum";
 
 
 function UserTable() {
@@ -20,6 +21,10 @@ function UserTable() {
   const { showNewUserModal, setShowNewUserModal } = showModal();
   const { showModalEditUser, setShowModalEditUser } = showModal();
   const {showUsersTable} = updateUsersTable();
+
+  //Vai buscar o role guardado na userStore quando o user faz login
+  const { getRole } = userStore();
+  const role = getRole();
 
   useEffect(() => {
         const fetchData = async()=> {
@@ -85,7 +90,9 @@ const handleDeleteTasks = async (tokenUser, username) => {
               <th className="titleUser"><img src="icon-green.png"></img></th>
               <th className="titleUser2">Active Users</th>
               <th className="titleUser">
-              <button id="btn_user"onClick={openModal}>+New User</button>
+              {role !== "scrum_master" && (
+    <button id="btn_user" onClick={openModal}>+New User</button>
+  )}
               </th>
               <th className="titleUser">
                 
@@ -102,7 +109,11 @@ const handleDeleteTasks = async (tokenUser, username) => {
               <th>Email</th>
               <th>Phone</th>
               <th>Role</th>
-              <th>User Edition</th>
+              {role !== "scrum_master" ? (
+    <th>User Edition</th>
+  ) : (
+    <th>User Consult</th>
+  )}
             </tr>
           </thead>
           
@@ -130,26 +141,32 @@ const handleDeleteTasks = async (tokenUser, username) => {
                       : ""}
                   </td>
                   <td>
-                    <button
-                      className="edit_button"
-                      onClick={() => handleEdit(user.username)}
-                    >
-                      <FaUserEdit />
-                    </button>
-                    <button
-                      className="delete_button"
-                      onClick={() => handleDelete(tokenUser, user.username)}
-                    >
-                      <MdAutoDelete />
-                    </button>
-                    <button
-                      className="delete_task"
-                      onClick={() =>
-                        handleDeleteTasks(tokenUser, user.username)
-                      }
-                    >
-                      Delete Tasks
-                    </button>
+                    {role === "scrum_master" ? (
+                      <ButtonsForScrum  username={user.username} /> //Se for Scrum Master, apresenta só o componente que tem apenas o botão consulta de perfil
+                    ) : (
+                      <>
+                        <button
+                          className="edit_button"
+                          onClick={() => handleEdit(user.username)}
+                        >
+                          <FaUserEdit />
+                        </button>
+                        <button
+                          className="delete_button"
+                          onClick={() => handleDelete(tokenUser, user.username)}
+                        >
+                          <MdAutoDelete />
+                        </button>
+                        <button
+                          className="delete_task"
+                          onClick={() =>
+                            handleDeleteTasks(tokenUser, user.username)
+                          }
+                        >
+                          Delete Tasks
+                        </button>
+                      </>
+                    )}
                   </td>
                 </tr>
               ))}

@@ -66,15 +66,21 @@ function SideMenu() {
             <img id="user_img" src={userData && userData.imgURL} alt="User logo" />
               <span className="welcome">{userData && userData.firstName}</span>
             </div>
-            <button className="menu_item" onClick={homeclick}>
-              <HiHome /> Home
-            </button>
-            <button className="menu_item" onClick={logoutClick}>
-              <RiLogoutCircleFill /> Logout
-            </button>
-            <button className="menu_item" onClick={handleClick}>
-              <RiEdit2Fill /> Edit Profile
-            </button>
+            <div className = "menuSide">
+            <div className='menuPO'>
+            <ul className="menu_list">
+              <li className="item_PO" onClick={homeclick}>
+                <HiHome /> Home
+              </li>
+              <li className="item_PO" onClick={logoutClick}>
+                <RiLogoutCircleFill /> Logout
+              </li>
+              <li className="item_PO" onClick={handleClick}>
+                <RiEdit2Fill /> Edit Profile
+              </li>
+            </ul>
+            </div>
+            </div>
           </div>
         </div>
       </div>

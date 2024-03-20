@@ -57,7 +57,7 @@ function Categories() {
   }
 
   return (
-    <div className = "container_modal">
+    <div >
     <div className="table_container">
           <table id="users_table">
             <thead>

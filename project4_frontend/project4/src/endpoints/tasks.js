@@ -281,7 +281,7 @@ export async function getTask(tokenUser, taskIdForEdit) {
 export async function getFilteredTasks(tokenUser, selectedUsername, selectedCategoryId) {
    let url = `http://localhost:8080/project_backend/rest/tasks/getFilterTasks`;
    
-   // Adicione parâmetros de consulta à URL conforme necessário
+   // De+endendo se pretende so pesquisar por nome de utilizador, por categoria ou por ambos, a url sera diferente
    if (selectedUsername) {
       url += `?username=${selectedUsername}`;
    }
@@ -314,6 +314,7 @@ export async function getFilteredTasks(tokenUser, selectedUsername, selectedCate
        return null;
    }
 }
+
 
 
 

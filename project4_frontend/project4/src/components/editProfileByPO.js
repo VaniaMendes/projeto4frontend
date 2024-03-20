@@ -94,31 +94,32 @@ function EditProfileByPO(){
         <div className="edit_profile">
            <div>
               <label  htmlFor="descriptioLabel">Password</label>
-              <input type="text" className="edit_element" id="password" placeholder="******"/>
+              <input type="text" className="edit_element" id="password" placeholder="******" onChange={handleInputChange}
+              disabled={role === "scrum_master"}/>
            </div>
            <div>
               <label htmlFor="descriptioLabel">Email</label>
-              <input type="text" className="edit_element" id="email" placeholder={userEditPO?.email} onChange={handleInputChange} />
+              <input type="text" className="edit_element" id="email" placeholder={userEditPO?.email} onChange={handleInputChange} disabled={role === "scrum_master"}/>
            </div>
            <div>
               <label  htmlFor="descriptioLabel">First Name</label>
-              <input type="text" className="edit_element" id="firstName" placeholder={userEditPO?.firstName} onChange={handleInputChange} />
+              <input type="text" className="edit_element" id="firstName" placeholder={userEditPO?.firstName} onChange={handleInputChange} disabled={role === "scrum_master"}/>
            </div>
            <div>
               <label  htmlFor="descriptioLabel">Last Name</label>
-              <input type="text" className="edit_element" id="lastName" placeholder={userEditPO?.lastName} onChange={handleInputChange}/>
+              <input type="text" className="edit_element" id="lastName" placeholder={userEditPO?.lastName} onChange={handleInputChange} disabled={role === "scrum_master"}/>
            </div>
            <div>
               <label  htmlFor="descriptioLabel">Phone Number</label>
-              <input type="text" className="edit_element" id="phoneNumber" placeholder={userEditPO?.phoneNumber} onChange={handleInputChange}/>
+              <input type="text" className="edit_element" id="phoneNumber" placeholder={userEditPO?.phoneNumber} onChange={handleInputChange} disabled={role === "scrum_master"}/>
            </div>
            <div>
               <label  htmlFor="descriptioLabel">URL Image</label>
-              <input type="text" className="edit_element" id="imgURL" placeholder={userEditPO?.imgURL} onChange={handleInputChange}/>
+              <input type="text" className="edit_element" id="imgURL" placeholder={userEditPO?.imgURL} onChange={handleInputChange} disabled={role === "scrum_master"}/>
            </div>
            <div>
                 <label htmlFor="opcoes" className="descriptioLabel">User role</label>
-                <select id="typeOfUser" name="opcoes" value={userEditPO?.typeOfUser}   onChange={handleInputChange}> 
+                <select id="typeOfUser" name="opcoes" value={userEditPO?.typeOfUser}   onChange={handleInputChange} disabled={role === "scrum_master"}> 
                 <option value="developer">Developer</option>
                 <option value="scrum_master">Scrum Master</option>
                 <option value="product_owner">Product Owner</option>
@@ -127,7 +128,7 @@ function EditProfileByPO(){
 
         </div>
         <div className="confirm_profile">
-           <button className="btn_save" id="btn-save" onClick={handleSubmit}>Save</button>
+           <button className="btn_save" id="btn-save" onClick={handleSubmit} hidden={role === "scrum_master"}>Save</button>
            <button className="btn_cancel" id="btn_cancel" onClick={handleBack}>Back</button>
         </div>
      </div>
