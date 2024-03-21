@@ -57,7 +57,7 @@ function EditTask() {
     fetchData();
   }, [tokenUser]);
 
-  const handleSubmit = async (tokenUser, taskIdForEdit, idCategory) => {
+  const handleSubmit = async (tokenUser, taskIdForEdit) => {
     const updatedTask = {
       title: title,
       category: { idCategory: idCategory },
@@ -70,6 +70,7 @@ function EditTask() {
     console.log(updatedTask);
     console.log(idCategory);
     const result =  await updateTask(updatedTask, tokenUser, taskIdForEdit, idCategory)
+    console.log(result);
     if(result === true){
       NotificationManager.success("Task updated successfully", "", 1000);
       setShowEditTask(!showEditTask);
@@ -134,7 +135,7 @@ function EditTask() {
               }}
             >
               <option>
-              {categoryTitle} 
+              {categoryTitle || "Select category"} 
               </option>
               {categories &&
                 categories.map((category, index) => (

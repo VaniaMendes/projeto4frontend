@@ -30,14 +30,14 @@ function MenuProductOwner(){
   
 return(
 
-    <div id="menuPO1">
+    <div className="menuPO1">
 
     <div className='menuPO'>
-        
+        <ul>
  
         <li className='item_PO' onClick={handleShowUserTable}> <FaUsers/> Users</li>
         <li className='item_PO' onClick={handleInativeTasks}> <MdTask/> Deleted Tasks</li>
-        
+        </ul>
   
 </div>
 </div>
@@ -46,3 +46,4 @@ return(
 }
 
 export default MenuProductOwner;
+
