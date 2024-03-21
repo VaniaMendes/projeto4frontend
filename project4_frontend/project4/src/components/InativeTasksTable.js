@@ -64,7 +64,6 @@ const InativeTasksTable = () => {
   const handleRestore = async (tokenUser, taskId) => {
     try {
       const result = await restoreTask(tokenUser, taskId);
-      console.log(result);
 
       if (result === 200) {
         NotificationManager.success("Task restored successfully", "", 1000);

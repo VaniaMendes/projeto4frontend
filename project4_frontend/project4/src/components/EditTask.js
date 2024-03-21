@@ -23,24 +23,13 @@ function EditTask() {
   const [priorityColor, setPriorityColor] = useState("");
   const [categoryTitle, setCategoryTitle] = useState("");
 
-
-  //Atributos para guardar os valores alterados
-  const [newTitle, setNewTitle] = useState("");
-  const [newidCategory, setNewidCategory] = useState("");
-  const [newdescription, setNewdescription] = useState("");
-  const [newendDate, setNewEndDate] = useState("");
-  const [newinitialDate, setNewInitialDate] = useState("");
-  const [newpriority, setNewPriority] = useState("");
-
-
   const [task, setTask] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
       const result = await getTask(tokenUser, taskIdForEdit);
       setTask(result);
-      console.log(result);
-
+  
       const categories = await getAllCategories(tokenUser);
       setCategories(categories);
 
@@ -70,28 +59,26 @@ function EditTask() {
 
   const handleSubmit = async (tokenUser, taskIdForEdit, idCategory) => {
     const updatedTask = {
-      id: taskIdForEdit,
-      title: newTitle,
-      category: {
-        idCategory: newidCategory
-     
-      },
-      description: newdescription,
-      endDate: newendDate,
-      initialDate: newinitialDate,
-      priority: newpriority
+      title: title,
+      category: { idCategory: idCategory },
+      description: description,
+      endDate: endDate,
+      initialDate: initialDate,
+      priority: priority
     };
 
+    console.log(updatedTask);
+    console.log(idCategory);
     const result =  await updateTask(updatedTask, tokenUser, taskIdForEdit, idCategory)
-    console.log(result);
     if(result === true){
       NotificationManager.success("Task updated successfully", "", 1000);
+      setShowEditTask(!showEditTask);
+
       
       }else{
-        NotificationManager.warning("Error updating task", "", 1000);}
+        NotificationManager.warning(result, "", 1000);}
     
   };
-
 
 
   async function handleClose(event) {
@@ -126,8 +113,7 @@ function EditTask() {
             type="text"
             placeholder={title}
             id="title"
-            value={newTitle}
-            onChange={(event) => setNewTitle(event.target.value)}
+            onChange={(event) => setTitle(event.target.value)}
             required
           />
 
@@ -138,12 +124,12 @@ function EditTask() {
             <select
               id="category_element"
               name="opcoes"
-              value={newidCategory}
+              value={idCategory}
               onChange={(event) => {
                 const selectedidCategory = event.target.value;
                 const selectedCategoryTitle =
                   event.target.selectedOptions[0].text;
-                setNewidCategory(selectedidCategory);
+                setidCategory(selectedidCategory);
                 setCategoryTitle(selectedCategoryTitle);
               }}
             >
@@ -166,8 +152,7 @@ function EditTask() {
             rows="14"
             placeholder={description}
             id="description-task"
-            value={newdescription}
-            onChange={(event) => setNewdescription(event.target.value)}
+              onChange={(event) => setDescription(event.target.value)}
           ></textarea>
 
           <div id="date_section">
@@ -176,9 +161,8 @@ function EditTask() {
               <input
                 type="date"
                 id="initial_date"
-                        
-                     value={initialDate}
-                onChange={(event) => setNewInitialDate(event.target.value)}
+                value={initialDate}
+                onChange={(event) => setInitialDate(event.target.value)}
               />
             </div>
             <div id="end_date">
@@ -188,7 +172,7 @@ function EditTask() {
                 id="end_dates"
                
                 value={endDate}
-                onChange={(event) => setNewEndDate(event.target.value)}
+                onChange={(event) => setEndDate(event.target.value)}
               />
             </div>
           </div>
@@ -203,7 +187,7 @@ function EditTask() {
                 selected
                 value="100"
                 onChange={handlePriorityChange}
-                checked={newpriority === "100"}
+                checked={priority === "100"}
               />
               <label htmlFor="low_priority">Low</label>
             </div>
@@ -214,7 +198,7 @@ function EditTask() {
                 id="medium_priority"
                 value="200"
                 onChange={handlePriorityChange}
-                checked={newpriority === "200"}
+                checked={priority === "200"}
               />
               <label htmlFor="medium_priority">Medium</label>
             </div>
@@ -225,12 +209,13 @@ function EditTask() {
                 id="high_priority"
                 value="300"
                 onChange={handlePriorityChange}
-                checked={newpriority === "300"}
+                checked={priority === "300"}
               />
               <label htmlFor="high_priority">High</label>
             </div>
             <div
               id="priority_color"
+              placeholder={priorityColor}
               style={{
                 backgroundColor:
                   priority === "100"
@@ -245,7 +230,7 @@ function EditTask() {
           </div>
 
           <div className="buttons">
-            <button className="btns_task" id="task_save" onClick={ () =>handleSubmit(tokenUser, task.id, idCategory)}>
+            <button className="btns_task" id="task_save" onClick={ () =>handleSubmit(tokenUser, task.id, task.category.idCategory)}>
               Save
             </button>
             <button
@@ -256,7 +241,6 @@ function EditTask() {
               Cancel
             </button>
           </div>
-
           <div id="error_creating_task"></div>
         </div>
       )}

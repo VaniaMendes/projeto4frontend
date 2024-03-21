@@ -234,11 +234,11 @@ export async function restoreTask(tokenUser, taskId) {
          token: tokenUser,
          categoryId: idCategory,
          taskId: taskIdForEdit
-         
       },
       body: JSON.stringify(task)
 
    });
+   console.log(response);
    if (response.ok) {
     return true;
 

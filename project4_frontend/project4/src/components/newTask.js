@@ -37,11 +37,8 @@ function NewTask() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    console.log(initialDate);
-    console.log(endDate);
-   
     const result = await addTask(tokenUser, categoryID, task);
-    console.log(task);
+  
     if(result===200){
       NotificationManager.success("Task added successfully", "", 800);
       setShowNewTask(false);

@@ -74,7 +74,7 @@ function EditProfile(){
                    
                 });
 
-                console.log(response);
+            
                 if (response.ok) {
                     NotificationManager.success("Your valid changes have been saved","", 800);
                     setTimeout(() => {
@@ -99,10 +99,6 @@ function EditProfile(){
             
            navigate('/principalPage');
         };
-
-        useEffect(() => {
-            console.log(userEdit);
-        }, [userEdit]);
 
             
     return(

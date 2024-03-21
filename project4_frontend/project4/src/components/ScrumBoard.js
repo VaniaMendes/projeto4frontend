@@ -47,13 +47,12 @@ function ScrumBoard(){
         }else{
           const tasks = await getActiveTasks(tokenUser);
            setListTasks(tasks);
-
         }
                         
        };
 
        fetchData();
-   }, [tokenUser, filterOn, filteredTasks]);
+   }, [tokenUser, filterOn, filteredTasks, showNewTask, showEditTask]);
 
 function getColorForPriority(priority) {
   if (priority === 100) {
@@ -116,8 +115,6 @@ const handleDragStart = (event, taskId) => {
 const handleDrop = async (event, tokenUser, taskId, newState) => {
   event.preventDefault();
 
-  console.log(taskId);
-  console.log(newState);
 
   try {
     // Atualiza o estado da tarefa no servidor
@@ -132,7 +129,6 @@ const handleDrop = async (event, tokenUser, taskId, newState) => {
     });
     setListTasks(updatedTasks);
 
-    console.log("Task state updated successfully");
   } catch (error) {
     console.error("Failed to update task state:", error);
   }

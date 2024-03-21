@@ -45,9 +45,7 @@ function Categories() {
 
   const handleDelete = async (categoryId, tokenUser) => {
     const result = await deleteCategory(categoryId, tokenUser);
-    console.log(result); 
-    console.log(categoryId);
-    
+      
     if (result === true) {
       NotificationManager.success("Category deleted successfully", "",1000);
       fetchData();
