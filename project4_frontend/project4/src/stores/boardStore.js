@@ -59,3 +59,15 @@ export const showModal = create((set) => ({
 
   }));
 
+  export const modeEditOn = create((set) => ({
+
+    modeEdit: false,
+    setModeEdit: (value) => set({ modeEdit: value }),
+  }));
+
+  export const modeEditTask = create((set) => ({
+
+    editTask: false,
+    setEditTask: (value) => set({ editTask: value }),
+  }));
+

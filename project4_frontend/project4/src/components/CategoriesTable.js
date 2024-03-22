@@ -1,6 +1,6 @@
 import React from "react";
 import "../format/tables.css";
-import NewCategory from "./NewCategory";
+import NewCategory from "./CategoryBoard";
 import { FaEdit } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
 import { useState, useEffect } from "react";
@@ -13,7 +13,7 @@ import { IoFilter } from "react-icons/io5";
 import {getAllCategories} from '../endpoints/categories'
 import { BiSolidCategoryAlt } from "react-icons/bi";
 
-import { showModal, updateCategoriesTable } from '../stores/boardStore';
+import { showModal, updateCategoriesTable, modeEditOn } from '../stores/boardStore';
 
 function Categories() {
   const [categories, setCategories] = useState(null);
@@ -25,6 +25,8 @@ function Categories() {
   const setShowModalNewCategory = showModal((state) => state.setShowModalNewCategory);
   const setShowEditCategory = showModal((state) => state.setShowEditCategory);
   const { setShowCategoriesTable, showCategoriesTable } = updateCategoriesTable();
+  const { modeEdit, setModeEdit } = modeEditOn();
+
 
  
         const fetchData = async()=> {
@@ -39,7 +41,7 @@ function Categories() {
 
         const openEditModal = (categoryId) => {
           userStore.getState().setCategoryId(categoryId);
-          setShowEditCategory(true);
+          setShowModalNewCategory(true);
             
         };
 
@@ -89,7 +91,8 @@ function Categories() {
                     <td>
                       <button
                         className="edit_button"
-                        onClick={() => openEditModal(category.idCategory)}
+                        onClick={() => (openEditModal(category.idCategory),
+                        setModeEdit(true))}
                       
                       >
                         <FaEdit />
@@ -108,7 +111,6 @@ function Categories() {
           </table>
     </div>
       {showModalNewCategory && <NewCategory />}
-      {showEditCategory && <EditCategory />}
     </div>
   );
 }
