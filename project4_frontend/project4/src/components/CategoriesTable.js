@@ -4,7 +4,6 @@ import NewCategory from "./CategoryBoard";
 import { FaEdit } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
 import { useState, useEffect } from "react";
-import EditCategory from "./EditCategory";
 import { deleteCategory } from "../endpoints/categories";
 import {  NotificationManager} from "react-notifications";
 import "react-notifications/lib/notifications.css";

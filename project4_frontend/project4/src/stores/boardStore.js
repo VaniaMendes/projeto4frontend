@@ -71,3 +71,8 @@ export const showModal = create((set) => ({
     setEditTask: (value) => set({ editTask: value }),
   }));
 
+  export const showMyTasks = create((set) => ({
+
+    showUserTasks: false,
+    setShowUserTasks: (value) => set({ showUserTasks: value }),
+  }));

@@ -25,6 +25,7 @@ root.render(
       <Route path="/principalPage" element = {<PrincipalPage/>}/>
       <Route path="/productOwner" element = {<ProductOwner/>}/>
       <Route path = "/editProfile" element = {<EditProfile/>}/>
+      <Route path = "/MyTasks" element = {<PrincipalPage/>}/>
    
       </Routes>
   </Router>

@@ -1,6 +1,5 @@
 import React from 'react';
-import NewTask from './newTask';
-import EditTask from './EditTask';
+import TaskBoard from './TaskBoard';
 import {useState, useEffect} from 'react'
 import '../format/ScrumBoard.css';
 import {getActiveTasks} from '../endpoints/tasks';
@@ -9,8 +8,9 @@ import { MdModeEditOutline } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
 import { softDeleteTask} from '../endpoints/tasks';
 import {NotificationManager } from "react-notifications";
-import {showModalNewTask, showModalEditTask, showModal} from '../stores/boardStore';
+import {showModalNewTask, showModal, modeEditTask, showMyTasks} from '../stores/boardStore';
 import {updateTaskState} from '../endpoints/tasks';
+import {useLocation} from 'react-router-dom';
 
 
 function ScrumBoard(){
@@ -19,31 +19,42 @@ function ScrumBoard(){
    const tokenUser = tokenObject.token;
       
    const {showNewTask,  setShowNewTask } = showModalNewTask();
-   const { showEditTask, setShowEditTask } = showModalEditTask();
 
    const filteredTasks = userStore((state) => state.filteredTasks);
+   const myTasks= null;
+   console.log(myTasks);
 
    const {filterOn} = showModal();
+   const {showUserTasks} = showMyTasks();
    
    const [listTasks, setListTasks] = useState([]);
    const [taskId, setTaskId] = useState(null);
-   
+
+   const {editTask, setEditTask} = modeEditTask();
+
+
+   //Path------------
+   const location = useLocation();
+   const {pathName} = location;
 
    const handleNewTaskClick = () => {
     setShowNewTask(true);
    }
-   const handleEdit = (taskId) => {
-    setShowEditTask(true);
-    userStore.getState().setTaskIdForEdit(taskId);
-    
-   };
 
+   const handleEdit = (taskId) => {
+    setShowNewTask(true);
+    userStore.getState().setTaskIdForEdit(taskId);
+    setEditTask(true);
+  
+   };
 
    useEffect(() => {
        const fetchData = async () => {
         if(filterOn && filteredTasks.length > 0){
         setListTasks(filteredTasks);
-           
+        }else if(showUserTasks && myTasks.length > 0){
+          console.log(myTasks);
+           setListTasks(myTasks);
         }else{
           const tasks = await getActiveTasks(tokenUser);
            setListTasks(tasks);
@@ -52,7 +63,7 @@ function ScrumBoard(){
        };
 
        fetchData();
-   }, [tokenUser, filterOn, filteredTasks, showNewTask, showEditTask]);
+   }, [tokenUser, filterOn, filteredTasks, showNewTask]);
 
 function getColorForPriority(priority) {
   if (priority === 100) {
@@ -167,7 +178,7 @@ const allowDrop = (event) => {
           ))}
           </section>
           <button id="btn_task" onClick={handleNewTaskClick}>+ New Task</button>
-          {showNewTask && <NewTask />}
+          {showNewTask && <TaskBoard />}
         </div>
         <div className="column" id="column2" onDrop={(event) => handleDrop(event, tokenUser, taskId, "doing")} onDragOver={allowDrop}>
           <div className="title">Doing</div>
@@ -204,19 +215,22 @@ const allowDrop = (event) => {
               <div className="task-category">{task.category.title}</div>
               
               </div>
+              {(pathName === '/principalPage') && (
               <div className = "task-details">
+            
               <div className='buttons_scrum'>
                 <button className='delete_btnS' onClick={() => handleEdit(task.id)}><MdModeEditOutline/></button>
                 <button className='task_btnS' onClick={() => handleDeleteTask(tokenUser, task.id)}><MdDelete/></button>
               </div>
               </div>
+              )} 
               </div>
             ))}
           
           </section>
         </div>
       </div>
-      {showEditTask && <EditTask />}
+  
     </div>
  
      )

@@ -315,7 +315,30 @@ export async function getFilteredTasks(tokenUser, selectedUsername, selectedCate
    }
 }
 
+export async function myTasks(tokenUser) {
 
+
+   let response = await fetch("http://localhost:8080/project_backend/rest/tasks/myTasks ",{
+
+         method: "GET",
+         headers: {
+            Accept: "*/*",
+            "Content-Type": "application/json",
+            token: tokenUser
+         },
+      }
+   );
+
+   if (response.ok) {
+      let tasks = await response.json();
+      console.log(tasks);
+      return tasks;
+   } else {
+      console.error("Failed to fetch task data");
+      return null;
+   }
+
+}
 
 
 

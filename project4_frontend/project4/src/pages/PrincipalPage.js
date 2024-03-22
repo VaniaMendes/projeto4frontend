@@ -8,12 +8,14 @@ import MenuScrum from '../components/MenuScrum';
 import {userStore} from '../stores/UserStore';
 
 
+
 function PrincipalPage(){
 
     const tokenObject = userStore(state => state.token);
     const tokenUser = tokenObject.token;
     const { getRole } = userStore();
     const role = getRole();
+   
 
     return(
         <div>

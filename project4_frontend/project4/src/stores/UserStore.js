@@ -32,6 +32,10 @@ export const userStore = create(
             setFilteredTasks: (filteredTasks) => set({ filteredTasks }),
             getFilteredTasks: () => userStore.getState().filteredTasks,
 
+            myTasks:[],
+            setMyTasks: (myTasks) => set({ myTasks }),
+            getMytasks: () => userStore.getState().myTasks,
+
         }),
         {
             name: 'mystore',

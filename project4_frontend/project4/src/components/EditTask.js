@@ -75,7 +75,6 @@ function EditTask() {
       NotificationManager.success("Task updated successfully", "", 1000);
       setShowEditTask(!showEditTask);
 
-      
       }else{
         NotificationManager.warning(result, "", 1000);}
     

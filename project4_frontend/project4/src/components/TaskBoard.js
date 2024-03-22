@@ -2,21 +2,33 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { userStore } from "../stores/UserStore";
 import { getAllCategories } from "../endpoints/categories";
-import {addTask} from '../endpoints/tasks';
+import {addTask, getTask, updateTask} from '../endpoints/tasks';
 import { NotificationManager } from "react-notifications";
 import '../format/tables.css'
-import {showModalNewTask, updateTasksList} from '../stores/boardStore'
+import {showModalNewTask, updateTasksList, modeEditTask} from '../stores/boardStore'
 
 function NewTask() {
+
+  //Vai buscar o valor do token ao store
   const tokenObject = userStore((state) => state.token);
   const tokenUser = tokenObject.token;
 
+  //Controla a visibilidade do modal
   const {showNewTask,  setShowNewTask } = showModalNewTask();
   const {updateTasks, setUpdateTasks} = updateTasksList();
 
+  //Controla o estado do modo de edit
+  const {editTask, setEditTask} = modeEditTask();
 
+//Vai buscar o id da task para atualizar
+  const taskIdForEdit = userStore((state) => state.taskIdForEdit);
+
+  //Guarda os dados da task para editar
+  const [tasktoEdit, setTakstoEdit] = useState("");
+
+  
   const [title, setTitle] = useState("");
-  const [categoryID, setCategoryID] = useState("");
+
   const [description, setDescription] = useState("");
   const [endDate, setEndDate] = useState("");
   const [initialDate, setInitialDate] = useState("");
@@ -24,6 +36,29 @@ function NewTask() {
   const [categories, setCategories] = useState(null);
   const [priorityColor, setPriorityColor] = useState("");
   const [categoryTitle, setCategoryTitle] = useState("");
+  const [idCategory, setIdCategory] = useState("");
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const categoriesData = await getAllCategories(tokenUser);
+      setCategories(categoriesData);
+
+      if (editTask && taskIdForEdit) {
+        const result = await getTask(tokenUser, taskIdForEdit);
+        setTakstoEdit(result);
+        setTitle(result.title);
+        setIdCategory(result.category.idCategory);
+        setCategoryTitle(result.category.title);
+        setDescription(result.description);
+        setEndDate(result.endDate);
+        setInitialDate(result.initialDate);
+        setPriority(result.priority);
+
+      }
+    };  
+    fetchData();
+  }, [tokenUser]);
 
   const task={
     title: title,
@@ -37,7 +72,21 @@ function NewTask() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const result = await addTask(tokenUser, categoryID, task);
+    if(editTask && taskIdForEdit){
+
+      const result =  await updateTask(task, tokenUser, taskIdForEdit, idCategory)
+    console.log(result);
+    if(result === true){
+      NotificationManager.success("Task updated successfully", "", 1000);
+      setShowNewTask(false);
+
+      
+      }else{
+        NotificationManager.warning(result, "", 1000);}
+
+    }else{
+
+    const result = await addTask(tokenUser, idCategory, task);
   
     if(result===200){
       NotificationManager.success("Task added successfully", "", 800);
@@ -47,22 +96,15 @@ function NewTask() {
     }else{
     NotificationManager.warning(result, "", 800);
    }
+  }
 
   };
 
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const categories = await getAllCategories(tokenUser);
-      setCategories(categories);
-     
-    };
-    fetchData();
-  }, [tokenUser]);
-
   const handleClose = async (event) => {
     event.preventDefault();
     setShowNewTask(false);
+    setEditTask(false);
   };
 
   const handlePriorityChange = (event) => {
@@ -79,7 +121,7 @@ function NewTask() {
               &times;
             </button>
         
-            <h2 id="task_creationTitle">Task Creation</h2>
+            <h2 id="task_creationTitle">{editTask? "Task Edition" : "Task Creation" }</h2>
 
           
 
@@ -102,12 +144,12 @@ function NewTask() {
               <select
                 id="category_element"
                 name="opcoes"
-                value={categoryID}
+                value={idCategory}
                 placeholder="Select a category"
                 onChange={(event) => {
                   const selectedCategoryID = event.target.value;
                   const selectedCategoryTitle = event.target.selectedOptions[0].text;
-                  setCategoryID(selectedCategoryID);
+                  setIdCategory(selectedCategoryID);
                   setCategoryTitle(selectedCategoryTitle);
                 }}
 
@@ -213,7 +255,7 @@ function NewTask() {
                 id="task_save"
                 onClick={handleSubmit}
               >
-                Save
+                {editTask? "Update" : "Save" }
               </button>
               <button
                 className="btns_task"
