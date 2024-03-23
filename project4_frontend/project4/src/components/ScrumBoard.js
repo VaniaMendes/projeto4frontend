@@ -189,9 +189,7 @@ const allowDrop = (event) => {
   {(role === "developer" && showUserTasks) && (
     <div className='buttons_scrum'>
       <button className='delete_btnS' onClick={() => handleEdit(task.id)}><MdModeEditOutline/></button> 
-      {(role !== "scrum_master" && role !== "product_owner") && (
-        <button className='task_btnS' onClick={() => handleDeleteTask(tokenUser, task.id)}><MdDelete/></button>
-      )}
+      
     </div>
   )}
   {(role === "scrum_master" || role === "product_owner") && (

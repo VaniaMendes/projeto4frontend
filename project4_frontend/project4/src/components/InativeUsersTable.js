@@ -6,16 +6,19 @@ import { MdOutlineRestore } from "react-icons/md";
 import { MdDeleteForever } from "react-icons/md";
 import "../format/tables.css";
 import { deleteUserForever, restoreUser} from '../endpoints/users';
-import { IoFilter } from "react-icons/io5";
 import {getInactiveUsers} from '../endpoints/users';
 
 
-function InactiveUsersTable({ users }) {
+function InactiveUsersTable() {
+
+    //Obtem o token do utilizador
     const tokenObject = userStore(state => state.token);
     const tokenUser = tokenObject.token;
       
+    //Estado para armazenar os users inativos
     const [inativeUsers, setInativeUsers] = useState(null);
 
+    //Efeito para ir buscar os users inativos ao renderizar o componente
     useEffect(() => {
         const fetchData = async () => {
           const users = await getInactiveUsers(tokenUser);
@@ -24,8 +27,7 @@ function InactiveUsersTable({ users }) {
         fetchData();
       }, [tokenUser]);
     
-
-
+    //Função para restaurar um utilizador inativo
     async function handleRestore (tokenUser, username) {
        const result= await restoreUser(tokenUser, username);
        if(result){
@@ -39,14 +41,14 @@ function InactiveUsersTable({ users }) {
         
     }
     
+
+    //Função para apagar definitivamente um user da tabela de users inativos
     const handleDeleteForever = (tokenUser, username) => {
-       
         NotificationManager.info("Are you sure you want to delete this user?", "Confirm", 7000, () => {
+            //Se o utilizador confirmar vai chamar a função
             deleteUserForever(tokenUser, username)
                 .then(result => {
-                    
                     if (result===true) {
-                        
                         NotificationManager.success("User deleted successfully", "", 1000);
                     } else {
                         NotificationManager.error("Failed to delete user", "", 1000);
