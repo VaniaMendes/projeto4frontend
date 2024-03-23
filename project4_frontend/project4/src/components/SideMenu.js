@@ -10,7 +10,7 @@ import { getUserByToken } from "../endpoints/users";
 import { useNavigate  } from 'react-router-dom';
 import { MdTask } from "react-icons/md";
 import { myTasks} from '../endpoints/tasks';
-import {showMyTasks} from '../stores/boardStore';
+import {showMyTasks, showModal} from '../stores/boardStore';
 
 
 
@@ -19,23 +19,30 @@ function SideMenu() {
   const { setRole } = userStore();
   const tokenObject = userStore((state) => state.token);
   const tokenUser = tokenObject.token;
-
+  const {filterOn, setFilterOn} = showModal();
 
   const [userData, setUserData] = useState({});
   const navigate = useNavigate();
 
  const {showUserTasks, setShowUserTasks} = showMyTasks();
+ console.log(showUserTasks);
+
 
 
 
   const handleClick = () => {
     navigate("/editProfile");
+    setFilterOn(false);
+    setShowUserTasks(false);
   };
   const homeclick = () => {
+    setShowUserTasks(false);
+    setFilterOn(false);
     navigate( "/principalPage");
   };
 
   const handleMyTaks = async(tokenUser) => {
+    navigate("/principalPage");
 
     //Vou buscar as tasks do user que está logado
   const result = await myTasks(tokenUser);
@@ -99,7 +106,7 @@ function SideMenu() {
               <li className="item_PO" onClick={handleClick}>
                 <RiEdit2Fill /> Edit Profile
               </li>
-              <li className="item_PO" onClick={() =>handleMyTaks}>
+              <li className="item_PO" onClick={() =>handleMyTaks(tokenUser)}>
                 <MdTask /> My Tasks
               </li>
             </ul>

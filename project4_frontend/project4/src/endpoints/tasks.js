@@ -314,7 +314,6 @@ export async function getFilteredTasks(tokenUser, selectedUsername, selectedCate
        return null;
    }
 }
-
 export async function myTasks(tokenUser) {
 
 
@@ -326,6 +325,7 @@ export async function myTasks(tokenUser) {
             "Content-Type": "application/json",
             token: tokenUser
          },
+
       }
    );
 

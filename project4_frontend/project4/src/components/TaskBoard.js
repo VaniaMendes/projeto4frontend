@@ -65,7 +65,7 @@ function NewTask() {
     description: description,
     initialDate: initialDate,
     endDate: endDate,
-    category:{title: categoryTitle},
+    category:{idCategory: idCategory},
     priority: priority
   }
 
@@ -99,7 +99,6 @@ function NewTask() {
   }
 
   };
-
 
   const handleClose = async (event) => {
     event.preventDefault();

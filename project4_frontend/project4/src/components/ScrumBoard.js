@@ -8,9 +8,11 @@ import { MdModeEditOutline } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
 import { softDeleteTask} from '../endpoints/tasks';
 import {NotificationManager } from "react-notifications";
-import {showModalNewTask, showModal, modeEditTask, showMyTasks} from '../stores/boardStore';
+import {showModalNewTask, showModal, modeEditTask, showMyTasks, ViewTaskDetails} from '../stores/boardStore';
 import {updateTaskState} from '../endpoints/tasks';
-import {useLocation} from 'react-router-dom';
+import TaskDetails from './TaskDetails';
+
+
 
 
 function ScrumBoard(){
@@ -19,13 +21,17 @@ function ScrumBoard(){
    const tokenUser = tokenObject.token;
       
    const {showNewTask,  setShowNewTask } = showModalNewTask();
+   const { showUserTasks } = showMyTasks();
+   const {showTaskDetails, setShowTaskDetails} = ViewTaskDetails();
 
+
+
+   const role = userStore((state) => state.role);
    const filteredTasks = userStore((state) => state.filteredTasks);
-   const myTasks= null;
-   console.log(myTasks);
-
+   const myTasks= userStore((state) => state.myTasks);
+ 
    const {filterOn} = showModal();
-   const {showUserTasks} = showMyTasks();
+   
    
    const [listTasks, setListTasks] = useState([]);
    const [taskId, setTaskId] = useState(null);
@@ -33,37 +39,47 @@ function ScrumBoard(){
    const {editTask, setEditTask} = modeEditTask();
 
 
-   //Path------------
-   const location = useLocation();
-   const {pathName} = location;
-
    const handleNewTaskClick = () => {
     setShowNewTask(true);
    }
 
+   const handleTaskDoubleClick = (taskId) => {
+    userStore.getState().setTaskIdForEdit(taskId);
+    setShowTaskDetails(true); // Exibe o modal de detalhes
+  };
+
+
    const handleEdit = (taskId) => {
-    setShowNewTask(true);
     userStore.getState().setTaskIdForEdit(taskId);
     setEditTask(true);
+    setShowNewTask(true);
   
    };
+   console.log(filterOn);
 
    useEffect(() => {
-       const fetchData = async () => {
-        if(filterOn && filteredTasks.length > 0){
-        setListTasks(filteredTasks);
-        }else if(showUserTasks && myTasks.length > 0){
-          console.log(myTasks);
-           setListTasks(myTasks);
-        }else{
+    const fetchData = async () => {
+      if (filterOn) {
+        if (filteredTasks.length > 0) {
+          setListTasks(filteredTasks);
+        } else {
+          // Fetch data only if filter is on and there are no filtered tasks
           const tasks = await getActiveTasks(tokenUser);
-           setListTasks(tasks);
+          setListTasks(tasks);
         }
-                        
-       };
-
-       fetchData();
-   }, [tokenUser, filterOn, filteredTasks, showNewTask]);
+      } else if (showUserTasks && myTasks.length > 0) {
+        // Fetch user tasks if filter is off and user tasks are available
+        setListTasks(myTasks);
+      } else {
+        // Fetch all tasks if no filter is applied
+        const tasks = await getActiveTasks(tokenUser);
+        setListTasks(tasks);
+      }
+    };
+  
+    fetchData();
+  }, [tokenUser, filterOn, filteredTasks, showNewTask, showUserTasks, myTasks]);
+  
 
 function getColorForPriority(priority) {
   if (priority === 100) {
@@ -153,13 +169,14 @@ const allowDrop = (event) => {
    
      return(
       <div>
+        {showTaskDetails && <TaskDetails />}
        
       <div className="scrum_section" id="scrum_section">
         <div className="column" id="column1" >
           <div className="title">To Do</div>
           <section className="task_list" id="toDo" onDrop={(event) => handleDrop(event, tokenUser, taskId, "toDo")} onDragOver={allowDrop}>
           {todoList.map((task) => (
-            <div className='task' key={task.id} draggable  onDragStart={(event) => handleDragStart(event, task.id)}>
+            <div className='task' key={task.id} draggable  onDragStart={(event) => handleDragStart(event, task.id)} onDoubleClick={()=>handleTaskDoubleClick(task.id)}>
               <div className="priority-bar" style={{ backgroundColor: getColorForPriority(task.priority) }}></div>
               <div className ="task-header">
               <div className="task-title">{task.title}</div>
@@ -167,13 +184,24 @@ const allowDrop = (event) => {
               <div className="task-category">{task.category.title}</div>
               
               </div>
-              <div className = "task-details">
-              <div className='buttons_scrum'>
-                <button className='delete_btnS' onClick={() => handleEdit(task.id)}><MdModeEditOutline/></button>
-                <button className='task_btnS' onClick={() => handleDeleteTask(tokenUser, task.id)}><MdDelete/></button>
-              </div>
-              </div>
-              
+
+              <div className="task-details">
+  {(role === "developer" && showUserTasks) && (
+    <div className='buttons_scrum'>
+      <button className='delete_btnS' onClick={() => handleEdit(task.id)}><MdModeEditOutline/></button> 
+      {(role !== "scrum_master" && role !== "product_owner") && (
+        <button className='task_btnS' onClick={() => handleDeleteTask(tokenUser, task.id)}><MdDelete/></button>
+      )}
+    </div>
+  )}
+  {(role === "scrum_master" || role === "product_owner") && (
+    <div className='buttons_scrum'>
+      <button className='delete_btnS' onClick={() => handleEdit(task.id)}><MdModeEditOutline/></button> 
+      <button className='task_btnS' onClick={() => handleDeleteTask(tokenUser, task.id)}><MdDelete/></button>
+    </div>
+  )}
+</div>
+             
             </div>
           ))}
           </section>
@@ -184,7 +212,7 @@ const allowDrop = (event) => {
           <div className="title">Doing</div>
           <section className="task_list" id="doing">
           {doingList.map((task) => (
-              <div className='task' key={task.id} draggable onDragStart={(event) => handleDragStart(event, task.id)}>
+              <div className='task' key={task.id} draggable onDragStart={(event) => handleDragStart(event, task.id)} onDoubleClick={()=>handleTaskDoubleClick(task.id)}>
                   <div className="priority-bar" style={{ backgroundColor: getColorForPriority(task.priority) }}></div>
               <div className ="task-header">
               <div className="task-title">{task.title}</div>
@@ -192,12 +220,23 @@ const allowDrop = (event) => {
               <div className="task-category">{task.category.title}</div>
               
               </div>
-              <div className = "task-details">
-              <div className='buttons_scrum'>
-                <button className='delete_btnS' onClick={() => handleEdit(task.id)} ><MdModeEditOutline/></button>
-                <button className='task_btnS' onClick={() => handleDeleteTask(tokenUser, task.id)}><MdDelete/></button>
-              </div>
-              </div>
+              <div className="task-details">
+  {(role === "developer" && showUserTasks) && (
+    <div className='buttons_scrum'>
+      <button className='delete_btnS' onClick={() => handleEdit(task.id)}><MdModeEditOutline/></button> 
+      {(role !== "scrum_master" && role !== "product_owner") && (
+        <button className='task_btnS' onClick={() => handleDeleteTask(tokenUser, task.id)}><MdDelete/></button>
+      )}
+    </div>
+  )}
+  {(role === "scrum_master" || role === "product_owner") && (
+    <div className='buttons_scrum'>
+      <button className='delete_btnS' onClick={() => handleEdit(task.id)}><MdModeEditOutline/></button> 
+      <button className='task_btnS' onClick={() => handleDeleteTask(tokenUser, task.id)}><MdDelete/></button>
+    </div>
+  )}
+</div>
+           
               </div>
             ))}
            
@@ -207,7 +246,7 @@ const allowDrop = (event) => {
           <div className="title">Done</div>
           <section className="task_list" id="done">
           {doneList.map((task) => (
-              <div className='task' key={task.id} draggable onDragStart={(event) => handleDragStart(event, task.id)}>
+              <div className='task' key={task.id} draggable onDragStart={(event) => handleDragStart(event, task.id)} onDoubleClick={()=>handleTaskDoubleClick(task.id)}>
                   <div className="priority-bar" style={{ backgroundColor: getColorForPriority(task.priority) }}></div>
               <div className ="task-header">
               <div className="task-title">{task.title}</div>
@@ -215,15 +254,24 @@ const allowDrop = (event) => {
               <div className="task-category">{task.category.title}</div>
               
               </div>
-              {(pathName === '/principalPage') && (
-              <div className = "task-details">
+              
+              <div className="task-details">
+  {(role === "developer" && showUserTasks) && (
+    <div className='buttons_scrum'>
+      <button className='delete_btnS' onClick={() => handleEdit(task.id)}><MdModeEditOutline/></button> 
+      {(role !== "scrum_master" && role !== "product_owner") && (
+        <button className='task_btnS' onClick={() => handleDeleteTask(tokenUser, task.id)}><MdDelete/></button>
+      )}
+    </div>
+  )}
+  {(role === "scrum_master" || role === "product_owner") && (
+    <div className='buttons_scrum'>
+      <button className='delete_btnS' onClick={() => handleEdit(task.id)}><MdModeEditOutline/></button> 
+      <button className='task_btnS' onClick={() => handleDeleteTask(tokenUser, task.id)}><MdDelete/></button>
+    </div>
+  )}
+</div>
             
-              <div className='buttons_scrum'>
-                <button className='delete_btnS' onClick={() => handleEdit(task.id)}><MdModeEditOutline/></button>
-                <button className='task_btnS' onClick={() => handleDeleteTask(tokenUser, task.id)}><MdDelete/></button>
-              </div>
-              </div>
-              )} 
               </div>
             ))}
           
