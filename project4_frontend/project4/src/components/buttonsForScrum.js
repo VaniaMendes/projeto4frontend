@@ -10,10 +10,12 @@ function ButtonsForScrum({username}){
   
 
 
+    //controla o evento de click
     const handleViewInformations = () => {
         //Guarda o username na store do user que quer consultar
         userStore.setState({ username: username });
-    
+
+        //Coloca o modal do edit User true para aparecer
         setShowModalEditUser(true);
         
       }

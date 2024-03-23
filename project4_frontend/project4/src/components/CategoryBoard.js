@@ -8,25 +8,26 @@ import { editCategory, getCategoryById } from "../endpoints/categories";
 
 function Categories(){
 
-   //Vai buscar o token
+   //Vai buscar o token à store
   const tokenUser = userStore(state => state.token.token);
 
-  //Variáveis para guardar o titulo e a descrição
+  //Estados locais para guardar o titulo e a descrição
   const [title, setTitle] = useState(''); 
   const [description, setDescription] = useState('');
  
-  //Vai buscar o id da categoria  para editar 
+  //Obtem o ID da categoria guardado no store para editar
   const categoryId = userStore((state) => state.getCategoryId());
 
-  //Se o modeEdit for true está no modo edição
+
+  // Obtém e configura o estado de modo de edição
   const { modeEdit, setModeEdit } = modeEditOn();
 
 
-//Va ibuscar o estado do show Category table
+// Obtém e configura o estado de exibição da tabela de categorias
   const { setShowCategoriesTable, showCategoriesTable } = updateCategoriesTable();
 
 
-  //Se abrir o modal no modo edit vamos buscar as informações da categoria para preencher
+// Efeito para buscar as informações da categoria para preencher os campos ao editar a categoria
   useEffect(() => {
     const fetchData = async () => {
       if(modeEdit){
@@ -42,7 +43,7 @@ function Categories(){
 
 
 
-    //Função  que fecha o modal e coloca o modo de edição a false
+    //Função  que fecha o modal e redefine os estados locais  
     const closeModal = () => {
     showModal.setState({ showModalNewCategory: false });
     setModeEdit(false);
@@ -51,13 +52,11 @@ function Categories(){
   
   };
 
- //Função para criar ou editar uma categoria
+  // Função para lidar com a criação ou edição de uma categoria
     const handleCategory = async (title, description, tokenUser) => {
 
-      //Se o modo edit for true e o categoryId existir vamos editar
-
+      //Se o modo edit for true e o categoryId existir vamos editar a categoria
       if(modeEdit && categoryId){
-   
           if (title !== "") {
             const result = await editCategory(
               categoryId,
@@ -85,8 +84,8 @@ function Categories(){
         
 
       }else{
-//Se o modo edit for false vamos criar uma nova categoria
 
+        // Se não estiver no modo de edição, cria uma nova categoria
         if(title !== ""){
         const result = await createCategory(title, description, tokenUser);
         if (result === 200) {

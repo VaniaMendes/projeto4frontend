@@ -73,7 +73,6 @@ function InactiveUsersTable({ users }) {
             <th className = 'titleUser'></th>
             <th className = 'titleUser'>
    
-                <button className="search_icon"><IoFilter/></button>
                 </th>
                 </tr>
            

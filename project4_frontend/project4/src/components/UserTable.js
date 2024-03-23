@@ -6,12 +6,12 @@ import "../format/tables.css";
 import { deleteUser } from "../endpoints/users";
 import NewUser from "./NewUser";
 import { NotificationManager } from "react-notifications";
-import { IoFilter } from "react-icons/io5";
 import{ getActiveUsers} from '../endpoints/users';
 import { showModal, updateUsersTable } from '../stores/boardStore';
 import {deleteUserTasks} from '../endpoints/tasks';
 import EditProfileByPO from "./editProfileByPO";
 import ButtonsForScrum from "./buttonsForScrum";
+import TableFilter from "./TableFilter";
 
 
 function UserTable() {
@@ -46,6 +46,7 @@ const openModal= ()=>{
   setShowNewUserModal(true);
  
 };
+
 
 
 const handleDelete = async (tokenUser, username) => {
@@ -100,7 +101,6 @@ const handleDeleteTasks = async (tokenUser, username) => {
               <th className="titleUser"></th>
               <th className="titleUser">
                 
-                <button className="search_icon"><IoFilter/></button>
               </th>
             </tr>
             <tr className="header">

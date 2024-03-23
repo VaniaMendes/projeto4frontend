@@ -3,7 +3,6 @@ import { getAllInactiveTasks } from "../endpoints/tasks";
 import { userStore } from "../stores/UserStore";
 import { useEffect } from "react";
 import "../format/tables.css";
-import { IoFilter } from "react-icons/io5";
 import { MdTask } from "react-icons/md";
 import { FcHighPriority } from "react-icons/fc";
 import { FcMediumPriority } from "react-icons/fc";
@@ -14,14 +13,18 @@ import { MdOutlineRestore } from "react-icons/md";
 import { hardDeleteTask, restoreTask } from "../endpoints/tasks";
 
 const InativeTasksTable = () => {
+  //Obtém o token do utilizador
   const tokenObject = userStore((state) => state.token);
   const tokenUser = tokenObject.token;
+
+  //Estado para armazenar as tarefas inativas
   const [tasks, setTasks] = useState([]);
 
-  //Vai buscar o role guardado na userStore quando o user faz login
+  //Obtem o tipo de utilizador
   const { getRole } = userStore();
   const role = getRole();
 
+  //Função para buscar as tarefas inativas
   const fetchTasks = async () => {
     try {
       const result = await getAllInactiveTasks(tokenUser);
@@ -31,10 +34,12 @@ const InativeTasksTable = () => {
     }
   };
 
+  //Efeito para montar o componente com as tarefas inativas
   useEffect(() => {
     fetchTasks();
   }, []);
 
+  //Função para apagar uma tarefa
   const handleDeleteForever = (taskId, tokenUser) => {
     NotificationManager.info(
       "Are you sure you want to delete this task?",
@@ -61,6 +66,8 @@ const InativeTasksTable = () => {
     );
   };
 
+
+  //Função para restaurar uma tarefa( passar do estado inativo para ativo)
   const handleRestore = async (tokenUser, taskId) => {
     try {
       const result = await restoreTask(tokenUser, taskId);
@@ -90,9 +97,7 @@ const InativeTasksTable = () => {
             <th className="titleUser"></th>
             <th className="titleUser">
               {" "}
-              <button className="search_icon">
-                <IoFilter />
-              </button>
+            
             </th>
             {role !== "scrum_master" ? (
               <th></th>

@@ -9,25 +9,30 @@ import MenuProductOwner from "./MenuProductOwner";
 
 function EditProfile(){
 
-    //Preencher informações do user
+    // Obtém o token do usuário do store
     const tokenObject = userStore(state => state.token);
     const tokenUser = tokenObject.token;
+
+
+    // Obtém a função para obter o papel do usuário do store
     const {  getRole } = userStore();
     const role = getRole();
+    // Estado para armazenar informações do user que fez o login
     const [userLogged, setUserLogged] = useState(null);
+    // Hook para navegar entre rotas
     const navigate = useNavigate();
     
+    // Efeito para obter informações do user 
     useEffect(() => {
         const fetchData = async()=> {
             const result = await getUserByToken(tokenUser)
-            setUserLogged(result);
+            setUserLogged(result); //Define as informações do user
            
          };
          fetchData();
         }, [tokenUser]);
 
-        //Editar o perfil
-
+        // Estado para armazenar as informações editadas pelo user
         const [userEdit, setUserEdit] = useState({
             email: '',
             firstName: '',
@@ -37,9 +42,10 @@ function EditProfile(){
             imgURL: ''
         });
 
+        // Estado para rastrear os campos alterados pelo user
         const [changedFields, setChangedFields] = useState({});
 
-         //Deteta as alteracoes nso campos de editProfile
+         // Função para lidar com a alteração nos campos de edição de perfil
          const handleInputChange = (e) => {
             const { id, value } = e.target;
             setUserEdit(prevState => ({
@@ -47,22 +53,24 @@ function EditProfile(){
                 [id]: value
             }));
 
-           
+           // Define que o campo foi alterado
             setChangedFields(prevState => ({
                 ...prevState,
                 [id]: true
             }));
         };
 
-
+        // Função para lidar com o envio do formulário de edição do perfil
         const handleSubmit = async (e) => {
-            e.preventDefault();
+            e.preventDefault(); // Previne o comportamento padrão do formulário
             
             try {
+                // Cria um objeto com os campos alterados pelo user
                 const updatedUserData = Object.keys(changedFields).reduce((acc, key) => {
                     acc[key] = userEdit[key];
                     return acc;
                 }, {});
+                // Envia uma requisição PUT para atualizar o perfil do user
                 const response = await fetch("http://localhost:8080/project_backend/rest/users/updateProfile", {
                     method: 'PUT',
                     headers: {
@@ -95,8 +103,8 @@ function EditProfile(){
             }
         };
 
+        // Função para lidar com o botão de voltar
         const handleBack = () => {
-            
            navigate('/principalPage');
         };
 
