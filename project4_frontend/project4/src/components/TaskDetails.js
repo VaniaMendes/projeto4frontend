@@ -55,14 +55,16 @@ function TaskDetails(){
             <h2 id="task_creationTitle">Task Details</h2>
 
           <div>
-            <label htmlFor="opcoes" className="descriptioLabelTask">
+            <label htmlFor="opcoes" className="descriptioLabelTask" >
               Title:
             </label>
             <input
+            
               type="text"
               rows="1"
               cols="20"
               placeholder={title}
+              id="title" 
               disabled
             />
             <label htmlFor="opcoes" className="descriptioLabelTask">
@@ -89,7 +91,7 @@ function TaskDetails(){
             ></textarea>
             </div>
 
-            <div id="date_section">
+            <div id="date_section" className="descriptioLabelTask">
               <div>
                 <p>Initial Date:</p>
                 <input
@@ -99,7 +101,7 @@ function TaskDetails(){
                 disabled
                 />
               </div>
-              <div id="end_date">
+              <div id="end_date" className="descriptioLabelTask">
                 <p>End date:</p>
                 <input
                   type="date"
@@ -110,7 +112,7 @@ function TaskDetails(){
               </div>
              
             </div>
-            <div className="buttons">
+            <div className="buttons" id="butoon_div">
                 <button className='button' onClick={handleClose}>Close</button>
               </div>
             </div>

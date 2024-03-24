@@ -66,8 +66,6 @@ const task={
         setInitialDate(result.initialDate);
         setPriority(result.priority);
 
-      
-
       }
 
       
@@ -84,9 +82,9 @@ const task={
        setIdCategory(categoryID);
     }
     fetchData();
-  });
+  }, [tokenUser, categoryTitle]);
 
-
+console.log(idCategory);
 
   //Função para lidar com o envio do formulário
   const handleSubmit = async ( tokenUser, taskIdForEdit, task, idCategory) => {
@@ -104,6 +102,7 @@ const task={
       
       }else{
         NotificationManager.warning(result, "", 1000);}
+        console.log(result);
 
 
         //Se não estiver em modo de edição adicionar uma nova tarefa
@@ -205,7 +204,7 @@ const task={
               onChange={(event) => setDescription(event.target.value)}
             ></textarea>
 
-            <div id="date_section">
+            <div id="date_section" className="descriptioLabelTask">
               <div>
                 <p>Initial Date:</p>
                 <input
@@ -215,7 +214,7 @@ const task={
                   onChange={(event) => setInitialDate(event.target.value)}
                 />
               </div>
-              <div id="end_date">
+              <div id="end_date" className="descriptioLabelTask">
                 <p>End date:</p>
                 <input
                   type="date"
@@ -226,7 +225,7 @@ const task={
               </div>
             </div>
 
-            <div id="color_section">
+            <div id="color_section" >
               <label id="label_color">Priority:</label>
               <div className="priority_div">
                 <input

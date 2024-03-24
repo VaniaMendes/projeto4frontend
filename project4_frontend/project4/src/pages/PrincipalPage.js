@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import HomePage from '../components/MainPage';
 import SideMenu from '../components/SideMenu';
 import SearchFields from '../components/SearchFields';
@@ -11,8 +11,7 @@ import {userStore} from '../stores/UserStore';
 
 function PrincipalPage(){
 
-    const tokenObject = userStore(state => state.token);
-    const tokenUser = tokenObject.token;
+   
     const { getRole } = userStore();
     const role = getRole();
    
