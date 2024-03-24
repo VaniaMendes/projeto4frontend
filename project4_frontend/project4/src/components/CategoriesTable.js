@@ -1,6 +1,6 @@
 import React from "react";
 import "../format/tables.css";
-import NewCategory from "./CategoryBoard";
+import CategoryBoard from "./CategoryBoard";
 import { FaEdit } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
 import { useState, useEffect } from "react";
@@ -116,6 +116,7 @@ function Categories() {
                     </button>
                     <button
                       className="delete_button"
+                      title="Delete"
                       onClick={() =>
                         handleDelete(category.idCategory, tokenUser)
                       }
@@ -128,7 +129,7 @@ function Categories() {
           </tbody>
         </table>
       </div>
-      {showModalNewCategory && <NewCategory />}
+      {showModalNewCategory && <CategoryBoard />}
     </div>
   );
 }

@@ -4,9 +4,8 @@ import { userStore } from "../stores/UserStore";
 import { showModal } from '../stores/boardStore';
 
 
-function ButtonsForScrum({username}){
+function ButtonsForScrum({username, setShowModalEditUser}){
 
-    const { setShowModalEditUser } = showModal();
   
     //controla o evento de click
     const handleViewInformations = () => {

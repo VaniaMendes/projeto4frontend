@@ -16,6 +16,7 @@ import {showMyTasks, showModal} from '../stores/boardStore';
 
 function SideMenu() {
 
+  
   const { setRole } = userStore();
   const tokenObject = userStore((state) => state.token);
   const tokenUser = tokenObject.token;
@@ -59,6 +60,7 @@ function SideMenu() {
 
   const logoutClick = async (event) => {
     event.preventDefault();
+    try{
     const result = await logout(tokenUser);
 
     if (result === true) {
@@ -67,9 +69,15 @@ function SideMenu() {
         navigate("/login");
       }, 800);
     } else {
-      console.error("Erro ao buscar dados do usuário:", result.error);
+      console.log("Erro ao buscar dados do usuário:", result.error);
     }
+  }catch(error){
+    console.log("Erro durante logout", error);
+  }
   };
+
+
+
   useEffect(() => {
     async function fetchData() {
       try {
