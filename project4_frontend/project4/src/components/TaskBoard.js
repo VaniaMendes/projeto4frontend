@@ -71,24 +71,25 @@ const task={
       
     };  
     fetchData();
-  }, [tokenUser]);
+  }, [tokenUser, taskIdForEdit]);
 
 
   //Efeito para ir buscar o id da categoria
   useEffect(() => {
-    const fetchData = async () => {
-       //Vai buscar o id da categoria através do titulo
-       const categoryID = await getCategoryByTitle(tokenUser, categoryTitle);
-       setIdCategory(categoryID);
+    if (categoryTitle) {
+      const fetchData = async () => {
+        const categoryID = await getCategoryByTitle(tokenUser, categoryTitle);
+        setIdCategory(categoryID);
+      };
+      fetchData();
     }
-    fetchData();
   }, [tokenUser, categoryTitle]);
 
-console.log(idCategory);
+
 
   //Função para lidar com o envio do formulário
   const handleSubmit = async ( tokenUser, taskIdForEdit, task, idCategory) => {
-  
+     
 
     //Se o modo de edição estiver ativo atualizar a tarefa
     if(editTask && taskIdForEdit){
@@ -102,9 +103,7 @@ console.log(idCategory);
       
       }else{
         NotificationManager.warning(result, "", 1000);}
-        console.log(result);
-
-
+      
         //Se não estiver em modo de edição adicionar uma nova tarefa
     }else{
 
@@ -120,8 +119,6 @@ console.log(idCategory);
    }
   }
   };
-
-
 
 
   //Função para fechar o modal
@@ -155,7 +152,7 @@ console.log(idCategory);
             </label>
             <input
               type="text"
-              placeholder={editTask ? title : "Task Title"}
+              placeholder="Task Title"
               id="title"
               value={title}
               onChange={(event) => setTitle(event.target.value)}
@@ -169,7 +166,7 @@ console.log(idCategory);
               <select
                 id="category_element"
                 name="opcoes"
-                value={idCategory || ""}
+                value={idCategory }
                 placeholder="Select a category"
                 onChange={(event) => {
                   const selectedCategoryID = event.target.value;
@@ -198,7 +195,7 @@ console.log(idCategory);
             <textarea
               cols="30"
               rows="14"
-              placeholder={editTask ? description : "Task Description"}
+              placeholder="Task Description"
               id="description-task"
               value={description}
               onChange={(event) => setDescription(event.target.value)}

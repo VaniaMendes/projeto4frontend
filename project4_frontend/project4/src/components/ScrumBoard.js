@@ -51,6 +51,8 @@ function ScrumBoard(){
     //Estado para guardar o estado de edição da tarefa
    const { editTask, setEditTask} = modeEditTask();
 
+   
+
 //Função para exibir o modal de nova tarefa
    const handleNewTaskClick = () => {
     setShowNewTask(true);
@@ -65,10 +67,13 @@ function ScrumBoard(){
 
   //Função para manipular o clique no botão de edição de uma tarefa
    const handleEdit = (taskId) => {
+    // Obtenha a tarefa a ser editada com base no taskId
+  const taskToEdit = listTasks.find(task => task.id === taskId);
+  if(taskToEdit){
     userStore.getState().setTaskIdForEdit(taskId);//Guarda o id na store
     setEditTask(true);//Ativa o estado de edição de um atrefa
     setShowNewTask(true);//Exibe o modal de nova tarefa
-  
+  }
    };
 
    //Função para obter as tarefas ativas a serem mostradas no scrum_board
