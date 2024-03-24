@@ -86,7 +86,7 @@ function SideMenu() {
         setRole(user.typeOfUser);
        
       } catch (error) {
-        console.error("Error fetching user data:", error);
+        console.log("Error fetching user data:", error);
       }
     }
     fetchData();
