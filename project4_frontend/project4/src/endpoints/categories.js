@@ -132,5 +132,26 @@ export async function getCategoryById(categoryId, token) {
 }
 
 
+export async function getCategoryByTitle(tokenUser, categoryTitle) {
+    try {
+        const response = await fetch(`http://localhost:8080/project_backend/rest/categories/category/${categoryTitle}`, {
+            method: "GET",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                token: tokenUser
+            }
+        });
 
+        if (response.ok) {
+            const id = await response.json();
+           
+            return id;
+        } else {
+            return null;
+        }
+    } catch (error) {
+        return null;
+    }
+}
 

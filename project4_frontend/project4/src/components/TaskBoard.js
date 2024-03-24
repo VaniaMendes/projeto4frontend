@@ -6,6 +6,7 @@ import {addTask, getTask, updateTask} from '../endpoints/tasks';
 import { NotificationManager } from "react-notifications";
 import '../format/tables.css'
 import {showModalNewTask, updateTasksList, modeEditTask} from '../stores/boardStore'
+import {getCategoryByTitle} from "../endpoints/categories";
 
 function NewTask() {
 
@@ -57,19 +58,33 @@ const task={
       //Se o modo edição estiver ativo guardar os detalhes da tarefa
       if (editTask && taskIdForEdit) {
         const result = await getTask(tokenUser, taskIdForEdit);
-        console.log(result);
+      
         setTitle(result.title);
-         setIdCategory(result.category.idCategory);
         setCategoryTitle(result.category.title);
         setDescription(result.description);
         setEndDate(result.endDate);
         setInitialDate(result.initialDate);
         setPriority(result.priority);
 
+      
+
       }
+
+      
     };  
     fetchData();
   }, [tokenUser]);
+
+
+  //Efeito para ir buscar o id da categoria
+  useEffect(() => {
+    const fetchData = async () => {
+       //Vai buscar o id da categoria através do titulo
+       const categoryID = await getCategoryByTitle(tokenUser, categoryTitle);
+       setIdCategory(categoryID);
+    }
+    fetchData();
+  });
 
 
 
@@ -107,7 +122,7 @@ const task={
   }
   };
 
-console.log(idCategory);
+
 
 
   //Função para fechar o modal
@@ -141,7 +156,7 @@ console.log(idCategory);
             </label>
             <input
               type="text"
-              placeholder="Task Title"
+              placeholder={editTask ? title : "Task Title"}
               id="title"
               value={title}
               onChange={(event) => setTitle(event.target.value)}
@@ -155,7 +170,7 @@ console.log(idCategory);
               <select
                 id="category_element"
                 name="opcoes"
-                value={idCategory}
+                value={idCategory || ""}
                 placeholder="Select a category"
                 onChange={(event) => {
                   const selectedCategoryID = event.target.value;
@@ -184,7 +199,7 @@ console.log(idCategory);
             <textarea
               cols="30"
               rows="14"
-              placeholder="Task Description"
+              placeholder={editTask ? description : "Task Description"}
               id="description-task"
               value={description}
               onChange={(event) => setDescription(event.target.value)}

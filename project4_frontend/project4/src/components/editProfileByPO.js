@@ -73,7 +73,7 @@ function EditProfileByPO(){
 
         // Função para lidar com o envio dos dados editados
         const handleSubmit = async (e) => {
-        console.log(userEdit);
+       
        // Cria um novo objeto de usuário só com os campos editados
          const newUser = Object.keys(changedFields).reduce((acc, key) => {
             acc[key] = userEdit[key];
@@ -102,7 +102,7 @@ function EditProfileByPO(){
     
        <div className='modal_container'> 
        {showModalEditUser && 
-        <div className="edit_container">
+        <div className="edit_container1">
         <div className="edit_photo">
            <img src={userEditPO?.imgURL} id="user_photo" alt="User photo" />
            <p id="username_edit">{userEditPO?.username}</p>
