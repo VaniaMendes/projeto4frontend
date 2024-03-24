@@ -10,19 +10,23 @@
  
 function SearchFields(){ 
 
+    //Obtem o token da store
     const tokenObject = userStore((state) => state.token);
     const tokenUser = tokenObject.token;
+
+    //Estado para guardar a lista de users e de categorias e serem apresentadas nos campos de pesquisa
     const [categories, setCategories] = useState([]);
     const [users, setUsers] = useState([]);
     
-    
+    //Estado para guarar o username e a categoria para pesquisar as tarefas
     const [selectedUsername, setSelectedUsername] = useState("");
     const [selectedCategoryId, setSelectedCategoryId] = useState("");
 
+    //Estado para controlar a exibição da lista filtrada
     const {setFilterOn} = showModal();
 
 
-
+// Efeito para buscar categorias e usuários ativos
 useEffect(() => {
     const fetchData = async()=> {
         const categories = await getAllCategories(tokenUser);
@@ -34,7 +38,7 @@ useEffect(() => {
     fetchData();
 },[]);
 
-
+// Manipuladores de evento para alterar o utilizador selecionado e a categoria selecionada
 const handleUserChange = (event) => {
     setSelectedUsername(event.target.value);
 };
@@ -43,13 +47,13 @@ const handleCategoryChange = (event) => {
     setSelectedCategoryId(event.target.value);
 };
 
-
+// Função para filtrar tarefas com base no utilizador e categoria selecionados
 const handleFilter = async (tokenUser, selectedUsername, selectedCategoryId) => {
     const result = await getFilteredTasks(tokenUser, selectedUsername, selectedCategoryId);
 
     if(result !== null){
         userStore.getState().setFilteredTasks(result);//Guarda a lista filtrada no userStore
-        setFilterOn(true);
+        setFilterOn(true);//Ativa o estado para exibir a lista filtrada
 
     }else{
         NotificationManager.warning("No tasks found", "", 800);
@@ -58,13 +62,14 @@ const handleFilter = async (tokenUser, selectedUsername, selectedCategoryId) => 
 
 }
 
+// Função para limpar os campos de pesquisa
 const handleResetFilter = () => {
     setSelectedUsername("");
     setSelectedCategoryId("");
     document.getElementById("category").value = "";
     document.getElementById("users").value = "";
     userStore.getState().setFilteredTasks(null);//Limpa a lista filtrada no userStore
-    setFilterOn(false);
+    setFilterOn(false);//Desativa o estado para exibir a lista filtrada
 }
 
 

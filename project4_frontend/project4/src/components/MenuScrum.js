@@ -5,13 +5,17 @@ import { useNavigate  } from 'react-router-dom';
 import {tables} from '../stores/boardStore';
 import { MdTask } from "react-icons/md";
 
-function MenuProductOwner(){
+function MenuScrum(){
+
+        //Este componente renderiza os botoes especificos para quando o utilizador é scrum_master
    
    const navigate = useNavigate();
   
+
+   //Obtem os estado para exibir as tabelas da store
     const { setShowUserTable, setShowCategoriesTable, setShowInactiveUsersTable, setInativeTasksTable } = tables();
 
-
+    // Função para lidar com a exibição da tabela de utilizadores
     const handleShowUserTable = () => {
        setShowUserTable(true);
        setShowCategoriesTable(false);
@@ -20,6 +24,7 @@ function MenuProductOwner(){
        navigate('/productOwner');
     }
 
+    // Função para lidar com a exibição da tabela de tarefas inativas
     const handleInativeTasks = () => {
         setShowInactiveUsersTable(false);
         setShowUserTable(false);
@@ -45,5 +50,5 @@ return(
 
 }
 
-export default MenuProductOwner;
+export default MenuScrum;
 

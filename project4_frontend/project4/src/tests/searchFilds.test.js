@@ -25,6 +25,9 @@ describe('SearchFields', () => {
     getActiveUsers.mockResolvedValue([]);
     userStore.mockReturnValue({ token: 'testToken' });
 
+
+   
+
     await act(async () => {
       render(<SearchFields />);
     });

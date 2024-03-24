@@ -10,16 +10,23 @@ import { useNavigate  } from 'react-router-dom';
 import {tables} from '../stores/boardStore';
 
 function MenuProductOwner(){
+
+    //Este componente renderiza os botoes especificos para quando o utilizador é product_owner
    
    const navigate = useNavigate();
+
+    //Estado para controlar a exibição dos botões
     const [showButtons, setShowButtons] = useState(false);
+
+    //Função para exibir ou ocultar os botoes associados ao botão USERS
     const seeButtons = () => {
         setShowButtons(!showButtons);
     };
 
+    //Obtém do store os estados para exibição das tabelas
     const { setShowUserTable, setShowCategoriesTable, setShowInactiveUsersTable, setInativeTasksTable } = tables();
 
-
+    // Função para exibir a tabela de usuários ativos
     const handleShowUserTable = () => {
        setShowUserTable(true);
        setShowCategoriesTable(false);
@@ -28,24 +35,25 @@ function MenuProductOwner(){
        navigate('/productOwner');
     }
   
-
+    // Função para exibir a tabela de categorias
     const handleShowCategoriesTable = () => {
         setShowCategoriesTable(true);
         setShowInactiveUsersTable(false);
         setShowUserTable(false);
         setInativeTasksTable(false);
         navigate('/productOwner');
-
     };
 
+     // Função para exibir a tabela de utilizadores inativos
     const handleInativeUsers = () => {
         setShowInactiveUsersTable(true);
         setShowUserTable(false);
         setShowCategoriesTable(false);
         setInativeTasksTable(false);
         navigate('/productOwner');
-    
     }
+
+    //Função para exibir a tabela de tarefas inativas
     const handleInativeTasks = () => {
         setShowInactiveUsersTable(false);
         setShowUserTable(false);

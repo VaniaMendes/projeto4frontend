@@ -14,6 +14,10 @@ import ButtonsForScrum from "./buttonsForScrum";
 
 
 function UserTable() {
+//Este componente exibe a tabela de utilizadores ativos
+
+
+//Obtem o token da store
   const tokenObject = userStore((state) => state.token);
   const tokenUser = tokenObject.token;
   const [users, setUsers] = useState(null);
@@ -25,6 +29,7 @@ function UserTable() {
   const { getRole } = userStore();
   const role = getRole();
 
+  //Efeito para ir buscar a lista de users
   useEffect(() => {
         const fetchData = async()=> {
           const users = await getActiveUsers(tokenUser);
@@ -34,25 +39,28 @@ function UserTable() {
          fetchData();
         }, [tokenUser, showUsersTable]);
 
-
+//Funçao para editar um utilizador
   const handleEdit = async (username) => {
-    setShowModalEditUser(true);
-    userStore.setState({ username: username });
+    setShowModalEditUser(true);//Mostra o modal de edição
+    userStore.setState({ username: username });//Guarda o nome do username do utilizador a ser editado
     
   };
 
+
+  //Função para abrir o modal de criação de novo utilizador	
 const openModal= ()=>{
   setShowNewUserModal(true);
  
 };
 
 
-
+//Função para excluir um utilizador temporariamente
 const handleDelete = async (tokenUser, username) => {
   try {
     const result = await deleteUser(tokenUser, username);
     if (result === true) {
       NotificationManager.success("User deleted successfully", "", 1000);
+      //Atualiza a lista de users excluindo o user eliminado
       const updatedUsers = users.filter((user) => user.username !== username);
       setUsers(updatedUsers);
     } else {
@@ -64,6 +72,7 @@ const handleDelete = async (tokenUser, username) => {
   }
 };
 
+//Função para apagar todas as tarefas de um utilizador
 const handleDeleteTasks = async (tokenUser, username) => {
   try {
     const result = await deleteUserTasks(tokenUser, username);
@@ -90,6 +99,7 @@ const handleDeleteTasks = async (tokenUser, username) => {
               <th className="titleUser"><img src="icon-green.png"></img></th>
               <th className="titleUser2">Active Users</th>
               <th className="titleUser">
+                {/* Cabeçalho da coluna de edição de usuário, visível apenas para determinados papéis de usuário */}
               {role !== "scrum_master" && (
     <button id="btn_user" onClick={openModal}>+New User</button>
   )}
@@ -117,6 +127,7 @@ const handleDeleteTasks = async (tokenUser, username) => {
           </thead>
           
           <tbody className="body">
+            {/* Renderiza a lista de usuários */}
             {users &&
               users.map((user, index) => (
                 <tr key={index}>
@@ -172,6 +183,7 @@ const handleDeleteTasks = async (tokenUser, username) => {
           </tbody>
         </table>
 </div>
+  {/* Renderiza os modais de edição e adição do utilizador */}
   {showModalEditUser && <EditProfileByPO/>}
     {showNewUserModal && <NewUser/>}</div>
   );

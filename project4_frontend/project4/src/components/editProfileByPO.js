@@ -10,39 +10,56 @@ import {showModal, updateUsersTable} from '../stores/boardStore';
 
 function EditProfileByPO(){
 
+
+   //Obtem o token da store
     const tokenObject = userStore(state => state.token);
     const tokenUser = tokenObject.token;
+
+    //Obtemo tipo de utilizador da store
     const {  getRole } = userStore();
     const role = getRole();
+
+    //Obtemo username guardado da store do user ao qual vamos alterar o perfil
     const { getUsername } = userStore();
     const username = getUsername();
+    
+    //Estado para aramzenar as informações do user a ser editado
     const [userEditPO, setUserEditPO] = useState(null);
+
+    //Estado para controlar a visibilidade do modal de edição de user
     const { showModalEditUser, setShowModalEditUser } = showModal();
+
+    //Estado para aramzenar as alteraçóes feitas nos campos de edição
     const [userEdit, setUserEdit] = useState(null);
+
+    //Estado para controlar a visibilidade da tabela de utilizadores
     const {showUsersTable, setShowUsersTable} = updateUsersTable();
 
 
+    //Efeito para ir buscar os dados do user a ser editado
     useEffect(() => {
         const fetchData = async()=> {
             const result = await getUserByUsername(tokenUser, username);
-            setUserEditPO(result);
-           
+            setUserEditPO(result); //Define as informações do user
          };
          fetchData();
         }, [tokenUser]);
 
         
 
+        //Função para lidar com as alterações nos campos de entrada
         const [changedFields, setChangedFields] = useState({});
 
          //Deteta as alteracoes nso campos de editProfile
          const handleInputChange = (e) => {
             const { id, value } = e.target;
 
+            // Atualiza o estado do usuário a ser editado
             setUserEditPO(prevState => ({
                ...prevState,
                [id]: value
            }));
+           // Atualiza o estado das alterações
             setUserEdit(prevState => ({
                 ...prevState,
                 [id]: value
@@ -54,20 +71,19 @@ function EditProfileByPO(){
             }));
         };
 
-
+        // Função para lidar com o envio dos dados editados
         const handleSubmit = async (e) => {
         console.log(userEdit);
-        
+       // Cria um novo objeto de usuário só com os campos editados
          const newUser = Object.keys(changedFields).reduce((acc, key) => {
             acc[key] = userEdit[key];
             return acc;
         }, {});
-
-        console.log(newUser);
             const result = await updateProfileByPO(tokenUser,username,newUser);
-            console.log(result);
             if(result === 200){
                 NotificationManager.success("User edited successfully", "", 1000);
+
+                //Coloca o modal de edição false e mostra novamente a tabela de users
                setShowModalEditUser(false);
                setShowUsersTable(!showUsersTable);
             }else{
@@ -76,9 +92,9 @@ function EditProfileByPO(){
             }
         };
 
+        //Função para voltar quando clicamos no botao BACK - coloca a visibilidade do modal a false
         const handleBack = ()=>{
          setShowModalEditUser(false);
-
         }
 
 

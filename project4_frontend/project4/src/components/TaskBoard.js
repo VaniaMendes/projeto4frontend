@@ -9,6 +9,8 @@ import {showModalNewTask, updateTasksList, modeEditTask} from '../stores/boardSt
 
 function NewTask() {
 
+  //Componente utilizado para as funções de criar uma nova task e editar task
+
   //Vai buscar o valor do token ao store
   const tokenObject = userStore((state) => state.token);
   const tokenUser = tokenObject.token;
@@ -24,11 +26,10 @@ function NewTask() {
   const taskIdForEdit = userStore((state) => state.taskIdForEdit);
 
   //Guarda os dados da task para editar
-  const [tasktoEdit, setTakstoEdit] = useState("");
+  const [ setTakstoEdit] = useState("");
 
-  
+  //Estado para gaurdar os dados da task para editar
   const [title, setTitle] = useState("");
-
   const [description, setDescription] = useState("");
   const [endDate, setEndDate] = useState("");
   const [initialDate, setInitialDate] = useState("");
@@ -38,12 +39,13 @@ function NewTask() {
   const [categoryTitle, setCategoryTitle] = useState("");
   const [idCategory, setIdCategory] = useState("");
 
-
+//Efeito para ir buscar a lista de categorias 
   useEffect(() => {
     const fetchData = async () => {
       const categoriesData = await getAllCategories(tokenUser);
       setCategories(categoriesData);
 
+      //Se o modo edição estiver ativo guardar os detalhes da tarefa
       if (editTask && taskIdForEdit) {
         const result = await getTask(tokenUser, taskIdForEdit);
         setTakstoEdit(result);
@@ -60,6 +62,7 @@ function NewTask() {
     fetchData();
   }, [tokenUser]);
 
+  //Objeto para guardar os dados da tarefa
   const task={
     title: title,
     description: description,
@@ -69,9 +72,12 @@ function NewTask() {
     priority: priority
   }
 
+
+  //Função para lidar com o envio do formulário
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    //Se o modo de edição estiver ativo atualizar a tarefa
     if(editTask && taskIdForEdit){
 
       const result =  await updateTask(task, tokenUser, taskIdForEdit, idCategory)
@@ -84,10 +90,11 @@ function NewTask() {
       }else{
         NotificationManager.warning(result, "", 1000);}
 
+
+        //Se não estiver em modo de edição adicionar uma nova tarefa
     }else{
 
     const result = await addTask(tokenUser, idCategory, task);
-  
     if(result===200){
       NotificationManager.success("Task added successfully", "", 800);
       setShowNewTask(false);
@@ -100,12 +107,15 @@ function NewTask() {
 
   };
 
+
+  //Função para fechar o modal
   const handleClose = async (event) => {
     event.preventDefault();
     setShowNewTask(false);
     setEditTask(false);
   };
 
+  //Função para mudar a cor da prioridade
   const handlePriorityChange = (event) => {
     setPriorityColor(event.target.value);
     setPriority(event.target.value);

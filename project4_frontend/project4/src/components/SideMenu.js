@@ -16,41 +16,64 @@ import {showMyTasks, showModal} from '../stores/boardStore';
 
 function SideMenu() {
 
-  
+  //Obtem o tipo de utilizador da store
   const { setRole } = userStore();
+
+  //Obtem o token da store
   const tokenObject = userStore((state) => state.token);
   const tokenUser = tokenObject.token;
-  const {filterOn, setFilterOn} = showModal();
 
+  //Obtem o estado de ativação do filtro
+  const { setFilterOn} = showModal();
+
+  //Estado para guardar os dados do utilizador
   const [userData, setUserData] = useState({});
   const navigate = useNavigate();
 
- const {showUserTasks, setShowUserTasks} = showMyTasks();
- console.log(showUserTasks);
+  //Obtem  o estado de exibição das tarefas apenas do utilizador
+ const {setShowUserTasks} = showMyTasks();
 
+ 
+// Efeito para buscar os dados do usuário ao montar o componente
+useEffect(() => {
+  async function fetchData() {
+    try {
+      const user = await getUserByToken(tokenUser);
+      setUserData(user);
+      setRole(user.typeOfUser);
+     
+    } catch (error) {
+      console.log("Error fetching user data:", error);
+    }
+  }
+  fetchData();
+}, [tokenUser]);
 
-
-
-  const handleClick = () => {
+//Função para navegar para a página de edição de perfil
+ const handleClick = () => {
     navigate("/editProfile");
     setFilterOn(false);
     setShowUserTasks(false);
   };
+
+  //Função para navegar para a página principal
   const homeclick = () => {
     setShowUserTasks(false);
     setFilterOn(false);
     navigate( "/principalPage");
   };
 
+
+  //Função para consultar apenas as tarefas do próprio utilizador
   const handleMyTaks = async(tokenUser) => {
     navigate("/principalPage");
 
-    //Vou buscar as tasks do user que está logado
+    //Vai buscar as tasks do user que está logado
   const result = await myTasks(tokenUser);
-  console.log(result);
+
   if(result !== null){
-    userStore.getState().setMyTasks(result);
-    setShowUserTasks(true);
+    userStore.getState().setMyTasks(result);//Guarda a lista de tasks na store
+    setShowUserTasks(true);//Ativa o estado de exibição das próprias tarefas
   
   }else{
     NotificationManager.warning("No tasks found", "", 800);
@@ -58,6 +81,8 @@ function SideMenu() {
     
   };
 
+
+  //Função para efetuar o logout
   const logoutClick = async (event) => {
     event.preventDefault();
     try{
@@ -77,20 +102,6 @@ function SideMenu() {
   };
 
 
-
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const user = await getUserByToken(tokenUser);
-        setUserData(user);
-        setRole(user.typeOfUser);
-       
-      } catch (error) {
-        console.log("Error fetching user data:", error);
-      }
-    }
-    fetchData();
-  }, [tokenUser]);
 
 
   return (

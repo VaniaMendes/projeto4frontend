@@ -24,7 +24,7 @@ const InativeTasksTable = () => {
   const { getRole } = userStore();
   const role = getRole();
 
-  //Função para buscar as tarefas inativas
+  //Função para ir buscar as tarefas inativas
   const fetchTasks = async () => {
     try {
       const result = await getAllInactiveTasks(tokenUser);
@@ -39,7 +39,7 @@ const InativeTasksTable = () => {
     fetchTasks();
   }, []);
 
-  //Função para apagar uma tarefa
+  //Função para apagar uma tarefa permanentemente
   const handleDeleteForever = (taskId, tokenUser) => {
     NotificationManager.info(
       "Are you sure you want to delete this task?",

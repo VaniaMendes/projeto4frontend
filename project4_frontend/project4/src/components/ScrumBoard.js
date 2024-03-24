@@ -17,61 +17,78 @@ import TaskDetails from './TaskDetails';
 
 function ScrumBoard(){
 
+  //Este componente é responsãvel por renderizar tudo o que diz respeito ao scrum_board
+
+  //Obtem o token da store
    const tokenObject = userStore((state) => state.token);
    const tokenUser = tokenObject.token;
-      
+  
+   //Obtem o estado de exibição do modal de NewTaks
    const {showNewTask,  setShowNewTask } = showModalNewTask();
+
+   //Obtem o estado de exibição das tarefas do próprio utilizador
    const { showUserTasks } = showMyTasks();
+
+   //Obtem o estado para com 2 cliques abrir o modal de detalhes de uma tarefa
    const {showTaskDetails, setShowTaskDetails} = ViewTaskDetails();
 
 
-
+  //Obtem o role do user
    const role = userStore((state) => state.role);
+   //Obtem a lista de tarefas filtradas por categoria e/ou username guardado na store
    const filteredTasks = userStore((state) => state.filteredTasks);
+
+   //Obtem a lista de tarefas do utilizador guardadas na store
    const myTasks= userStore((state) => state.myTasks);
  
+   //Obtem informação se o filtro está ativado
    const {filterOn} = showModal();
    
-   
+   //Estado para guardar a listas de tasks a exibir no scrum_board
    const [listTasks, setListTasks] = useState([]);
+   //Estado para guardar o id da tarefa para editar
    const [taskId, setTaskId] = useState(null);
+    //Estado para guardar o estado de edição da tarefa
+   const { setEditTask} = modeEditTask();
 
-   const {editTask, setEditTask} = modeEditTask();
-
-
+//Função para exibir o modal de nova tarefa
    const handleNewTaskClick = () => {
     setShowNewTask(true);
    }
 
+   //Função para manipular o clique duplo numa tarefa
    const handleTaskDoubleClick = (taskId) => {
-    userStore.getState().setTaskIdForEdit(taskId);
+    userStore.getState().setTaskIdForEdit(taskId);//Guardar o id da tarefa para a qual queremos consultar os detalhes
     setShowTaskDetails(true); // Exibe o modal de detalhes
   };
 
 
+  //Função para manipular o clique no botão de edição de uma tarefa
    const handleEdit = (taskId) => {
-    userStore.getState().setTaskIdForEdit(taskId);
-    setEditTask(true);
-    setShowNewTask(true);
+    userStore.getState().setTaskIdForEdit(taskId);//Guarda o id na store
+    setEditTask(true);//Ativa o estado de edição de um atrefa
+    setShowNewTask(true);//Exibe o modal de nova tarefa
   
    };
-   console.log(filterOn);
 
+   //Função para obter as tarefas ativas a serem mostradas no scrum_board
    useEffect(() => {
     const fetchData = async () => {
+
+      //Se o filtro estiver ativado vai aparecer a lista de tarefas filtradas por categoria e/ou utilizador
       if (filterOn) {
         if (filteredTasks.length > 0) {
           setListTasks(filteredTasks);
         } else {
-          // Fetch data only if filter is on and there are no filtered tasks
+          //Se o filtro não estiver ativo serão exibidas todas as tarefas ativas da app
           const tasks = await getActiveTasks(tokenUser);
           setListTasks(tasks);
         }
       } else if (showUserTasks && myTasks.length > 0) {
-        // Fetch user tasks if filter is off and user tasks are available
+        // Se o modo de exibição de tarefas do utilizador estiver ativado, exibe apenas as tarefas do próprio utilizador
         setListTasks(myTasks);
       } else {
-        // Fetch all tasks if no filter is applied
+       //Senão exibe todas as tarefas ativas da app
         const tasks = await getActiveTasks(tokenUser);
         setListTasks(tasks);
       }
@@ -81,6 +98,7 @@ function ScrumBoard(){
   }, [tokenUser, filterOn, filteredTasks, showNewTask, showUserTasks, myTasks]);
   
 
+   // Função para obter a cor com base na prioridade da tarefa
 function getColorForPriority(priority) {
   if (priority === 100) {
     return 'green';
@@ -93,6 +111,8 @@ function getColorForPriority(priority) {
   }
 }
 
+
+ // Função para apagar temporariamente uma tarefa (passa o estado de ativo para inativo)
 const handleDeleteTask = async (tokenUser, taskId) => {
   try {
       const result = await softDeleteTask(tokenUser, taskId);
@@ -127,18 +147,20 @@ const sortTasks = (tasks) => {
   });
 };
       
+//Listas de tarefas classificadas pelo estado(state)
 const todoList = sortTasks(listTasks.filter(tasks => tasks.state ==='toDo'));
 const doingList = sortTasks(listTasks.filter(tasks => tasks.state ==='doing'));
 const doneList = sortTasks(listTasks.filter(tasks => tasks.state ==='done'));
 
 
-
+//Manipulação de eventos de arrastar e soltar
 const handleDragStart = (event, taskId) => {
   event.dataTransfer.setData("taskId", taskId);
   setTaskId(taskId);
 
 };
 
+//Função para manipular o evento de soltar uma tarefa
 const handleDrop = async (event, tokenUser, taskId, newState) => {
   event.preventDefault();
 
@@ -154,6 +176,8 @@ const handleDrop = async (event, tokenUser, taskId, newState) => {
       }
       return task;
     });
+
+    //Atualiza a lista de tarefas a ser exibida no scrum_board
     setListTasks(updatedTasks);
 
   } catch (error) {
@@ -186,7 +210,11 @@ const allowDrop = (event) => {
               </div>
 
               <div className="task-details">
+                {/* Lógica para apresentar o botoes para os diferentes tipos de utilizadores;
+                 - Se for developer só aparece o botao de editar nas suas proprias tarefas e 
+                 se for scrum ou product_owner aparecem todos os botoes em todas as tarefas*/}
   {(role === "developer" && showUserTasks) && (
+    
     <div className='buttons_scrum'>
       <button className='delete_btnS' onClick={() => handleEdit(task.id)}><MdModeEditOutline/></button> 
       

@@ -7,11 +7,17 @@ import {NotificationManager } from "react-notifications";
 import { showModal, updateUsersTable } from "../stores/boardStore";
 
 function NewUser() {
+
+  //Obtem o token do user da store
   const tokenObject = userStore((state) => state.token);
   const tokenUser = tokenObject.token;
+
+  //Estados para controlar a exibição do modal de newUser
   const showNewUserModal = showModal((state) => state.showNewUserModal); 
   const setShowNewUserModal = showModal((state) => state.setShowNewUserModal); 
 
+
+  //Estados para armazenar os dados do novo utilizador
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
@@ -20,13 +26,17 @@ function NewUser() {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [imgURL, setImageURL] = useState("");
   const [typeOfUser, setTypeOfUser] = useState("");
+
+  //Obtem o estado para exibir a tabela de utilizadores
   const {showUsersTable, setShowUsersTable} = updateUsersTable();
 
-
+//Função para fechar o modal
   const closeModal = () => {
     setShowNewUserModal(false);
   };
 
+
+  //Objeto com os dados do novo utilizador
   const newUser = {
     username: username,
     password: password,
@@ -38,7 +48,7 @@ function NewUser() {
     typeOfUser: typeOfUser,
   };
 
-
+//Função para lidar com o envio dos dados do novo utilizador
   const handleSubmit = async (event) => {
     event.preventDefault(); 
     const result = await registerUserByPO(tokenUser, newUser);

@@ -11,13 +11,14 @@ function TaskDetails(){
   const tokenObject = userStore((state) => state.token);
   const tokenUser = tokenObject.token;
 
-//Vai buscar o valor da task for edit onde também guardo quando clico para ver os detalhes
+//Vai buscar o valor da task for edit que é guardado quando clico para ver os detalhes
     const taskIdForEdit = userStore((state) => state.taskIdForEdit);
 
-    console.log(taskIdForEdit);
-
+  
+    //Controla o modo de exibição do modal de detalhes da tarefa
     const {showTaskDetails, setShowTaskDetails} = ViewTaskDetails();
 
+    //Estados para os detalhes da tarefa a serema presentados
     const[title, setTitle] = useState("");
     const[description, setDescription] = useState("");
     const[endDate, setEndDate] = useState("");
@@ -25,11 +26,11 @@ function TaskDetails(){
     const[categoryTitle, setCategoryTitle] = useState("");
 
 
+    //Efeito para ir buscar os detalhes da tarefa
     useEffect(() => {
         const fetchData = async () => {
             const result = await getTask(tokenUser, taskIdForEdit);
-            console.log(result);
- 
+             
             setTitle(result.title);
             setCategoryTitle(result.category.title);
             setDescription(result.description);
@@ -41,8 +42,8 @@ function TaskDetails(){
         fetchData();
       }, [tokenUser]);
 
+      //Função para fechar o modal
       const handleClose = () => {
-        
         setShowTaskDetails(false);
       };
 
