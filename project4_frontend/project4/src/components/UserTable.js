@@ -11,7 +11,6 @@ import { showModal, updateUsersTable } from '../stores/boardStore';
 import {deleteUserTasks} from '../endpoints/tasks';
 import EditProfileByPO from "./editProfileByPO";
 import ButtonsForScrum from "./buttonsForScrum";
-import TableFilter from "./TableFilter";
 
 
 function UserTable() {
