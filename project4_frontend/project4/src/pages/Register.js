@@ -8,6 +8,8 @@ import { useNavigate } from 'react-router-dom';
 
 function Register(){
 
+
+  //Define os estados para os dados do novo utilizador
     const [username, setUsername] = useState(''); 
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
@@ -16,10 +18,44 @@ function Register(){
     const [phoneNumber, setPhoneNumber] = useState(''); 
     const [imgURL, setImageURL] = useState('');
     const navigate = useNavigate();
+
+
+    //Função para validar o email
+    const isValidEmail = (email) => {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email);
+    };
+    
+    //Função para validar o numero de telefone
+    const isValidPhoneNumber = (phoneNumber) => {
+      const phoneRegex = /^\+?[1-9]\d{1,14}$/;
+      return phoneRegex.test(phoneNumber);
+    };
   
+
+    //Função para validar o registo de utilizador
     const handleSubmit = async (event) => {
         event.preventDefault();
+        
+     // Validação dos campos
+  if (!username || !password || !email || !firstName || !lastName || !phoneNumber || !imgURL) {
+    NotificationManager.warning("Please fill in all fields", "", 800);
+    return;
+  }
 
+  // Verificar se o email é válido
+  if (!isValidEmail(email)) {
+    NotificationManager.warning("Please enter a valid email address", "", 800);
+    return;
+  }
+
+  // Verificar se o número de telefone é válido
+  if (!isValidPhoneNumber(phoneNumber)) {
+    NotificationManager.warning("Please enter a valid phone number", "", 800);
+    return;
+  }
+
+  //Objeto com os dados do novo utilizador
         const user = {username: username, 
           password: password,
           email: email,
@@ -44,6 +80,7 @@ if (response.ok) {
       navigate('/login');
   }, 1000);
 
+  //Respostas do backend caso as verificações do frontend falhem
    
 } else {
   switch (response.status) {
@@ -79,7 +116,7 @@ NotificationManager.warning("Something went wrong");
 }
     };
 
-
+//Função para sair da pagina de registo e voltar ao login
     const closeModal = () => {
       navigate('/login');
     };

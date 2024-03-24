@@ -12,13 +12,15 @@ import { useNavigate  } from 'react-router-dom';
 
 function Login(){
 
+    //Define o estado para o username e password do tutilizador
     const [username, setUsername] = useState(''); 
     const [password, setPassword] = useState('');
     const navigate = useNavigate (); 
   
-
+//Função para lidar com o envio do formulario de login
     const handleSubmit = async (event) => {
         event.preventDefault(); 
+         // Objeto com os dados de login do usuário
         const user = { username: username, password: password };
             try {
             const response = await fetch( "http://localhost:8080/project_backend/rest/users/login", {
@@ -30,6 +32,7 @@ function Login(){
                 body: JSON.stringify(user),
             });
 
+            //Verifica se o login foi bem sucedido
             if (response.ok) {
                const token = await response.json();
                 userStore.getState().setToken(token); 

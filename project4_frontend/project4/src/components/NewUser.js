@@ -51,6 +51,25 @@ function NewUser() {
 //Função para lidar com o envio dos dados do novo utilizador
   const handleSubmit = async (event) => {
     event.preventDefault(); 
+
+     // Validação dos campos
+  if (!username || !password || !email || !firstName || !lastName || !phoneNumber || !imgURL || !typeOfUser) {
+    NotificationManager.warning("Please fill in all fields", "", 800);
+    return;
+  }
+
+  // Verificar se o email é válido
+  if (!isValidEmail(email)) {
+    NotificationManager.warning("Please enter a valid email address", "", 800);
+    return;
+  }
+
+  // Verificar se o número de telefone é válido
+  if (!isValidPhoneNumber(phoneNumber)) {
+    NotificationManager.warning("Please enter a valid phone number", "", 800);
+    return;
+  }
+  
     const result = await registerUserByPO(tokenUser, newUser);
     if(result===200){
       NotificationManager.success("New User successfully created", "", 800);
@@ -60,6 +79,19 @@ function NewUser() {
       NotificationManager.warning(result, "", 800);
     }
    
+  };
+
+
+  const isValidEmail = (email) => {
+    // Expressão regular para validar o formato do e-mail
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+  
+  const isValidPhoneNumber = (phoneNumber) => {
+    // Expressão regular para validar o formato do número de telefone
+    const phoneRegex = /^\+?[1-9]\d{1,14}$/;
+    return phoneRegex.test(phoneNumber);
   };
 
   return (
