@@ -25,8 +25,7 @@ function NewTask() {
 //Vai buscar o id da task para atualizar
   const taskIdForEdit = userStore((state) => state.taskIdForEdit);
 
-  //Guarda os dados da task para editar
-  const [ setTakstoEdit] = useState("");
+
 
   //Estado para gaurdar os dados da task para editar
   const [title, setTitle] = useState("");
@@ -39,6 +38,16 @@ function NewTask() {
   const [categoryTitle, setCategoryTitle] = useState("");
   const [idCategory, setIdCategory] = useState("");
 
+//Objeto para guardar os dados da tarefa
+const task={
+  title: title,
+  description: description,
+  initialDate: initialDate,
+  endDate: endDate,
+  category:{idCategory: idCategory},
+  priority: priority
+}
+
 //Efeito para ir buscar a lista de categorias 
   useEffect(() => {
     const fetchData = async () => {
@@ -48,9 +57,9 @@ function NewTask() {
       //Se o modo edição estiver ativo guardar os detalhes da tarefa
       if (editTask && taskIdForEdit) {
         const result = await getTask(tokenUser, taskIdForEdit);
-        setTakstoEdit(result);
+        console.log(result);
         setTitle(result.title);
-        setIdCategory(result.category.idCategory);
+         setIdCategory(result.category.idCategory);
         setCategoryTitle(result.category.title);
         setDescription(result.description);
         setEndDate(result.endDate);
@@ -62,26 +71,17 @@ function NewTask() {
     fetchData();
   }, [tokenUser]);
 
-  //Objeto para guardar os dados da tarefa
-  const task={
-    title: title,
-    description: description,
-    initialDate: initialDate,
-    endDate: endDate,
-    category:{idCategory: idCategory},
-    priority: priority
-  }
 
 
   //Função para lidar com o envio do formulário
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  const handleSubmit = async ( tokenUser, taskIdForEdit, task, idCategory) => {
+  
 
     //Se o modo de edição estiver ativo atualizar a tarefa
     if(editTask && taskIdForEdit){
 
       const result =  await updateTask(task, tokenUser, taskIdForEdit, idCategory)
-    console.log(result);
+
     if(result === true){
       NotificationManager.success("Task updated successfully", "", 1000);
       setShowNewTask(false);
@@ -97,6 +97,7 @@ function NewTask() {
     const result = await addTask(tokenUser, idCategory, task);
     if(result===200){
       NotificationManager.success("Task added successfully", "", 800);
+    
       setShowNewTask(false);
       setUpdateTasks(!updateTasks);
 
@@ -104,8 +105,9 @@ function NewTask() {
     NotificationManager.warning(result, "", 800);
    }
   }
-
   };
+
+console.log(idCategory);
 
 
   //Função para fechar o modal
@@ -160,10 +162,12 @@ function NewTask() {
                   const selectedCategoryTitle = event.target.selectedOptions[0].text;
                   setIdCategory(selectedCategoryID);
                   setCategoryTitle(selectedCategoryTitle);
+                
+               
                 }}
 
               >
-                 <option value="" disabled selected>
+                 <option value="" >
       Select a category:
     </option>
                 {categories &&
@@ -262,7 +266,7 @@ function NewTask() {
               <button
                 className="btns_task"
                 id="task_save"
-                onClick={handleSubmit}
+                onClick={()=> handleSubmit(tokenUser, taskIdForEdit, task, idCategory)}
               >
                 {editTask? "Update" : "Save" }
               </button>

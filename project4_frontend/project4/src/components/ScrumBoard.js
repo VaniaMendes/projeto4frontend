@@ -49,7 +49,7 @@ function ScrumBoard(){
    //Estado para guardar o id da tarefa para editar
    const [taskId, setTaskId] = useState(null);
     //Estado para guardar o estado de edição da tarefa
-   const { setEditTask} = modeEditTask();
+   const { editTask, setEditTask} = modeEditTask();
 
 //Função para exibir o modal de nova tarefa
    const handleNewTaskClick = () => {
@@ -84,10 +84,17 @@ function ScrumBoard(){
           const tasks = await getActiveTasks(tokenUser);
           setListTasks(tasks);
         }
-      } else if (showUserTasks && myTasks.length > 0) {
-        // Se o modo de exibição de tarefas do utilizador estiver ativado, exibe apenas as tarefas do próprio utilizador
+      } else if (showUserTasks) {
+        if(myTasks.length > 0){   
+          // Se o modo de exibição de tarefas do utilizador estiver ativado, exibe apenas as tarefas do próprio utilizador     
         setListTasks(myTasks);
+        } else {
+          //Se não exibe todas as tarefas ativas da app
+          NotificationManager.warning("This user has no tasks");
+          setListTasks(myTasks); return
+        }
       } else {
+        
        //Senão exibe todas as tarefas ativas da app
         const tasks = await getActiveTasks(tokenUser);
         setListTasks(tasks);
@@ -95,7 +102,7 @@ function ScrumBoard(){
     };
   
     fetchData();
-  }, [tokenUser, filterOn, filteredTasks, showNewTask, showUserTasks, myTasks]);
+  }, [tokenUser, filterOn, filteredTasks, showNewTask, showUserTasks, myTasks, editTask]);
   
 
    // Função para obter a cor com base na prioridade da tarefa

@@ -331,7 +331,6 @@ export async function myTasks(tokenUser) {
 
    if (response.ok) {
       let tasks = await response.json();
-      console.log(tasks);
       return tasks;
    } else {
       console.error("Failed to fetch task data");
