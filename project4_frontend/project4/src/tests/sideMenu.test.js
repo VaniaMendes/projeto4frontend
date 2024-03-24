@@ -23,7 +23,7 @@ describe("SideMenu", () => {
     
     // Aguarda até que a função de logout seja chamada
     await waitFor(() => {
-      expect(logout).toHaveBeenCalled();
+      expect(logout).toHaveBeenCalled(); // Verifica se a função de logout foi chamada
     });
   });
 });
